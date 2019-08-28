@@ -352,43 +352,15 @@
       
         
           
-            <h1 id="数据库中主键-外键-索引"><a href="#数据库中主键-外键-索引" class="headerlink" title="数据库中主键/外键/索引"></a>数据库中主键/外键/索引</h1><h2 id="一-什么是主键、外键："><a href="#一-什么是主键、外键：" class="headerlink" title="一. 什么是主键、外键："></a>一. 什么是主键、外键：</h2><p>关系型数据库中的一条记录中有若干个属性，若其中<code>某一个属性组</code>(注意是组)能<code>唯一标识</code>一条记录，该属性组就可以成为一个主键<br>比如<br>学生表(<code>学号</code>，姓名，性别，班级)<br>其中每个学生的学号是<code>唯一</code>的，学号就是一个主键<br>课程表(<code>课程编号</code>,课程名,学分)<br>其中课程编号是<code>唯一</code>的,课程编号就是一个主键<br>成绩表(<code>学号,课程号</code>,成绩)<br>成绩表中单一一个属性无法唯一标识一条记录，<code>学号和课程号的组合</code>才可以<code>唯一标识</code>一条记录，所以 学号和课程号的属性组是一个主键 </p>
-<p>成绩表中的学号不是成绩表的主键，但它和<code>学生表中的学号</code>相对应，并且学生表中的<code>学号</code>是<code>学生表的主键</code>，则称<code>成绩表中的学号</code>是<code>学生表</code>的<code>外键</code></p>
-<p>同理 成绩表中的课程号是课程表的外键 </p>
-<hr>
-<h3 id="定义主键和外键主要是为了维护关系数据库的完整性，总结一下："><a href="#定义主键和外键主要是为了维护关系数据库的完整性，总结一下：" class="headerlink" title="定义主键和外键主要是为了维护关系数据库的完整性，总结一下："></a>定义主键和外键主要是为了维护关系数据库的完整性，总结一下：</h3><p>1.主键是能<code>确定一条记录的唯一标识</code>，比如，一条记录包括身份正号，姓名，年龄。<br>身份证号是唯一能确定你这个人的，其他都可能有重复，所以，身份证号是主键。</p>
-<p>2.外键用于与<code>另一张表的关联</code>。是能<code>确定</code>另一张表记录的<code>字段</code>，用于保持数据的一致性。<br>比如，A表中的一个字段，是B表的主键，那他就可以是A表的外键。</p>
-<hr>
-<h2 id="二、-主键、外键和索引的区别"><a href="#二、-主键、外键和索引的区别" class="headerlink" title="二、  主键、外键和索引的区别"></a>二、  主键、外键和索引的区别</h2><table>
-<thead>
-<tr>
-<th></th>
-<th>主键</th>
-<th>外键</th>
-<th>索引</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>定义：</td>
-<td>唯一标识一条记录，不能有重复的，不允许为空</td>
-<td>表的外键是另一表的主键, 外键可以有重复的, 可以是空值</td>
-<td>该字段没有重复值，但可以有一个空值</td>
-</tr>
-<tr>
-<td>作用：</td>
-<td>用来保证数据完整性</td>
-<td>用来和其他表建立联系用的</td>
-<td>是提高查询排序的速度</td>
-</tr>
-<tr>
-<td>个数：</td>
-<td>主键只能有一个</td>
-<td>一个表可以有多个外键</td>
-<td>一个表可以有多个惟一索引</td>
-</tr>
-</tbody></table>
-
-          
+          数据库中主键/外键/索引一. 什么是主键、外键：关系型数据库中的一条记录中有若干个属性，若其中某一个属性组(注意是组)能唯一标识一条记录，该属性组就可以成为一个主键比如学生表(学号，姓名，性别，班级)其中每个学生的学号是唯一的，学号就是一个主键课程表(课程编号,课程名,学分)其中课程编号是唯一的,课
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/likemoves.github.io/2019/08/28/数据库中主键-外键-索引/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -528,9 +500,16 @@
       
         
           
-            <p>按时大撒大撒大撒大撒大撒大撒大撒</p>
+          按时大撒大撒大撒大撒大撒大撒大撒
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/likemoves.github.io/2019/08/12/my-first-blog/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -648,21 +627,15 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/likemoves.github.io/2019/08/12/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
