@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="题目在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2或者3。 排序后相邻元素两两比较先对数组排序，如果有重复元素排序后将会相邻。然后相邻元素两两比较，有相等的情况就找到了重复数字。排序一">
+<meta name="description" content="题目在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2或者3。 解法一：排序后相邻元素两两比较先对数组排序，如果有重复元素排序后将会相邻。然后相邻元素两两比较，有相等的情况就找到了重复数字">
 <meta name="keywords" content="java,算法,剑指offer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer面试题3--数组中的重复数字">
 <meta property="og:url" content="http://yoursite.com/2020/04/22/剑指offer面试题3--数组中的重复数字/index.html">
 <meta property="og:site_name" content="如烟Ryans">
-<meta property="og:description" content="题目在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2或者3。 排序后相邻元素两两比较先对数组排序，如果有重复元素排序后将会相邻。然后相邻元素两两比较，有相等的情况就找到了重复数字。排序一">
+<meta property="og:description" content="题目在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2或者3。 解法一：排序后相邻元素两两比较先对数组排序，如果有重复元素排序后将会相邻。然后相邻元素两两比较，有相等的情况就找到了重复数字">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-22T12:14:03.159Z">
+<meta property="og:updated_time" content="2020-04-23T13:46:04.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="剑指offer面试题3--数组中的重复数字">
-<meta name="twitter:description" content="题目在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2或者3。 排序后相邻元素两两比较先对数组排序，如果有重复元素排序后将会相邻。然后相邻元素两两比较，有相等的情况就找到了重复数字。排序一">
+<meta name="twitter:description" content="题目在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2或者3。 解法一：排序后相邻元素两两比较先对数组排序，如果有重复元素排序后将会相邻。然后相邻元素两两比较，有相等的情况就找到了重复数字">
 
 
 
@@ -353,9 +353,19 @@
 
       
         <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2或者3。</p>
-<h2 id="排序后相邻元素两两比较"><a href="#排序后相邻元素两两比较" class="headerlink" title="排序后相邻元素两两比较"></a>排序后相邻元素两两比较</h2><p>先对数组排序，如果有重复元素排序后将会相邻。然后相邻元素两两比较，有相等的情况就找到了重复数字。排序一个长度为n的数组时间复杂度为O(nlg n)。</p>
+<h2 id="解法一：排序后相邻元素两两比较"><a href="#解法一：排序后相邻元素两两比较" class="headerlink" title="解法一：排序后相邻元素两两比较"></a>解法一：排序后相邻元素两两比较</h2><p>先对数组排序，如果有重复元素排序后将会相邻。然后相邻元素两两比较，有相等的情况就找到了重复数字。排序一个长度为n的数组时间复杂度为O(nlg n)。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">duplicate2</span><span class="params">(<span class="keyword">int</span> numbers[],<span class="keyword">int</span> length,<span class="keyword">int</span> [] duplication)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (numbers == <span class="keyword">null</span> || length == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      Arrays.sort(numbers);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; length - <span class="number">1</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (numbers[i] == numbers[i + <span class="number">1</span>]) &#123;</span><br><span class="line">          duplication[<span class="number">0</span>] = numbers[i];</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="解法二：利用set集合判定重复数组"><a href="#解法二：利用set集合判定重复数组" class="headerlink" title="解法二：利用set集合判定重复数组"></a>解法二：利用set集合判定重复数组</h2><p>1.初始化集合为空集合，重复的数字 repeat = -1</p>
+<p>2.遍历数组中的每个元素：</p>
+<p>​     2.1将该元素加入集合中，判断是否添加成功<br>​     2.2如果添加失败，说明该元素已经在集合中，因此该元素是重复元素，将该元素的值赋给 repeat，并结束遍历</p>
+<p>3.返回 repeat</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findRepeatNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        Set&lt;Integer&gt; set = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">int</span> repeat = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!set.add(num)) &#123;</span><br><span class="line">                repeat = num;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> repeat;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>复杂性分析</strong></p>
+<p>时间复杂度：O(n)。</p>
+<p>​        遍历数组一遍。使用哈希集合（HashSet），添加元素的时间复杂度为 O(1)，故总的时间复杂度是 O(n)。</p>
+<p>空间复杂度：O(n)。不重复的每个元素都可能存入集合，因此占用 O(n) 额外空间。</p>
 
       
     </div>
@@ -479,7 +489,7 @@
               
                 <a href="/likemoves.github.io/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -534,7 +544,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#排序后相邻元素两两比较"><span class="nav-number">1.1.</span> <span class="nav-text">排序后相邻元素两两比较</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解法一：排序后相邻元素两两比较"><span class="nav-number">1.1.</span> <span class="nav-text">解法一：排序后相邻元素两两比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法二：利用set集合判定重复数组"><span class="nav-number">1.2.</span> <span class="nav-text">解法二：利用set集合判定重复数组</span></a></li></ol></li></ol></div>
             
 
           </div>
