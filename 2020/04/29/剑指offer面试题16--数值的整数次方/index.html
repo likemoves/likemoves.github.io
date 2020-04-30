@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="java,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="单例模式中volatile关键字的作用背景&amp;amp;问题在早期的JVM中，synchronized存在巨大的性能开销。因此，有人想出了一个“聪明”的技巧：双重检查锁定（Double-Checked Locking）。人们想通过双重检查锁定来降低同步的开销。下面是使用双重检查锁定来实现延迟初始化的示例代码。 123456789101112public class DoubleCheckedLocki">
-<meta name="keywords" content="java">
+<meta name="description" content="剑指offer面试题16–数值的整数次方题目1给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。不得使用库函数直接实现，无需考虑大数问题。  解法 连乘注意要考虑次幂为负数的情况。由于负次幂等于base的正次幂的倒数，所以取绝对值直接计算正次幂的情况就行，最后再根据exponent是否为负决定取不取倒数。当base为0时候，结果和次幂无关">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单例模式中volatile关键字的作用">
-<meta property="og:url" content="http://yoursite.com/2020/04/19/单例模式中volatile关键字的作用/index.html">
+<meta property="og:title" content="如烟Ryans">
+<meta property="og:url" content="http://yoursite.com/2020/04/29/剑指offer面试题16--数值的整数次方/index.html">
 <meta property="og:site_name" content="如烟Ryans">
-<meta property="og:description" content="单例模式中volatile关键字的作用背景&amp;amp;问题在早期的JVM中，synchronized存在巨大的性能开销。因此，有人想出了一个“聪明”的技巧：双重检查锁定（Double-Checked Locking）。人们想通过双重检查锁定来降低同步的开销。下面是使用双重检查锁定来实现延迟初始化的示例代码。 123456789101112public class DoubleCheckedLocki">
+<meta property="og:description" content="剑指offer面试题16–数值的整数次方题目1给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。不得使用库函数直接实现，无需考虑大数问题。  解法 连乘注意要考虑次幂为负数的情况。由于负次幂等于base的正次幂的倒数，所以取绝对值直接计算正次幂的情况就行，最后再根据exponent是否为负决定取不取倒数。当base为0时候，结果和次幂无关">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-19T09:10:31.533Z">
+<meta property="og:updated_time" content="2020-04-29T11:48:30.663Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单例模式中volatile关键字的作用">
-<meta name="twitter:description" content="单例模式中volatile关键字的作用背景&amp;amp;问题在早期的JVM中，synchronized存在巨大的性能开销。因此，有人想出了一个“聪明”的技巧：双重检查锁定（Double-Checked Locking）。人们想通过双重检查锁定来降低同步的开销。下面是使用双重检查锁定来实现延迟初始化的示例代码。 123456789101112public class DoubleCheckedLocki">
+<meta name="twitter:title" content="如烟Ryans">
+<meta name="twitter:description" content="剑指offer面试题16–数值的整数次方题目1给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。不得使用库函数直接实现，无需考虑大数问题。  解法 连乘注意要考虑次幂为负数的情况。由于负次幂等于base的正次幂的倒数，所以取绝对值直接计算正次幂的情况就行，最后再根据exponent是否为负决定取不取倒数。当base为0时候，结果和次幂无关">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/19/单例模式中volatile关键字的作用/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/29/剑指offer面试题16--数值的整数次方/">
 
 
 
 
 
-  <title>单例模式中volatile关键字的作用 | 如烟Ryans</title>
+  <title> | 如烟Ryans</title>
   
 
 
@@ -263,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/04/19/单例模式中volatile关键字的作用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/04/29/剑指offer面试题16--数值的整数次方/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="如烟Ryans">
@@ -280,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">单例模式中volatile关键字的作用</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -292,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-19T17:09:28+08:00">
-                2020-04-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-29T15:10:55+08:00">
+                2020-04-29
               </time>
             
 
@@ -302,28 +301,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/likemoves.github.io/categories/web后端/" itemprop="url" rel="index">
-                    <span itemprop="name">web后端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -352,18 +329,18 @@
       
 
       
-        <h1 id="单例模式中volatile关键字的作用"><a href="#单例模式中volatile关键字的作用" class="headerlink" title="单例模式中volatile关键字的作用"></a>单例模式中volatile关键字的作用</h1><h2 id="背景-amp-问题"><a href="#背景-amp-问题" class="headerlink" title="背景&amp;问题"></a>背景&amp;问题</h2><p>在早期的JVM中，synchronized存在巨大的性能开销。因此，有人想出了一个“聪明”的技巧：双重检查锁定（Double-Checked Locking）。人们想通过双重检查锁定来降低同步的开销。下面是使用双重检查锁定来实现延迟初始化的示例代码。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DoubleCheckedLocking</span> </span>&#123; <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Instance instance; <span class="comment">// 2</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Instance <span class="title">getInstance</span><span class="params">()</span> </span>&#123; <span class="comment">// 3</span></span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123; <span class="comment">// 4:第一次检查</span></span><br><span class="line">            <span class="keyword">synchronized</span> (DoubleCheckedLocking.class) &#123; <span class="comment">// 5:加锁</span></span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) <span class="comment">// 6:第二次检查</span></span><br><span class="line">                instance = <span class="keyword">new</span> Instance(); <span class="comment">// 7:问题的根源出在这里</span></span><br><span class="line">            &#125; <span class="comment">// 8</span></span><br><span class="line">        &#125; <span class="comment">// 9</span></span><br><span class="line">        <span class="keyword">return</span> instance; <span class="comment">// 10</span></span><br><span class="line">    &#125; <span class="comment">// 11</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="剑指offer面试题16–数值的整数次方"><a href="#剑指offer面试题16–数值的整数次方" class="headerlink" title="剑指offer面试题16–数值的整数次方"></a>剑指offer面试题16–数值的整数次方</h2><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给定一个<span class="keyword">double</span>类型的浮点数base和<span class="keyword">int</span>类型的整数exponent。求base的exponent次方。不得使用库函数直接实现，无需考虑大数问题。</span><br></pre></td></tr></table></figure>
 
-<p>上述的Instance类变量是没有用volatile关键字修饰的，会导致这样一个问题：<br> <strong>在线程执行到第4行的时候，代码读取到instance不为null时，instance引用的对象有可能还没有完成初始化。</strong></p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>主要的原因是重排序。<strong>重排序是指编译器和处理器为了优化程序性能而对指令序列进行重新排序的一种手段。</strong><br> 第7行的代码创建了一个对象，这一行代码可以分解成3个操作：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Copymemory = allocate();　　<span class="comment">// 1：分配对象的内存空间</span></span><br><span class="line">ctorInstance(memory);　<span class="comment">// 2：初始化对象</span></span><br><span class="line">instance = memory;　　<span class="comment">// 3：设置instance指向刚分配的内存地址</span></span><br></pre></td></tr></table></figure>
+<h2 id="解法-连乘"><a href="#解法-连乘" class="headerlink" title="解法 连乘"></a>解法 连乘</h2><p>注意要考虑次幂为负数的情况。由于负次幂等于base的正次幂的倒数，所以取绝对值直接计算正次幂的情况就行，最后再根据exponent是否为负决定取不取倒数。当base为0时候，结果和次幂无关（都为0，假设0的非正数次幂都为0，因为它们在数学中并没有定义），所以把base == 0的情况单独抽出来直接返回。算法采用了连乘，时间复杂度是O(n)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Power</span></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> base     基数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> exponent 次幂</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> base^exponent</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">power_2</span><span class="params">(<span class="keyword">double</span> base,<span class="keyword">int</span> exponent)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(base==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">double</span> result=<span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">int</span> positiveExponent=Math.abs(exponent);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;positiveExponent;i++)&#123;</span><br><span class="line">            result*=base;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> exponent&lt;<span class="number">0</span>?<span class="number">1</span>/result:result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>根源在于代码中的2和3之间，可能会被重排序。例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Copymemory = allocate();　　<span class="comment">// 1：分配对象的内存空间</span></span><br><span class="line">instance = memory;　　<span class="comment">// 3：设置instance指向刚分配的内存地址</span></span><br><span class="line"><span class="comment">// 注意，此时对象还没有被初始化！</span></span><br><span class="line">ctorInstance(memory);　<span class="comment">// 2：初始化对象java</span></span><br></pre></td></tr></table></figure>
+<h2 id="解法-快速幂"><a href="#解法-快速幂" class="headerlink" title="解法 快速幂"></a>解法 快速幂</h2><p>我们已知 2^3  求 2^6,不就是 2^3 * 2^3嘛。快速幂就是这个原理。</p>
+<p>遇到奇数怎么办？2 ^ 5??  就是 2 * 2 ^ 4 。</p>
+<p>所以这就是快速幂的基本思路求a ^ b</p>
+<p>1）当b是奇数时，那么有 a^b = a * a^*(b-1)</p>
+<p>2）当b是偶数时，那么有 a^b = a^(b/2) * a^(b/2)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Power</span></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 非递归。推荐的做法，复杂度O(lg n)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">power</span><span class="params">(<span class="keyword">double</span> base,<span class="keyword">int</span> exponent)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(base==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">double</span> result=<span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">int</span> positiveExponent=Math.abs(exponent);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(exponent!=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="comment">// positiveExponent &amp; 1这句是判断奇数的</span></span><br><span class="line">            <span class="keyword">if</span>((positiveExponent&amp;<span class="number">1</span>)==<span class="number">1</span>)&#123;</span><br><span class="line">                result*=base;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            base*=base;</span><br><span class="line">            <span class="comment">//右移1位等于除以2</span></span><br><span class="line">            positiveExponent=positiveExponent&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> exponent&lt;<span class="number">0</span>?<span class="number">1</span>/result:result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这在单线程环境下是没有问题的，但在多线程环境下会出现问题：B线程会看到一个还没有被初始化的对象。<br> A2和A3的重排序不影响线程A的最终结果，但会导致线程B在B1处判断出instance不为空，线程B接下来将访问instance引用的对象。此时，线程B将会访问到一个还未初始化的对象。</p>
-<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><p><strong>所以只需要做一点小的修改（把instance声明为volatile型），就可以实现线程安全的延迟初始化。</strong>因为被volatile关键字修饰的变量是被禁止重排序的。</p>
 
       
     </div>
@@ -379,12 +356,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/likemoves.github.io/tags/java/" rel="tag"># java</a>
-          
-        </div>
-      
 
       
       
@@ -394,8 +365,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/likemoves.github.io/2020/03/26/数据库DDL语言/" rel="next" title="数据库DDL语言">
-                <i class="fa fa-chevron-left"></i> 数据库DDL语言
+              <a href="/likemoves.github.io/2020/04/29/剑指offer面试题15--二进制中1的个数/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -403,10 +374,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/likemoves.github.io/2020/04/21/JVM与调优/" rel="prev" title="JVM与调优">
-                JVM与调优 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -538,7 +505,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单例模式中volatile关键字的作用"><span class="nav-number">1.</span> <span class="nav-text">单例模式中volatile关键字的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景-amp-问题"><span class="nav-number">1.1.</span> <span class="nav-text">背景&amp;问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原因"><span class="nav-number">1.2.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进"><span class="nav-number">1.3.</span> <span class="nav-text">改进</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#剑指offer面试题16–数值的整数次方"><span class="nav-number">1.</span> <span class="nav-text">剑指offer面试题16–数值的整数次方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法-连乘"><span class="nav-number">3.</span> <span class="nav-text">解法 连乘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法-快速幂"><span class="nav-number">4.</span> <span class="nav-text">解法 快速幂</span></a></li></ol></div>
             
 
           </div>
