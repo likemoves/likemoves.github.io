@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/likemoves.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/likemoves.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/likemoves.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/likemoves.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/likemoves.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/likemoves.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,java面试题,spring框架,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、Spring框架的简介什么是Spring？Spring是一个轻量级Java开发框架，Spring最根本的使命是解决企业级应用开发的复杂性，即简化Java开发。Spring可以做很多事情，它为企业级开发提供给了丰富的功能，但是这些功能的底层都依赖于它的两个核心特性，也就是控制反转(Inversion of Control，IOC）和面向切面编程（aspect-oriented programmi">
+<meta name="keywords" content="java,java面试题,spring框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring应该掌握的知识体系">
+<meta property="og:url" content="http://yoursite.com/2020/05/13/Spring应该掌握的知识体系/index.html">
+<meta property="og:site_name" content="如烟Ryans">
+<meta property="og:description" content="一、Spring框架的简介什么是Spring？Spring是一个轻量级Java开发框架，Spring最根本的使命是解决企业级应用开发的复杂性，即简化Java开发。Spring可以做很多事情，它为企业级开发提供给了丰富的功能，但是这些功能的底层都依赖于它的两个核心特性，也就是控制反转(Inversion of Control，IOC）和面向切面编程（aspect-oriented programmi">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-14T14:19:18.995Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring应该掌握的知识体系">
+<meta name="twitter:description" content="一、Spring框架的简介什么是Spring？Spring是一个轻量级Java开发框架，Spring最根本的使命是解决企业级应用开发的复杂性，即简化Java开发。Spring可以做很多事情，它为企业级开发提供给了丰富的功能，但是这些功能的底层都依赖于它的两个核心特性，也就是控制反转(Inversion of Control，IOC）和面向切面编程（aspect-oriented programmi">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/likemoves.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/13/Spring应该掌握的知识体系/">
+
+
+
+
+
+  <title>Spring应该掌握的知识体系 | 如烟Ryans</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/likemoves.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如烟Ryans</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/likemoves.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/likemoves.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/likemoves.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/likemoves.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/likemoves.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/13/Spring应该掌握的知识体系/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring应该掌握的知识体系</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-13T21:13:59+08:00">
+                2020-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/web后端/" itemprop="url" rel="index">
+                    <span itemprop="name">web后端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、Spring框架的简介"><a href="#一、Spring框架的简介" class="headerlink" title="一、Spring框架的简介"></a><strong>一、Spring框架的简介</strong></h2><h3 id="什么是Spring？"><a href="#什么是Spring？" class="headerlink" title="什么是Spring？"></a>什么是Spring？</h3><p>Spring是<strong>一个轻量级Java开发框架</strong>，Spring最根本的使命是<strong>解决企业级应用开发的复杂性</strong>，<strong>即简化Java开发</strong>。Spring可以做很多事情，它为企业级开发提供给了丰富的功能，但是这些功能的底层都依赖于它的两个核心特性，也就是<strong>控制反转(Inversion of Control，IOC）</strong>和<strong>面向切面编程（aspect-oriented programming，AOP）</strong>。</p>
+<h3 id="Spring-的主要功能有哪些？"><a href="#Spring-的主要功能有哪些？" class="headerlink" title="Spring 的主要功能有哪些？"></a>Spring 的主要功能有哪些？</h3><p>为了降低Java开发的复杂性，Spring采取了以下4种关键策略</p>
+<ul>
+<li>基于POJO的轻量级和最小侵入性编程；</li>
+<li>通过依赖注入和面向接口实现松耦合；</li>
+<li>基于切面和惯例进行声明式编程；</li>
+<li>通过切面和模板减少样板式代码。</li>
+</ul>
+<h3 id="Spring优点"><a href="#Spring优点" class="headerlink" title="Spring优点"></a>Spring优点</h3><p>1.方便解耦，简化开发</p>
+<p>Spring就是一个大工厂，可以将所有对象的创建和依赖关系的维护，交给Spring管理。</p>
+<p>2.AOP编程的支持</p>
+<p>Spring提供面向切面编程，可以方便的实现对程序进行权限拦截、运行监控等功能。</p>
+<p>3.声明式事务的支持</p>
+<p>只需要通过配置就可以完成对事务的管理，而无需手动编程。</p>
+<p>4.方便程序的测试</p>
+<p>Spring对Junit4支持，可以通过注解方便的测试Spring程序。</p>
+<p>5.方便集成各种优秀框架</p>
+<p>Spring不排斥各种优秀的开源框架，其内部提供了对各种优秀框架的直接支持（如：Struts、Hibernate、MyBatis等）。</p>
+<p>6.降低JavaEE API的使用难度</p>
+<p>Spring对JavaEE开发中非常难用的一些API（JDBC、JavaMail、远程调用等），都提供了封装，使这些API应用难度大大降低。</p>
+<h3 id="Spring缺点"><a href="#Spring缺点" class="headerlink" title="Spring缺点"></a>Spring缺点</h3><ul>
+<li>Spring明明一个很轻量级的框架，却给人感觉大而全</li>
+<li>Spring依赖反射，反射影响性能</li>
+<li>使用门槛升高，入门Spring需要较长时间</li>
+</ul>
+<h2 id="二：控制反转-Inversion-of-Control，IOC）"><a href="#二：控制反转-Inversion-of-Control，IOC）" class="headerlink" title="二：控制反转(Inversion of Control，IOC）"></a><strong>二：控制反转(Inversion of Control，IOC）</strong></h2><h3 id="什么是Spring-IOC"><a href="#什么是Spring-IOC" class="headerlink" title="什么是Spring IOC"></a>什么是Spring IOC</h3><p>控制反转即IoC (Inversion of Control)，它把传统上由程序代码直接操控的对象的调用权交给容器，通过容器来实现对象组件的装配和管理。所谓的“控制反转”概念就是对组件对象控制权的转移，从程序代码本身转移到了外部容器。</p>
+<p>Spring IOC 负责创建对象，管理对象（通过依赖注入（DI），装配对象，配置对象，并且管理这些对象的整个生命周期。</p>
+<p>对于 IoC 来说，最重要的就是容器。容器管理着 Bean 的生命周期，控制着 Bean  的依赖注入。</p>
+<h3 id="控制反转-IoC-有什么作用"><a href="#控制反转-IoC-有什么作用" class="headerlink" title="控制反转(IoC)有什么作用"></a>控制反转(IoC)有什么作用</h3><ul>
+<li><p>管理对象的创建和依赖关系的维护。对象的创建并不是一件简单的事，在对象关系比较复杂时，如果依赖关系需要程序猿来维护的话，那是相当头疼的</p>
+</li>
+<li><p>解耦，由容器去维护具体的对象</p>
+</li>
+</ul>
+<ul>
+<li>托管了类的产生过程，比如我们需要在类的产生过程中做一些处理，最直接的例子就是代理，如果有容器程序可以把这部分处理交给容器，应用程序则无需去关心类是如何完成代理的</li>
+</ul>
+<h3 id="Spring-IoC-的实现机制"><a href="#Spring-IoC-的实现机制" class="headerlink" title="Spring IoC 的实现机制"></a>Spring IoC 的实现机制</h3><p>Spring 中的 IoC 的实现原理就是工厂模式加反射机制。</p>
+<h3 id="什么是Spring的依赖注入？"><a href="#什么是Spring的依赖注入？" class="headerlink" title="什么是Spring的依赖注入？"></a>什么是Spring的依赖注入？</h3><p>控制反转IoC是一个很大的概念，可以用不同的方式来实现。其主要实现方式有两种：依赖注入和依赖查找</p>
+<p>依赖注入：相对于IoC而言，依赖注入(DI)更加准确地描述了IoC的设计理念。所谓依赖注入（Dependency Injection），即组件之间的依赖关系由容器在应用系统运行期来决定，也就是由容器动态地将某种依赖关系的目标对象实例注入到应用系统中的各个关联的组件之中。组件不做定位查询，只提供普通的Java方法让容器去决定依赖关系。</p>
+<h3 id="依赖注入的基本原则"><a href="#依赖注入的基本原则" class="headerlink" title="依赖注入的基本原则"></a>依赖注入的基本原则</h3><p>依赖注入的基本原则是：应用组件不应该负责查找资源或者其他依赖的协作对象。配置对象的工作应该由IoC容器负责，“查找资源”的逻辑应该从应用组件的代码中抽取出来，交给IoC容器负责。容器全权负责组件的装配，它会把符合依赖关系的对象通过属性（JavaBean中的setter）或者是构造器传递给需要的对象</p>
+<h3 id="容器初始化过程"><a href="#容器初始化过程" class="headerlink" title="容器初始化过程"></a>容器初始化过程</h3><p>1.Resource定位；指对BeanDefinition的资源定位过程。通俗地讲，就是找到定义Javabean信息的XML文件，并将其封装成Resource对象。<br>2.BeanDefinition的载入；把用户定义好的Javabean表示为loC容器内部的数据结构，这个容器内部的数据结构就是BeanDefinition。<br>3.向loC容器注册这些BeanDefinition。</p>
+<h2 id="三：面向切面编程（AOP）"><a href="#三：面向切面编程（AOP）" class="headerlink" title="三：面向切面编程（AOP）"></a>三：面向切面编程（AOP）</h2><h2 id="四：Spring-Beans"><a href="#四：Spring-Beans" class="headerlink" title="四：Spring Beans"></a>四：Spring Beans</h2><h3 id="什么是Spring-beans？"><a href="#什么是Spring-beans？" class="headerlink" title="什么是Spring beans？"></a>什么是Spring beans？</h3><p>Spring beans 是那些形成Spring应用的主干的java对象。它们被Spring IOC容器初始化，装配，和管理。这些beans通过容器中配置的元数据创建。比如，以XML文件中 的形式定义。</p>
+<h3 id="bean的生命周期"><a href="#bean的生命周期" class="headerlink" title="bean的生命周期"></a>bean的生命周期</h3><p>简单概述：Bean的创建——&gt;Bean的初始化——–&gt;Bean的销毁<br>但实际上是我认为应该这样回答：<br>一个bean从创建到销毁，如果用Beanfactory来管理的话，那么会经历以下几个步骤：<br>1.IOC 创建bean定义；<br>2.IOC 按照bean定义来配置Bean的属性；<br>3.如果Bean实现了BeanNameAware接口，工厂会调用bean的setBeanName方法，参数是beanID ，使用的是观察者模式。<br>4.如果Bean实现了BeanFactoryAware接口，工厂会调用bean的setBeanName，参数是工厂本身。<br>5.如果BeanPostProcessors和bean关联，那么会调用postProcessBeforeInitialization方法。<br>6.Bean 实现了initializingBean 接口那么会调用afterProPertiesSet()方法。<br>7.Bean 可以定义自己的 初始化方法，通过配置注解的init-method 属性。或者使用@PostConstruct配置初始化方法。<br>执行initBean方法。<br>8.BeanPostProcessors没有和bean关联的话 ，那么就会执行后置方法ProcessaAfterInitialization();<br>9.bean被使用。<br>10.销毁-如果Bean实现了DisposableBean接口，那么会执行destroy方法，<br>11.也可以配置bean的销毁方法，通过配置@Bean的destroy-method，或者使用@PreDestroy注解配置销毁方法。</p>
+<h3 id="bean的作用域"><a href="#bean的作用域" class="headerlink" title="bean的作用域"></a>bean的作用域</h3><p>spring bean的作用域分为5种，分别是 singleton、prototype、request、session、global-session这五种。</p>
+<h4 id="singleton"><a href="#singleton" class="headerlink" title="singleton"></a>singleton</h4><p>这个模式是单例的，使用这个模式，IOC容器只创建一个实例，并且每次返回都是这一个实例，这种模式是默认的模式，也是我工作中使用最多的模式。</p>
+<h4 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h4><p>prototype是原型模式，是多例的，IOC容器可以创建多个Bean实例，每次返回的都是一个新的实例。并且prototype是在使用时创建的，销毁也不受IOC容器管理，而是GC来管理的。<br>注意：在工作中我遇到一种情况是service明明是prototype，但是我注入到singleton中的Controller中，却只有一个实例，那是因为，Controller是单例的Controller在初始化时，注入的service，这时service被初始化。为什么只是一个bean实例，是因为Controller只创建了一次。<br>证明：创建多个Controller都注入service，修改service的值并打印，发现每个Controller中打印出来的值并不一样。</p>
+<h4 id="request"><a href="#request" class="headerlink" title="request"></a>request</h4><p>request是请求模式，是在同一次请求中，IOC容器会创建一个单例bean，这次请求中返回的bean是同一个bean。<br>我在工作中是用request实现的缓存，同一次请求的缓存。这样会节省很多重复操作。</p>
+<h4 id="session"><a href="#session" class="headerlink" title="session"></a>session</h4><p>session是会话模式，在同一个会话中，IOC容器会创建一个单例bean，并且每次都会返回同一个bean。<br>这里和session类似，我使用它是用在会话级的缓存，我用来存放登陆时的用户权限信息，和角色信息。</p>
+<h4 id="global-session"><a href="#global-session" class="headerlink" title="global-session"></a>global-session</h4><p>这个模式，是所有的session 共享同一个bean。</p>
+<p>具体使用：我使用的是注解@scope注解。</p>
+<h3 id="bean的创建"><a href="#bean的创建" class="headerlink" title="bean的创建"></a>bean的创建</h3><p>大致流程<br>1.首先根据配置文件找到对应的包，读取包中的类，找到所有含有@bean，@service等注解的类，利用反射解析它们，包括解析构造器，方法，属性等等，然后封装成各种信息类放到container（其实是一个map）里（ioc容器初始化）<br>2.获取类时，首先从container中查找是否有这个类，如果没有，则报错，如果有，则通过构造器信息将这个类new出来<br>3.如果这个类含有其他需要注入的属性，则进行依赖注入，如果有则还是从container找对应的解析类，new出对象，并通过之前解析出来的信息类找到setter方法（setter方法注入），然后用该方法注入对象（这就是依赖注入）。如果其中有一个类container里没找到，则抛出异常<br>4.如果有嵌套bean的情况，则通过递归解析<br>5.如果bean的scope是singleton，则会重用这个bean不再重新创建，将这个bean放到一个map里，每次用都先从这个map里面找。如果scope是session，则该bean会放到session里面。<br>6.总结：通过解析xml 文件，获取到bean的属性（id，name，class，scope，属性等等）里面的内容，利用反射原理创建配置文件里类的实例对象，存入到Spring的bean 容器中</p>
+<h2 id="五-SpringMVC执行流程"><a href="#五-SpringMVC执行流程" class="headerlink" title="五.SpringMVC执行流程"></a>五.SpringMVC执行流程</h2><p>1.用户发送请求至前端控制器DispatcherServlet<br>2.DispatcherServlet收到请求调用HandlerMapping处理器映射器。<br>3.处理器映射器根据请求url找到具体的处理器，生成处理器对象及处理器拦截器（如果有则生成）一并返回给DispatcherServlet。<br>4.DispatcherServlet通过HandlerAdapter处理器适配器调用处理器<br>5.执行处理器（Controller，也叫后端控制器）。<br>6.Controller执行完成返回ModelAndView<br>7.HandlerAdapter将controller执行结果ModelAndView返回给DispatcherServlet<br>8.DispatcherServlet将ModelAndView传给ViewReslover视图解析器<br>9.ViewReslover解析后返回具体View<br>10.DispatcherServlet对View进行渲染视图（即将模型数据填充至视图中）。<br>11.DispatcherServlet响应用户</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/likemoves.github.io/tags/java/" rel="tag"># java</a>
+          
+            <a href="/likemoves.github.io/tags/java面试题/" rel="tag"># java面试题</a>
+          
+            <a href="/likemoves.github.io/tags/spring框架/" rel="tag"># spring框架</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/13/剑指offer面试题43--1n整数中1出现的次数/" rel="next" title="剑指offer面试题43--1~n整数中1出现的次数">
+                <i class="fa fa-chevron-left"></i> 剑指offer面试题43--1~n整数中1出现的次数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">如烟Ryans</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/likemoves.github.io/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/likemoves.github.io/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/likemoves.github.io/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Spring框架的简介"><span class="nav-number">1.</span> <span class="nav-text">一、Spring框架的简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Spring？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是Spring？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-的主要功能有哪些？"><span class="nav-number">1.2.</span> <span class="nav-text">Spring 的主要功能有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring优点"><span class="nav-number">1.3.</span> <span class="nav-text">Spring优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring缺点"><span class="nav-number">1.4.</span> <span class="nav-text">Spring缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：控制反转-Inversion-of-Control，IOC）"><span class="nav-number">2.</span> <span class="nav-text">二：控制反转(Inversion of Control，IOC）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Spring-IOC"><span class="nav-number">2.1.</span> <span class="nav-text">什么是Spring IOC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制反转-IoC-有什么作用"><span class="nav-number">2.2.</span> <span class="nav-text">控制反转(IoC)有什么作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-IoC-的实现机制"><span class="nav-number">2.3.</span> <span class="nav-text">Spring IoC 的实现机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Spring的依赖注入？"><span class="nav-number">2.4.</span> <span class="nav-text">什么是Spring的依赖注入？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖注入的基本原则"><span class="nav-number">2.5.</span> <span class="nav-text">依赖注入的基本原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器初始化过程"><span class="nav-number">2.6.</span> <span class="nav-text">容器初始化过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三：面向切面编程（AOP）"><span class="nav-number">3.</span> <span class="nav-text">三：面向切面编程（AOP）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四：Spring-Beans"><span class="nav-number">4.</span> <span class="nav-text">四：Spring Beans</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Spring-beans？"><span class="nav-number">4.1.</span> <span class="nav-text">什么是Spring beans？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bean的生命周期"><span class="nav-number">4.2.</span> <span class="nav-text">bean的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bean的作用域"><span class="nav-number">4.3.</span> <span class="nav-text">bean的作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#singleton"><span class="nav-number">4.3.1.</span> <span class="nav-text">singleton</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#prototype"><span class="nav-number">4.3.2.</span> <span class="nav-text">prototype</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request"><span class="nav-number">4.3.3.</span> <span class="nav-text">request</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#session"><span class="nav-number">4.3.4.</span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#global-session"><span class="nav-number">4.3.5.</span> <span class="nav-text">global-session</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bean的创建"><span class="nav-number">4.4.</span> <span class="nav-text">bean的创建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-SpringMVC执行流程"><span class="nav-number">5.</span> <span class="nav-text">五.SpringMVC执行流程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">如烟Ryans</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/likemoves.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/likemoves.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

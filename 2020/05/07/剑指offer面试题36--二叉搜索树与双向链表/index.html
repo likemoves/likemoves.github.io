@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="java,算法,剑指offer,">
 
 
 
@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="实现秒杀系统（二）实现用户登录以及分布式session1.明文密码而两次md5入库两次MD5 1.用户端：PASS=MD5(明文+固定Salt)  防止明文传输 2.服务端：PASS=MD5(用户输入+随机Salt)   固定Salt是写死在程序中 随机Salt是在用户注册过程中 随机生成 并且存储于数据库中 2.分布式session用户登录系统，随机产生token，并且将其存入redis缓存中，">
+<meta name="description" content="题目1输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。  递归版解题思路：1.将左子树构造成双链表，并返回链表头节点。2.定位至左子树双链表最后一个节点。3.如果左子树链表不为空的话，将当前pRootOfTree追加到左子树链表。4.将右子树构造成双链表，并返回链表头节点。5.如果右子树链表不为空的话，将该链表追加到pRootOfT">
+<meta name="keywords" content="java,算法,剑指offer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如烟Ryans">
-<meta property="og:url" content="http://yoursite.com/2020/05/06/实现秒杀系统（二）/index.html">
+<meta property="og:title" content="剑指offer面试题36--二叉搜索树与双向链表">
+<meta property="og:url" content="http://yoursite.com/2020/05/07/剑指offer面试题36--二叉搜索树与双向链表/index.html">
 <meta property="og:site_name" content="如烟Ryans">
-<meta property="og:description" content="实现秒杀系统（二）实现用户登录以及分布式session1.明文密码而两次md5入库两次MD5 1.用户端：PASS=MD5(明文+固定Salt)  防止明文传输 2.服务端：PASS=MD5(用户输入+随机Salt)   固定Salt是写死在程序中 随机Salt是在用户注册过程中 随机生成 并且存储于数据库中 2.分布式session用户登录系统，随机产生token，并且将其存入redis缓存中，">
+<meta property="og:description" content="题目1输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。  递归版解题思路：1.将左子树构造成双链表，并返回链表头节点。2.定位至左子树双链表最后一个节点。3.如果左子树链表不为空的话，将当前pRootOfTree追加到左子树链表。4.将右子树构造成双链表，并返回链表头节点。5.如果右子树链表不为空的话，将该链表追加到pRootOfT">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-06T02:38:10.309Z">
+<meta property="og:image" content="https://img-blog.csdn.net/20180610102210993">
+<meta property="og:updated_time" content="2020-05-09T13:01:01.835Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如烟Ryans">
-<meta name="twitter:description" content="实现秒杀系统（二）实现用户登录以及分布式session1.明文密码而两次md5入库两次MD5 1.用户端：PASS=MD5(明文+固定Salt)  防止明文传输 2.服务端：PASS=MD5(用户输入+随机Salt)   固定Salt是写死在程序中 随机Salt是在用户注册过程中 随机生成 并且存储于数据库中 2.分布式session用户登录系统，随机产生token，并且将其存入redis缓存中，">
+<meta name="twitter:title" content="剑指offer面试题36--二叉搜索树与双向链表">
+<meta name="twitter:description" content="题目1输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。  递归版解题思路：1.将左子树构造成双链表，并返回链表头节点。2.定位至左子树双链表最后一个节点。3.如果左子树链表不为空的话，将当前pRootOfTree追加到左子树链表。4.将右子树构造成双链表，并返回链表头节点。5.如果右子树链表不为空的话，将该链表追加到pRootOfT">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180610102210993">
 
 
 
@@ -119,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/05/06/实现秒杀系统（二）/">
+  <link rel="canonical" href="http://yoursite.com/2020/05/07/剑指offer面试题36--二叉搜索树与双向链表/">
 
 
 
 
 
-  <title> | 如烟Ryans</title>
+  <title>剑指offer面试题36--二叉搜索树与双向链表 | 如烟Ryans</title>
   
 
 
@@ -262,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/06/实现秒杀系统（二）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/07/剑指offer面试题36--二叉搜索树与双向链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="如烟Ryans">
@@ -279,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">剑指offer面试题36--二叉搜索树与双向链表</h1>
         
 
         <div class="post-meta">
@@ -291,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-06T10:33:03+08:00">
-                2020-05-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-07T20:13:59+08:00">
+                2020-05-07
               </time>
             
 
@@ -301,6 +304,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -329,16 +354,13 @@
       
 
       
-        <h1 id="实现秒杀系统（二）"><a href="#实现秒杀系统（二）" class="headerlink" title="实现秒杀系统（二）"></a>实现秒杀系统（二）</h1><h2 id="实现用户登录以及分布式session"><a href="#实现用户登录以及分布式session" class="headerlink" title="实现用户登录以及分布式session"></a>实现用户登录以及分布式session</h2><h3 id="1-明文密码而两次md5入库"><a href="#1-明文密码而两次md5入库" class="headerlink" title="1.明文密码而两次md5入库"></a>1.明文密码而两次md5入库</h3><p>两次MD5</p>
-<p>1.用户端：PASS=MD5(明文+固定Salt)  防止明文传输</p>
-<p>2.服务端：PASS=MD5(用户输入+随机Salt)  </p>
-<p>固定Salt是写死在程序中</p>
-<p>随机Salt是在用户注册过程中 随机生成 并且存储于数据库中</p>
-<h3 id="2-分布式session"><a href="#2-分布式session" class="headerlink" title="2.分布式session"></a>2.分布式session</h3><p>用户登录系统，随机产生token，并且将其存入redis缓存中，key=token，value=user对象</p>
-<p>之后将token存入cookie返回浏览器，此后用户在系统中会时刻保持cookie的状态。</p>
-<h3 id="3-JSR303自定义参数验证"><a href="#3-JSR303自定义参数验证" class="headerlink" title="3. JSR303自定义参数验证"></a>3. JSR303自定义参数验证</h3><p>使用JSR303自定义校验器，实现对用户账号、密码的验证，使得验证逻辑从业务代码中脱离出来。</p>
-<h3 id="4-全局异常统一处理"><a href="#4-全局异常统一处理" class="headerlink" title="4. 全局异常统一处理"></a>4. 全局异常统一处理</h3><p>通过拦截所有异常，对各种异常进行相应的处理，当遇到异常就逐层上抛，一直抛到最终由一个统一的、专门负责异常处理的地方处理，这有利于对异常的维护。</p>
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。</span><br></pre></td></tr></table></figure>
 
+<p>递归版<br>解题思路：<br>1.将左子树构造成双链表，并返回链表头节点。<br>2.定位至左子树双链表最后一个节点。<br>3.如果左子树链表不为空的话，将当前pRootOfTree追加到左子树链表。<br>4.将右子树构造成双链表，并返回链表头节点。<br>5.如果右子树链表不为空的话，将该链表追加到pRootOfTree节点之后。<br>6.根据左子树链表是否为空确定返回的节点。</p>
+<p><img src="https://img-blog.csdn.net/20180610102210993" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">Convert</span><span class="params">(TreeNode pRootOfTree)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pRootOfTree==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(pRootOfTree.left==<span class="keyword">null</span>&amp;&amp;pRootOfTree.right==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> pRootOfTree;</span><br><span class="line">        <span class="comment">// 1.将左子树构造成双链表，并返回链表头节点</span></span><br><span class="line">        TreeNode left = Convert(pRootOfTree.left);</span><br><span class="line">        TreeNode p = left;</span><br><span class="line">        <span class="comment">// 2.定位至左子树双链表最后一个节点</span></span><br><span class="line">        <span class="keyword">while</span>(p!=<span class="keyword">null</span>&amp;&amp;p.right!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            p = p.right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 3.如果左子树链表不为空的话，将当前pRootOfTree追加到左子树链表</span></span><br><span class="line">        <span class="keyword">if</span>(left!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            p.right = pRootOfTree;</span><br><span class="line">            pRootOfTree.left = p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 4.将右子树构造成双链表，并返回链表头节点</span></span><br><span class="line">        TreeNode right = Convert(pRootOfTree.right);</span><br><span class="line">        <span class="comment">// 5.如果右子树链表不为空的话，将该链表追加到pRootOfTree节点之后</span></span><br><span class="line">        <span class="keyword">if</span>(right!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            right.left = pRootOfTree;</span><br><span class="line">            pRootOfTree.right = right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left!=<span class="keyword">null</span>?left:pRootOfTree;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">参考链接：https:<span class="comment">//blog.csdn.net/weixin_40928253/article/details/85373191</span></span><br><span class="line">https:<span class="comment">//blog.csdn.net/u013132035/article/details/80638812</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -353,6 +375,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/likemoves.github.io/tags/java/" rel="tag"># java</a>
+          
+            <a href="/likemoves.github.io/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/likemoves.github.io/tags/剑指offer/" rel="tag"># 剑指offer</a>
+          
+        </div>
+      
 
       
       
@@ -362,8 +394,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/likemoves.github.io/2020/05/05/剑指offer面试题30--包含min方法的栈/" rel="next" title="剑指offer面试题30--包含min方法的栈">
-                <i class="fa fa-chevron-left"></i> 剑指offer面试题30--包含min方法的栈
+              <a href="/likemoves.github.io/2020/05/06/剑指offer面试题35--复杂链表的复制/" rel="next" title="剑指offer面试题35--复杂链表的复制">
+                <i class="fa fa-chevron-left"></i> 剑指offer面试题35--复杂链表的复制
               </a>
             
           </div>
@@ -372,8 +404,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/likemoves.github.io/2020/05/06/剑指offer面试题31--栈的压入、弹出序列/" rel="prev" title="剑指offer面试题31--栈的压入、弹出序列">
-                剑指offer面试题31--栈的压入、弹出序列 <i class="fa fa-chevron-right"></i>
+              <a href="/likemoves.github.io/2020/05/08/剑指offer面试题37--序列化二叉树/" rel="prev" title="剑指offer面试题37--序列化二叉树">
+                剑指offer面试题37--序列化二叉树 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -451,7 +483,7 @@
               
                 <a href="/likemoves.github.io/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -462,7 +494,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/likemoves.github.io/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -473,7 +505,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/likemoves.github.io/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -506,7 +538,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现秒杀系统（二）"><span class="nav-number">1.</span> <span class="nav-text">实现秒杀系统（二）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现用户登录以及分布式session"><span class="nav-number">1.1.</span> <span class="nav-text">实现用户登录以及分布式session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-明文密码而两次md5入库"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.明文密码而两次md5入库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分布式session"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.分布式session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-JSR303自定义参数验证"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. JSR303自定义参数验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-全局异常统一处理"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 全局异常统一处理</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li></ol></div>
             
 
           </div>
