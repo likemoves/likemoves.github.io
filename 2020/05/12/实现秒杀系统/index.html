@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="实现用户登录以及分布式session1.明文密码而两次md5入库两次MD5 1.用户端：PASS=MD5(明文+固定Salt)  防止明文传输 2.服务端：PASS=MD5(用户输入+随机Salt)   固定Salt是写死在程序中 随机Salt是在用户注册过程中 随机生成 并且存储于数据库中 2.分布式session用户登录系统，随机产生token，并且将其存入redis缓存中，key=token">
+<meta name="description" content="实现用户登录以及分布式session流程1.用户第一次登陆，本身没有携带cookie，同时redis也没有token记录 2.通过数据库验证用户手机号以及密码 3.验证通过生成token，同时写入redis以及cookie中返回 4.此后用户携带cookie进行登录 5.从cookie中提取token，到redis中查询 6.如果存在直接判定登录成功，如果失败则需要重新登录 数据库设计商品表 秒杀">
 <meta name="keywords" content="java,秒杀">
 <meta property="og:type" content="article">
-<meta property="og:title" content="实现秒杀系统记录">
+<meta property="og:title" content="实现秒杀系统">
 <meta property="og:url" content="http://yoursite.com/2020/05/12/实现秒杀系统/index.html">
 <meta property="og:site_name" content="如烟Ryans">
-<meta property="og:description" content="实现用户登录以及分布式session1.明文密码而两次md5入库两次MD5 1.用户端：PASS=MD5(明文+固定Salt)  防止明文传输 2.服务端：PASS=MD5(用户输入+随机Salt)   固定Salt是写死在程序中 随机Salt是在用户注册过程中 随机生成 并且存储于数据库中 2.分布式session用户登录系统，随机产生token，并且将其存入redis缓存中，key=token">
+<meta property="og:description" content="实现用户登录以及分布式session流程1.用户第一次登陆，本身没有携带cookie，同时redis也没有token记录 2.通过数据库验证用户手机号以及密码 3.验证通过生成token，同时写入redis以及cookie中返回 4.此后用户携带cookie进行登录 5.从cookie中提取token，到redis中查询 6.如果存在直接判定登录成功，如果失败则需要重新登录 数据库设计商品表 秒杀">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-14T14:17:46.923Z">
+<meta property="og:updated_time" content="2020-05-18T15:21:12.880Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="实现秒杀系统记录">
-<meta name="twitter:description" content="实现用户登录以及分布式session1.明文密码而两次md5入库两次MD5 1.用户端：PASS=MD5(明文+固定Salt)  防止明文传输 2.服务端：PASS=MD5(用户输入+随机Salt)   固定Salt是写死在程序中 随机Salt是在用户注册过程中 随机生成 并且存储于数据库中 2.分布式session用户登录系统，随机产生token，并且将其存入redis缓存中，key=token">
+<meta name="twitter:title" content="实现秒杀系统">
+<meta name="twitter:description" content="实现用户登录以及分布式session流程1.用户第一次登陆，本身没有携带cookie，同时redis也没有token记录 2.通过数据库验证用户手机号以及密码 3.验证通过生成token，同时写入redis以及cookie中返回 4.此后用户携带cookie进行登录 5.从cookie中提取token，到redis中查询 6.如果存在直接判定登录成功，如果失败则需要重新登录 数据库设计商品表 秒杀">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>实现秒杀系统记录 | 如烟Ryans</title>
+  <title>实现秒杀系统 | 如烟Ryans</title>
   
 
 
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">实现秒杀系统记录</h1>
+          <h1 class="post-title" itemprop="name headline">实现秒杀系统</h1>
         
 
         <div class="post-meta">
@@ -352,15 +352,12 @@
       
 
       
-        <h2 id="实现用户登录以及分布式session"><a href="#实现用户登录以及分布式session" class="headerlink" title="实现用户登录以及分布式session"></a>实现用户登录以及分布式session</h2><h3 id="1-明文密码而两次md5入库"><a href="#1-明文密码而两次md5入库" class="headerlink" title="1.明文密码而两次md5入库"></a>1.明文密码而两次md5入库</h3><p>两次MD5</p>
-<p>1.用户端：PASS=MD5(明文+固定Salt)  防止明文传输</p>
-<p>2.服务端：PASS=MD5(用户输入+随机Salt)  </p>
-<p>固定Salt是写死在程序中</p>
-<p>随机Salt是在用户注册过程中 随机生成 并且存储于数据库中</p>
-<h3 id="2-分布式session"><a href="#2-分布式session" class="headerlink" title="2.分布式session"></a>2.分布式session</h3><p>用户登录系统，随机产生token，并且将其存入redis缓存中，key=token，value=user对象</p>
-<p>之后将token存入cookie返回浏览器，此后用户在系统中会时刻保持cookie的状态。</p>
-<h3 id="3-JSR303自定义参数验证"><a href="#3-JSR303自定义参数验证" class="headerlink" title="3. JSR303自定义参数验证"></a>3. JSR303自定义参数验证</h3><p>使用JSR303自定义校验器，实现对用户账号、密码的验证，使得验证逻辑从业务代码中脱离出来。</p>
-<h3 id="4-全局异常统一处理"><a href="#4-全局异常统一处理" class="headerlink" title="4. 全局异常统一处理"></a>4. 全局异常统一处理</h3><p>通过拦截所有异常，对各种异常进行相应的处理，当遇到异常就逐层上抛，一直抛到最终由一个统一的、专门负责异常处理的地方处理，这有利于对异常的维护。</p>
+        <h2 id="实现用户登录以及分布式session"><a href="#实现用户登录以及分布式session" class="headerlink" title="实现用户登录以及分布式session"></a>实现用户登录以及分布式session</h2><h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>1.用户第一次登陆，本身没有携带cookie，同时redis也没有token记录</p>
+<p>2.通过数据库验证用户手机号以及密码</p>
+<p>3.验证通过生成token，同时写入redis以及cookie中返回</p>
+<p>4.此后用户携带cookie进行登录</p>
+<p>5.从cookie中提取token，到redis中查询</p>
+<p>6.如果存在直接判定登录成功，如果失败则需要重新登录</p>
 <h2 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h2><p>商品表</p>
 <p>秒杀商品表</p>
 <p>订单表</p>
@@ -368,7 +365,7 @@
 <h2 id="页面设计"><a href="#页面设计" class="headerlink" title="页面设计"></a>页面设计</h2><p>商品列表页</p>
 <p>商品详情页</p>
 <p>订单详情页</p>
-<h2 id="秒杀流程"><a href="#秒杀流程" class="headerlink" title="秒杀流程"></a>秒杀流程</h2><p>1.减库存 </p>
+<h2 id="秒杀流程"><a href="#秒杀流程" class="headerlink" title="秒杀流程"></a>秒杀流程</h2><p>1.数据减库存 </p>
 <p>去秒杀商品表 stock_count减一</p>
 <p>2.创建订单 </p>
 <p>去订单表 插入一条数据</p>
@@ -391,6 +388,15 @@
 <p>匹配规则x-match有下列两种类型：</p>
 <p>x-match = all ：表示所有的键值对都匹配才能接受到消息</p>
 <p>x-match = any ：表示只要有键值对匹配就能接受到消息</p>
+<h2 id="系统特点"><a href="#系统特点" class="headerlink" title="系统特点"></a>系统特点</h2><h3 id="1-明文密码而两次md5入库"><a href="#1-明文密码而两次md5入库" class="headerlink" title="1.明文密码而两次md5入库"></a>1.明文密码而两次md5入库</h3><p>两次MD5</p>
+<p>1.用户端：PASS=MD5(明文+固定Salt)  防止明文传输</p>
+<p>2.服务端：PASS=MD5(用户输入+随机Salt)  </p>
+<p>固定Salt是写死在程序中</p>
+<p>随机Salt是在用户注册过程中 随机生成 并且存储于数据库中</p>
+<h3 id="2-分布式session"><a href="#2-分布式session" class="headerlink" title="2.分布式session"></a>2.分布式session</h3><p>用户登录系统，随机产生token，并且将其存入redis缓存中，key=token，value=user对象</p>
+<p>之后将token存入cookie返回浏览器，此后用户在系统中会时刻保持cookie的状态。</p>
+<h3 id="3-JSR303自定义参数验证"><a href="#3-JSR303自定义参数验证" class="headerlink" title="3. JSR303自定义参数验证"></a>3. JSR303自定义参数验证</h3><p>使用JSR303自定义校验器，实现对用户账号、密码的验证，使得验证逻辑从业务代码中脱离出来。</p>
+<h3 id="4-全局异常统一处理"><a href="#4-全局异常统一处理" class="headerlink" title="4. 全局异常统一处理"></a>4. 全局异常统一处理</h3><p>通过拦截所有异常，对各种异常进行相应的处理，当遇到异常就逐层上抛，一直抛到最终由一个统一的、专门负责异常处理的地方处理，这有利于对异常的维护。</p>
 
       
     </div>
@@ -512,7 +518,7 @@
               
                 <a href="/likemoves.github.io/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -567,7 +573,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现用户登录以及分布式session"><span class="nav-number">1.</span> <span class="nav-text">实现用户登录以及分布式session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-明文密码而两次md5入库"><span class="nav-number">1.1.</span> <span class="nav-text">1.明文密码而两次md5入库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分布式session"><span class="nav-number">1.2.</span> <span class="nav-text">2.分布式session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-JSR303自定义参数验证"><span class="nav-number">1.3.</span> <span class="nav-text">3. JSR303自定义参数验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-全局异常统一处理"><span class="nav-number">1.4.</span> <span class="nav-text">4. 全局异常统一处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库设计"><span class="nav-number">2.</span> <span class="nav-text">数据库设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面设计"><span class="nav-number">3.</span> <span class="nav-text">页面设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#秒杀流程"><span class="nav-number">4.</span> <span class="nav-text">秒杀流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口优化"><span class="nav-number">5.</span> <span class="nav-text">接口优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决超卖问题"><span class="nav-number">5.1.</span> <span class="nav-text">解决超卖问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减少数据库访问"><span class="nav-number">5.2.</span> <span class="nav-text">减少数据库访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rabbitMQ使用"><span class="nav-number">6.</span> <span class="nav-text">rabbitMQ使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux系统下常用指令"><span class="nav-number">6.1.</span> <span class="nav-text">linux系统下常用指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种交换机类型"><span class="nav-number">6.2.</span> <span class="nav-text">四种交换机类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Direct-Exchange"><span class="nav-number">6.2.1.</span> <span class="nav-text">1.Direct Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Fanout-Exchange"><span class="nav-number">6.2.2.</span> <span class="nav-text">2.Fanout Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Topic-Exchange"><span class="nav-number">6.2.3.</span> <span class="nav-text">3.Topic Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Headers-Exchanges"><span class="nav-number">6.2.4.</span> <span class="nav-text">4.Headers Exchanges</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现用户登录以及分布式session"><span class="nav-number">1.</span> <span class="nav-text">实现用户登录以及分布式session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">1.1.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库设计"><span class="nav-number">2.</span> <span class="nav-text">数据库设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面设计"><span class="nav-number">3.</span> <span class="nav-text">页面设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#秒杀流程"><span class="nav-number">4.</span> <span class="nav-text">秒杀流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口优化"><span class="nav-number">5.</span> <span class="nav-text">接口优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决超卖问题"><span class="nav-number">5.1.</span> <span class="nav-text">解决超卖问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减少数据库访问"><span class="nav-number">5.2.</span> <span class="nav-text">减少数据库访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rabbitMQ使用"><span class="nav-number">6.</span> <span class="nav-text">rabbitMQ使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux系统下常用指令"><span class="nav-number">6.1.</span> <span class="nav-text">linux系统下常用指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种交换机类型"><span class="nav-number">6.2.</span> <span class="nav-text">四种交换机类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Direct-Exchange"><span class="nav-number">6.2.1.</span> <span class="nav-text">1.Direct Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Fanout-Exchange"><span class="nav-number">6.2.2.</span> <span class="nav-text">2.Fanout Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Topic-Exchange"><span class="nav-number">6.2.3.</span> <span class="nav-text">3.Topic Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Headers-Exchanges"><span class="nav-number">6.2.4.</span> <span class="nav-text">4.Headers Exchanges</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统特点"><span class="nav-number">7.</span> <span class="nav-text">系统特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-明文密码而两次md5入库"><span class="nav-number">7.1.</span> <span class="nav-text">1.明文密码而两次md5入库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分布式session"><span class="nav-number">7.2.</span> <span class="nav-text">2.分布式session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-JSR303自定义参数验证"><span class="nav-number">7.3.</span> <span class="nav-text">3. JSR303自定义参数验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-全局异常统一处理"><span class="nav-number">7.4.</span> <span class="nav-text">4. 全局异常统一处理</span></a></li></ol></li></ol></div>
             
 
           </div>
