@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="如烟Ryans">
 <meta property="og:description" content="实现用户登录以及分布式session流程1.用户第一次登陆，本身没有携带cookie，同时redis也没有token记录 2.通过数据库验证用户手机号以及密码 3.验证通过生成token，同时写入redis以及cookie中返回 4.此后用户携带cookie进行登录 5.从cookie中提取token，到redis中查询 6.如果存在直接判定登录成功，如果失败则需要重新登录 数据库设计商品表 秒杀">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-18T15:21:12.880Z">
+<meta property="og:updated_time" content="2020-05-19T02:12:13.965Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实现秒杀系统">
 <meta name="twitter:description" content="实现用户登录以及分布式session流程1.用户第一次登陆，本身没有携带cookie，同时redis也没有token记录 2.通过数据库验证用户手机号以及密码 3.验证通过生成token，同时写入redis以及cookie中返回 4.此后用户携带cookie进行登录 5.从cookie中提取token，到redis中查询 6.如果存在直接判定登录成功，如果失败则需要重新登录 数据库设计商品表 秒杀">
@@ -397,6 +397,26 @@
 <p>之后将token存入cookie返回浏览器，此后用户在系统中会时刻保持cookie的状态。</p>
 <h3 id="3-JSR303自定义参数验证"><a href="#3-JSR303自定义参数验证" class="headerlink" title="3. JSR303自定义参数验证"></a>3. JSR303自定义参数验证</h3><p>使用JSR303自定义校验器，实现对用户账号、密码的验证，使得验证逻辑从业务代码中脱离出来。</p>
 <h3 id="4-全局异常统一处理"><a href="#4-全局异常统一处理" class="headerlink" title="4. 全局异常统一处理"></a>4. 全局异常统一处理</h3><p>通过拦截所有异常，对各种异常进行相应的处理，当遇到异常就逐层上抛，一直抛到最终由一个统一的、专门负责异常处理的地方处理，这有利于对异常的维护。</p>
+<h3 id="5-页面缓存-对象缓存"><a href="#5-页面缓存-对象缓存" class="headerlink" title="5. 页面缓存 + 对象缓存"></a>5. 页面缓存 + 对象缓存</h3><ol>
+<li>页面缓存：通过在手动渲染得到的html页面缓存到redis</li>
+<li>对象缓存：包括对用户信息、商品信息、订单信息和token等数据进行缓存，利用缓存来减少对数据库的访问，大大加快查询速度。</li>
+</ol>
+<h3 id="6-页面静态化"><a href="#6-页面静态化" class="headerlink" title="6. 页面静态化"></a>6. 页面静态化</h3><p>对商品详情和订单详情进行页面静态化处理，页面是存在html，动态数据是通过接口从服务端获取，实现前后端分离，静态页面无需连接数据库打开速度较动态页面会有明显提高</p>
+<h3 id="7-本地标记-redis预处理-RabbitMQ异步下单-客户端轮询"><a href="#7-本地标记-redis预处理-RabbitMQ异步下单-客户端轮询" class="headerlink" title="7. 本地标记 + redis预处理 + RabbitMQ异步下单 + 客户端轮询"></a>7. 本地标记 + redis预处理 + RabbitMQ异步下单 + 客户端轮询</h3><p>描述：通过三级缓冲保护，1、本地标记  2、redis预处理  3、RabbitMQ异步下单，最后才会访问数据库，这样做是为了最大力度减少对数据库的访问。</p>
+<p>实现：</p>
+<ol>
+<li>在秒杀阶段使用本地标记对用户秒杀过的商品做标记，若被标记过直接返回重复秒杀，未被标记才查询redis，通过本地标记来减少对redis的访问</li>
+<li>抢购开始前，将商品和库存数据同步到redis中，所有的抢购操作都在redis中进行处理，通过Redis预减少库存减少数据库访问</li>
+<li>为了保护系统不受高流量的冲击而导致系统崩溃的问题，使用RabbitMQ用异步队列处理下单，实际做了一层缓冲保护，做了一个窗口模型，窗口模型会实时的刷新用户秒杀的状态。</li>
+<li>client端用js轮询一个接口，用来获取处理状态</li>
+</ol>
+<h3 id="8-解决超卖"><a href="#8-解决超卖" class="headerlink" title="8. 解决超卖"></a>8. 解决超卖</h3><p>描述：比如某商品的库存为1，此时用户1和用户2并发购买该商品，用户1提交订单后该商品的库存被修改为0，而此时用户2并不知道的情况下提交订单，该商品的库存再次被修改为-1，这就是超卖现象</p>
+<p>实现：</p>
+<ol>
+<li>对库存更新时，先对库存判断，只有当库存大于0才能更新库存</li>
+<li>对用户id和商品id建立一个唯一索引，通过这种约束避免同一用户发同时两个请求秒杀到两件相同商品</li>
+<li>实现乐观锁，给商品信息表增加一个version字段，为每一条数据加上版本。每次更新的时候version+1，并且更新时候带上版本号，当提交前版本号等于更新前版本号，说明此时没有被其他线程影响到，正常更新，如果冲突了则不会进行提交更新。当库存是足够的情况下发生乐观锁冲突就进行一定次数的重试。</li>
+</ol>
 
       
     </div>
@@ -518,7 +538,7 @@
               
                 <a href="/likemoves.github.io/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -573,7 +593,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现用户登录以及分布式session"><span class="nav-number">1.</span> <span class="nav-text">实现用户登录以及分布式session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">1.1.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库设计"><span class="nav-number">2.</span> <span class="nav-text">数据库设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面设计"><span class="nav-number">3.</span> <span class="nav-text">页面设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#秒杀流程"><span class="nav-number">4.</span> <span class="nav-text">秒杀流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口优化"><span class="nav-number">5.</span> <span class="nav-text">接口优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决超卖问题"><span class="nav-number">5.1.</span> <span class="nav-text">解决超卖问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减少数据库访问"><span class="nav-number">5.2.</span> <span class="nav-text">减少数据库访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rabbitMQ使用"><span class="nav-number">6.</span> <span class="nav-text">rabbitMQ使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux系统下常用指令"><span class="nav-number">6.1.</span> <span class="nav-text">linux系统下常用指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种交换机类型"><span class="nav-number">6.2.</span> <span class="nav-text">四种交换机类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Direct-Exchange"><span class="nav-number">6.2.1.</span> <span class="nav-text">1.Direct Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Fanout-Exchange"><span class="nav-number">6.2.2.</span> <span class="nav-text">2.Fanout Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Topic-Exchange"><span class="nav-number">6.2.3.</span> <span class="nav-text">3.Topic Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Headers-Exchanges"><span class="nav-number">6.2.4.</span> <span class="nav-text">4.Headers Exchanges</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统特点"><span class="nav-number">7.</span> <span class="nav-text">系统特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-明文密码而两次md5入库"><span class="nav-number">7.1.</span> <span class="nav-text">1.明文密码而两次md5入库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分布式session"><span class="nav-number">7.2.</span> <span class="nav-text">2.分布式session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-JSR303自定义参数验证"><span class="nav-number">7.3.</span> <span class="nav-text">3. JSR303自定义参数验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-全局异常统一处理"><span class="nav-number">7.4.</span> <span class="nav-text">4. 全局异常统一处理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现用户登录以及分布式session"><span class="nav-number">1.</span> <span class="nav-text">实现用户登录以及分布式session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">1.1.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库设计"><span class="nav-number">2.</span> <span class="nav-text">数据库设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面设计"><span class="nav-number">3.</span> <span class="nav-text">页面设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#秒杀流程"><span class="nav-number">4.</span> <span class="nav-text">秒杀流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口优化"><span class="nav-number">5.</span> <span class="nav-text">接口优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决超卖问题"><span class="nav-number">5.1.</span> <span class="nav-text">解决超卖问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减少数据库访问"><span class="nav-number">5.2.</span> <span class="nav-text">减少数据库访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rabbitMQ使用"><span class="nav-number">6.</span> <span class="nav-text">rabbitMQ使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux系统下常用指令"><span class="nav-number">6.1.</span> <span class="nav-text">linux系统下常用指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种交换机类型"><span class="nav-number">6.2.</span> <span class="nav-text">四种交换机类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Direct-Exchange"><span class="nav-number">6.2.1.</span> <span class="nav-text">1.Direct Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Fanout-Exchange"><span class="nav-number">6.2.2.</span> <span class="nav-text">2.Fanout Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Topic-Exchange"><span class="nav-number">6.2.3.</span> <span class="nav-text">3.Topic Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Headers-Exchanges"><span class="nav-number">6.2.4.</span> <span class="nav-text">4.Headers Exchanges</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统特点"><span class="nav-number">7.</span> <span class="nav-text">系统特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-明文密码而两次md5入库"><span class="nav-number">7.1.</span> <span class="nav-text">1.明文密码而两次md5入库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分布式session"><span class="nav-number">7.2.</span> <span class="nav-text">2.分布式session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-JSR303自定义参数验证"><span class="nav-number">7.3.</span> <span class="nav-text">3. JSR303自定义参数验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-全局异常统一处理"><span class="nav-number">7.4.</span> <span class="nav-text">4. 全局异常统一处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-页面缓存-对象缓存"><span class="nav-number">7.5.</span> <span class="nav-text">5. 页面缓存 + 对象缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-页面静态化"><span class="nav-number">7.6.</span> <span class="nav-text">6. 页面静态化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-本地标记-redis预处理-RabbitMQ异步下单-客户端轮询"><span class="nav-number">7.7.</span> <span class="nav-text">7. 本地标记 + redis预处理 + RabbitMQ异步下单 + 客户端轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-解决超卖"><span class="nav-number">7.8.</span> <span class="nav-text">8. 解决超卖</span></a></li></ol></li></ol></div>
             
 
           </div>

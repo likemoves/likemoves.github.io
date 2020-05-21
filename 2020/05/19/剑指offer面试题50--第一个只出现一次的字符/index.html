@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/likemoves.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/likemoves.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/likemoves.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/likemoves.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/likemoves.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/likemoves.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,算法,剑指offer,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="题目1找出字符串中找出第一个只出现一次的字符，比如输入“abacceff&amp;quot;,则输出&amp;apos;b&amp;apos;  要想知道某个字符是不是只出现了一次，必须遍历字符串的每个字符。因此可以先遍历一次，统计每个字符出现次数。再遍历一次，遇到某个字符出现字符为1就立即返回。统计每个字符出现次数，可以用哈希表，不过如果输入中都是ASCII码，那么使用0-255表示即可。这样使用一个int[] cou">
+<meta name="keywords" content="java,算法,剑指offer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指offer面试题50--第一个只出现一次的字符">
+<meta property="og:url" content="http://yoursite.com/2020/05/19/剑指offer面试题50--第一个只出现一次的字符/index.html">
+<meta property="og:site_name" content="如烟Ryans">
+<meta property="og:description" content="题目1找出字符串中找出第一个只出现一次的字符，比如输入“abacceff&amp;quot;,则输出&amp;apos;b&amp;apos;  要想知道某个字符是不是只出现了一次，必须遍历字符串的每个字符。因此可以先遍历一次，统计每个字符出现次数。再遍历一次，遇到某个字符出现字符为1就立即返回。统计每个字符出现次数，可以用哈希表，不过如果输入中都是ASCII码，那么使用0-255表示即可。这样使用一个int[] cou">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-21T04:39:12.512Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="剑指offer面试题50--第一个只出现一次的字符">
+<meta name="twitter:description" content="题目1找出字符串中找出第一个只出现一次的字符，比如输入“abacceff&amp;quot;,则输出&amp;apos;b&amp;apos;  要想知道某个字符是不是只出现了一次，必须遍历字符串的每个字符。因此可以先遍历一次，统计每个字符出现次数。再遍历一次，遇到某个字符出现字符为1就立即返回。统计每个字符出现次数，可以用哈希表，不过如果输入中都是ASCII码，那么使用0-255表示即可。这样使用一个int[] cou">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/likemoves.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/19/剑指offer面试题50--第一个只出现一次的字符/">
+
+
+
+
+
+  <title>剑指offer面试题50--第一个只出现一次的字符 | 如烟Ryans</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/likemoves.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如烟Ryans</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/likemoves.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/likemoves.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/likemoves.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/likemoves.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/likemoves.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/19/剑指offer面试题50--第一个只出现一次的字符/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">剑指offer面试题50--第一个只出现一次的字符</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-19T19:13:59+08:00">
+                2020-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">找出字符串中找出第一个只出现一次的字符，比如输入“abacceff&quot;,则输出&apos;b&apos;</span><br></pre></td></tr></table></figure>
+
+<p>要想知道某个字符是不是只出现了一次，必须遍历字符串的每个字符。<strong>因此可以先遍历一次，统计每个字符出现次数。再遍历一次，遇到某个字符出现字符为1就立即返回。</strong>统计每个字符出现次数，可以用哈希表，不过如果输入中都是ASCII码，那么使用0-255表示即可。这样使用一个<code>int[] count = new int[256]</code>就能代替哈希表了，以<code>count[someChar] = times</code>这种方式表示某个字符出现的次数。比如‘a’的ASCII码是97，那么count[97]就表示了字符’a’的出现次数，以此类推。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstAppearOnceChar</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回第一个不重复字符</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">firstNotRepeatingChar</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">if</span>(str==<span class="keyword">null</span>||str.length()==<span class="number">0</span>) <span class="keyword">return</span> <span class="string">'0'</span>;</span><br><span class="line">         <span class="keyword">int</span>[] count=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">256</span>];</span><br><span class="line">         </span><br><span class="line">         <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;str.length();i++)&#123;</span><br><span class="line">             count[str.charAt(i)]++;</span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;str.length();i++)&#123;</span><br><span class="line">             <span class="keyword">if</span>(count[str.charAt(i)]==<span class="number">1</span>) <span class="keyword">return</span> str.charAt(i);</span><br><span class="line">         &#125;</span><br><span class="line">         </span><br><span class="line">         <span class="keyword">return</span> <span class="string">'0'</span></span><br><span class="line">     &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回第一个不重复字符在字符串中的索引</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">firstAppearOnceChar</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (str == <span class="keyword">null</span> || str.length() == <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">256</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length(); i++) &#123;</span><br><span class="line">            count[str.charAt(i)]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (count[str.charAt(i)] == <span class="number">1</span>) <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面两个方法，一个是返回第一个只出现一次的字符，一个返回第一个只出现一个的字符的索引，思路都一样。根据<code>count[someChar]</code>获取某个字符的出现次数时间复杂度为O(1),对于长度为n的字符串，总的复杂度为O(n).</p>
+<p>不过如果输入中含有特殊符号或者中文等，256位的ASCII表就不够用了，需要上Unicode了，总之看题目要求吧，要想通用就哈希表。</p>
+<h2 id="扩展题目"><a href="#扩展题目" class="headerlink" title="扩展题目"></a>扩展题目</h2><h3 id="扩展一"><a href="#扩展一" class="headerlink" title="扩展一"></a>扩展一</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">定义一个函数，输入两个字符串，从第一个字符串中删除在第二个字符串中出现过的所有字符。比如第一个字符串&quot;google&quot;，第二个字符串为&quot;aeiou&quot;，删除后得到&quot;ggl&quot;.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 从第一个字符串中删除第二个字符串中出现过的所有字符</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">deleteFromAnother</span><span class="params">(String str, String another)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (str == <span class="keyword">null</span> || str.length() == <span class="number">0</span> || another == <span class="keyword">null</span> || another.length() == <span class="number">0</span>) <span class="keyword">return</span> str;</span><br><span class="line">    <span class="keyword">boolean</span>[] occur=<span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">256</span>];</span><br><span class="line">    StringBuilder sb=<span class="keyword">new</span> StringBuiler();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;another.length();i++)&#123;</span><br><span class="line">        occur[another.charAt(i)]=<span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;str.length();i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(occur[str.charAt(i)]=<span class="keyword">false</span>) sb=sb.append(str.charAt(i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用一个<code>boolean occur[] = new int[256]</code>布尔型数组，对于第二个字符串中的每个字符，标记为true表示出现过。遍历第一个字符串，判断每个字符在occur中是不是fale，为false说明该字符没有在第二个字符串中出现过，保留。</p>
+<h3 id="扩展二"><a href="#扩展二" class="headerlink" title="扩展二"></a>扩展二</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">定义一个函数，删除一个字符串中所有重复出现的字符，比如输入&quot;google&quot;返回&quot;gole&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 删除字符串中所有的重复字符</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">deleteRepeating</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">  	<span class="keyword">if</span> (str == <span class="keyword">null</span> || str.length() == <span class="number">0</span>) <span class="keyword">return</span> str;</span><br><span class="line"></span><br><span class="line">  	<span class="keyword">boolean</span>[] occur = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">256</span>];</span><br><span class="line">  	StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">  	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length(); i++) &#123;</span><br><span class="line">    	<span class="keyword">char</span> ch = str.charAt(i);</span><br><span class="line">    	<span class="keyword">if</span> (!occur[ch]) sb.append(ch);</span><br><span class="line">    	occur[ch] = <span class="keyword">true</span>;</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用一个<code>boolean occur[] = new int[256]</code>布尔型数组，记录某个字符是否出现过。刚开始都初始化false，每添加一个字符就标记为true，这样下次遇到重复字符就不会再添加了。</p>
+<h3 id="扩展三"><a href="#扩展三" class="headerlink" title="扩展三"></a>扩展三</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">变位词，如果两个单词含有相同的字母且每个字母出现的次数还一样，那么这两个单词互为变位词。定义一个函数判断两个字符串是不是互为变位词。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 变位词</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasSameChar</span><span class="params">(String s1, String s2)</span> </span>&#123;</span><br><span class="line">  	<span class="keyword">if</span> (s1 == <span class="keyword">null</span> || s2 ==<span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">  	<span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">256</span>];</span><br><span class="line">  	<span class="comment">// 统计第一个字符串</span></span><br><span class="line">  	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s1.length(); i++) &#123;</span><br><span class="line">    	count[s1.charAt(i)]++;</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="comment">// 第二个字符串中如果有该字符，就减去</span></span><br><span class="line">  	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s2.length(); i++) &#123;</span><br><span class="line">    	count[s2.charAt(i)]--;</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="comment">// 如果是变位词，最后count数组每个位置都是0</span></span><br><span class="line">  	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++) &#123;</span><br><span class="line">    	<span class="keyword">if</span> (count[i] != <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">  	&#125;</span><br><span class="line">  	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="扩展四"><a href="#扩展四" class="headerlink" title="扩展四"></a>扩展四</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">字符流中第一个只出现一次的字符。</span><br><span class="line">这次字符串是动态变化的了，比如现在只从字符流中读取了两个字符为&quot;go&quot;那么字符流中第一个只出现一次的字符是&apos;g&apos;，等到从字符流中读取了前6个字符&quot;google&quot;时，第一个只出现一次的字符变成了&apos;l&apos;.</span><br></pre></td></tr></table></figure>
+
+<p>使用一个insert函数模拟从字符流中读到一个字符。这次统计表<code>int[] occur = new int[256]</code>记录的是字符出现的索引.</p>
+<ul>
+<li>如果某个字符出现过，那么<code>occur[someChar] &gt;= 0</code>;</li>
+<li>对于没有出现过的字符，令<code>occur[someChar] = -1</code>;</li>
+<li>如果某个字符第二次出现，令<code>occur[someChar] = -2</code>。</li>
+</ul>
+<p>要获得当前字符串中第一个只出现一次的，只需从所有<code>occur[someChar] &gt;= 0</code>中结果中找出出现索引最小的那个字符即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Chap5;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppearOnceInStream</span> </span>&#123;</span><br><span class="line">  	<span class="comment">// 记录某个字符出现的索引</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] count;</span><br><span class="line">    <span class="comment">// 当前读取到的字符在字符串中的索引</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AppearOnceInStream</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        count =  <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">256</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count.length; i++) &#123;</span><br><span class="line">            count[i] = -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 模拟读取字符流中的下一个字符</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (count[c] == -<span class="number">1</span>) count[c] = index;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (count[c] &gt;= <span class="number">0</span>) count[c] = -<span class="number">2</span>;</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">firstAppearOnceChar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> minIndex = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">char</span> c = <span class="string">'\0'</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count.length; i++) &#123;</span><br><span class="line">          	<span class="comment">// 从所有count[i] &gt;= 0的结果中找出最小的索引就是第一个只出现一次的字符</span></span><br><span class="line">            <span class="keyword">if</span> (count[i] &gt;= <span class="number">0</span> &amp;&amp; count[i] &lt; minIndex) &#123;</span><br><span class="line">                minIndex = count[i];</span><br><span class="line">                c = (<span class="keyword">char</span>)i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AppearOnceInStream a = <span class="keyword">new</span> AppearOnceInStream();</span><br><span class="line">        a.insert(<span class="string">'g'</span>);</span><br><span class="line">        a.insert(<span class="string">'o'</span>);</span><br><span class="line">        System.out.println(a.firstAppearOnceChar());</span><br><span class="line">        a.insert(<span class="string">'o'</span>);</span><br><span class="line">        a.insert(<span class="string">'g'</span>);</span><br><span class="line">        a.insert(<span class="string">'l'</span>);</span><br><span class="line">        a.insert(<span class="string">'e'</span>);</span><br><span class="line">        System.out.println(a.firstAppearOnceChar());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/likemoves.github.io/tags/java/" rel="tag"># java</a>
+          
+            <a href="/likemoves.github.io/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/likemoves.github.io/tags/剑指offer/" rel="tag"># 剑指offer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/19/Java面试知识点--集合篇/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/20/剑指offer面试题54--二叉搜索树中排名为k的结点/" rel="prev" title="剑指offer面试题54--二叉搜索树中排名为k的结点">
+                剑指offer面试题54--二叉搜索树中排名为k的结点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">如烟Ryans</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/likemoves.github.io/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/likemoves.github.io/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/likemoves.github.io/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展题目"><span class="nav-number">2.</span> <span class="nav-text">扩展题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展一"><span class="nav-number">2.1.</span> <span class="nav-text">扩展一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展二"><span class="nav-number">2.2.</span> <span class="nav-text">扩展二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展三"><span class="nav-number">2.3.</span> <span class="nav-text">扩展三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展四"><span class="nav-number">2.4.</span> <span class="nav-text">扩展四</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">如烟Ryans</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/likemoves.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/likemoves.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
