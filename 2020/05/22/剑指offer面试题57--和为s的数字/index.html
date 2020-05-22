@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/likemoves.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/likemoves.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/likemoves.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/likemoves.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/likemoves.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/likemoves.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="剑指offer面试题57–和为s的数字题目1输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S；如果有多对数字的和等于S，输出两个数的乘积最小的。  先看这个条件：和一样，要求乘积最小。由于数组递增排序，那么这两个数与其他和为s的两个数比，相隔的距离更远。这里就不证明了，试想周长一样的两个图形，又扁又长的矩形和正方形比哪个面积大吧…. 要从数组中找两个数相加，如果和刚好为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如烟Ryans">
+<meta property="og:url" content="http://yoursite.com/2020/05/22/剑指offer面试题57--和为s的数字/index.html">
+<meta property="og:site_name" content="如烟Ryans">
+<meta property="og:description" content="剑指offer面试题57–和为s的数字题目1输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S；如果有多对数字的和等于S，输出两个数的乘积最小的。  先看这个条件：和一样，要求乘积最小。由于数组递增排序，那么这两个数与其他和为s的两个数比，相隔的距离更远。这里就不证明了，试想周长一样的两个图形，又扁又长的矩形和正方形比哪个面积大吧…. 要从数组中找两个数相加，如果和刚好为">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-22T03:12:18.326Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如烟Ryans">
+<meta name="twitter:description" content="剑指offer面试题57–和为s的数字题目1输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S；如果有多对数字的和等于S，输出两个数的乘积最小的。  先看这个条件：和一样，要求乘积最小。由于数组递增排序，那么这两个数与其他和为s的两个数比，相隔的距离更远。这里就不证明了，试想周长一样的两个图形，又扁又长的矩形和正方形比哪个面积大吧…. 要从数组中找两个数相加，如果和刚好为">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/likemoves.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/22/剑指offer面试题57--和为s的数字/">
+
+
+
+
+
+  <title> | 如烟Ryans</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/likemoves.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如烟Ryans</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/likemoves.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/likemoves.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/likemoves.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/likemoves.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/likemoves.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/22/剑指offer面试题57--和为s的数字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:12:18+08:00">
+                2020-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="剑指offer面试题57–和为s的数字"><a href="#剑指offer面试题57–和为s的数字" class="headerlink" title="剑指offer面试题57–和为s的数字"></a>剑指offer面试题57–和为s的数字</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S；如果有多对数字的和等于S，输出两个数的乘积最小的。</span><br></pre></td></tr></table></figure>
+
+<p>先看这个条件：和一样，要求乘积最小。由于数组递增排序，那么这两个数与其他和为s的两个数比，相隔的距离更远。这里就不证明了，<strong>试想周长一样的两个图形，又扁又长的矩形和正方形比哪个面积大吧….</strong></p>
+<p>要从数组中找两个数相加，如果和刚好为s，这样就找到了一组候选值；如果和小于s呢，可以把两个数中较小者丢弃，换一个比它稍大的继续求和与s比较;如果和大于s就丢弃较大值换一个比该值稍小的，继续求和与s比较。由于数组已经排序，要换比较小值稍大的，或者换比较大值稍小的都不是难事。</p>
+<p><strong>设置两个指针，一个指向数组的第一个元素，另一个指向数组的最后一个元素。即一开始将较小值设为数组的最小值，较大值设置为数组的最大值。</strong></p>
+<p>接下来求按照上面的方法不断与s比较，找到第一组和为s的两个数就是乘积最小的。</p>
+<p>举个例子{1, 2, 4, 7, 11,  15}和数字15，刚开始1+15大于15，所以丢弃15；将1和11求和，小于15，所以丢弃1；将2和11求和，小于15，丢弃2；将4和11求和，刚好等于15，找到第一组和为15的两个数是4和11，它们乘积就是最小的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TwoSum</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">FindNumbersWithSum</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> sum)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(array==<span class="keyword">null</span>||array.length&lt;=<span class="number">1</span>) <span class="keyword">return</span> list;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> low=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> high=array.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(low&lt;high)&#123;</span><br><span class="line">            <span class="keyword">if</span>(array[low]+array[high]==sum)&#123;</span><br><span class="line">                list.add(array[low]);</span><br><span class="line">                list.add(array[high]);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(array[low]+array[high]&gt;sum)&#123;</span><br><span class="line">                high--;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                low++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="题目2"><a href="#题目2" class="headerlink" title="题目2"></a>题目2</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">和为s的连续正数序列。</span><br><span class="line">输入一个正数s，打印出所有何为s的连续正数序列（至少含有两个数）。</span><br><span class="line">例如输入15，由于1+2+3+4+5 = 4+5+6 = 7+8,所有打印出三个连续的序列1~5,4~6,7~8</span><br></pre></td></tr></table></figure>
+
+<p>注意因为是连续的正数序列，所以序列至少是从1开始的。题目要求至少含有两个数，不妨假设一开始序列中是两个最小的值，即1和2。</p>
+<p>举个例子假设s等于9。对初始序列求和得到3，如果小于9，说明需要扩大序列使它包含更多数字，那就增加一个数字，现在序列变成{1,2,  3}，对序列求和继续和9比较，还小了，那就再增加一个数字序列变成{1, 2, 3  ,4}，这次序列和比9大了，丢弃序列中的最小值，现在序列变成{2, 3, 4}，序列求和刚好等于9！因此{2, 3,  4}是一个满足条件的序列，继续找。满足条件的其他序列肯定在后面，所以此时需要扩大序列，因此增加一个数字序列变成{2,3,4,5},  序列和比9大，<strong>不断丢弃最小值直到序列和小于等于9</strong>，因此丢弃2、丢弃3，现在剩下{4,  5}，序列和和9相等，又找到一个！后面还有没有满足条件的序列呢？<strong>注意到序列是递增的，而且满足条件的序列至少有两个数。</strong>那么满足条件的序列中最大的数不会⌈s / 2⌉了，因为5之后是6，加起来超过9了，所以从5开始其后的序列都不可能满足条件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContinuousSeq</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;ArrayList&lt;Integer&gt; &gt; FindContinuousSequence(<span class="keyword">int</span> sum) &#123;</span><br><span class="line">        ArrayList&lt;ArrayList&lt;Integer&gt;&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (sum &lt;= <span class="number">2</span>) <span class="keyword">return</span> list;</span><br><span class="line">        <span class="keyword">int</span> small=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> big=<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> curSum=small+big;</span><br><span class="line">        <span class="keyword">int</span> mid=(sum+<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span>(small&lt;mid)&#123;</span><br><span class="line">            <span class="keyword">while</span>(curSum&gt;sum&amp;&amp;small)&#123;</span><br><span class="line">                curSum-=small;</span><br><span class="line">                small++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(curSum==sum)</span><br><span class="line">                list.add(addFromSmallToBig(small, big));</span><br><span class="line">             big++;</span><br><span class="line">            curSum += big;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对一个连续区间内的数字求和</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> ArrayList&lt;Integer&gt; <span class="title">addFromSmallToBig</span><span class="params">(<span class="keyword">int</span> small, <span class="keyword">int</span> big)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = small; i&lt;= big; i++) &#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ContinuousSeq continuousSeq = <span class="keyword">new</span> ContinuousSeq();</span><br><span class="line">        System.out.println(continuousSeq.FindContinuousSequence(<span class="number">9</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为每次只是在序列尾部增加一个数字或者在序列头部丢弃一个数字，所以使用了一个curSum可以很方便地保存当前序列的和。</p>
+<p>当序列和小于s，或者序列和等于s两种情况下都需要扩大序列使其包含更多的数。所以先用while循环判断序列和大于s的情况（此时small在自增所以还要保证small要小于mid），直到序列和小于或者等于s才退出循环；接在再判断序列和是否等于s，不管等不等于s，扩大序列的代码都会得到执行，这就很好地综合了两种情况，节省了代码量。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/22/剑指offer面试题56--数组中数字出现的次数/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/22/test-md/" rel="prev" title=":test.md">
+                :test.md <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">如烟Ryans</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/likemoves.github.io/archives/">
+              
+                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/likemoves.github.io/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/likemoves.github.io/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指offer面试题57–和为s的数字"><span class="nav-number">1.</span> <span class="nav-text">剑指offer面试题57–和为s的数字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题目2"><span class="nav-number">1.2.</span> <span class="nav-text">题目2</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">如烟Ryans</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/likemoves.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/likemoves.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
