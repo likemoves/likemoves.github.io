@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="如烟Ryans">
 <meta property="og:description" content="哪些是线程安全的List？1）Collections.synchronizedList() Collections这样的一个类，使用它我们可以获取线程安全的List容器—Collections.synchronizedList(List list)，但是无论是读取还是写入，它都会进行加锁，当我们并发级别特别高，线程之间在任何操作上都会进行等待，因此在某些场景中它不是最好的选择。 2）CopyOnW">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-22T01:16:17.608Z">
+<meta property="og:updated_time" content="2020-05-27T06:23:44.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java面试知识点--集合篇">
 <meta name="twitter:description" content="哪些是线程安全的List？1）Collections.synchronizedList() Collections这样的一个类，使用它我们可以获取线程安全的List容器—Collections.synchronizedList(List list)，但是无论是读取还是写入，它都会进行加锁，当我们并发级别特别高，线程之间在任何操作上都会进行等待，因此在某些场景中它不是最好的选择。 2）CopyOnW">
@@ -363,6 +363,8 @@
 
 <p>读取操作完全没有使用任何的同步控制或者是加锁，这是因为array数组内部结构不会发生任何改变，只会被另外一个array所替换，因此读取是线程安全的。</p>
 <h2 id="Collections-synchronizedList-和CopyOnWriteArrayList使用场景"><a href="#Collections-synchronizedList-和CopyOnWriteArrayList使用场景" class="headerlink" title="Collections.synchronizedList()和CopyOnWriteArrayList使用场景"></a>Collections.synchronizedList()和CopyOnWriteArrayList使用场景</h2><p>在真实环境中，使用它们可以根据我们的业务需要，在<strong>插入操作远远超过读取</strong>时，建议使用第一种方式，这是因为CopyOnWriteArrayList在插入的过程中会<strong>创建新的数组</strong>，这样在数据量特别大的情况下，对内存的消耗是很大的。当然，如果是读取操作远远大于插入时，第二种方式肯定更占优势，毕竟读取操作完全不需要加锁。</p>
+<h2 id="HashMap和LinkedHashMap的区别"><a href="#HashMap和LinkedHashMap的区别" class="headerlink" title="HashMap和LinkedHashMap的区别"></a>HashMap和LinkedHashMap的区别</h2><p>LinkedHashMap<br>LinkedHashMap也是一个HashMap,但是内部维持了一个双向链表,可以保持顺序</p>
+<p>hashMap键只能允许为一条为空，value可以允许为多条为空，键唯一，但值可以多个。                                  linkedMap键和值都不可以为空</p>
 
       
     </div>
@@ -395,8 +397,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/likemoves.github.io/2020/05/20/Java面试知识点--并发篇/" rel="next" title="Java面试知识点--并发与多线程">
-                <i class="fa fa-chevron-left"></i> Java面试知识点--并发与多线程
+              <a href="/likemoves.github.io/2020/05/20/剑指offer面试题55--二叉树的深度/" rel="next" title="剑指offer面试题55--二叉树的深度">
+                <i class="fa fa-chevron-left"></i> 剑指offer面试题55--二叉树的深度
               </a>
             
           </div>
@@ -405,8 +407,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/likemoves.github.io/2020/05/20/Redis学习笔记/" rel="prev" title="Redis学习笔记">
-                Redis学习笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/likemoves.github.io/2020/05/20/Java面试知识点--并发篇/" rel="prev" title="Java面试知识点--并发与多线程">
+                Java面试知识点--并发与多线程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -484,7 +486,7 @@
               
                 <a href="/likemoves.github.io/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -506,7 +508,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/likemoves.github.io/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -539,7 +541,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些是线程安全的List？"><span class="nav-number">1.</span> <span class="nav-text">哪些是线程安全的List？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CopyOnWriteArrayList，如何实现线程安全的。"><span class="nav-number">2.</span> <span class="nav-text">CopyOnWriteArrayList，如何实现线程安全的。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collections-synchronizedList-和CopyOnWriteArrayList使用场景"><span class="nav-number">3.</span> <span class="nav-text">Collections.synchronizedList()和CopyOnWriteArrayList使用场景</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些是线程安全的List？"><span class="nav-number">1.</span> <span class="nav-text">哪些是线程安全的List？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CopyOnWriteArrayList，如何实现线程安全的。"><span class="nav-number">2.</span> <span class="nav-text">CopyOnWriteArrayList，如何实现线程安全的。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collections-synchronizedList-和CopyOnWriteArrayList使用场景"><span class="nav-number">3.</span> <span class="nav-text">Collections.synchronizedList()和CopyOnWriteArrayList使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap和LinkedHashMap的区别"><span class="nav-number">4.</span> <span class="nav-text">HashMap和LinkedHashMap的区别</span></a></li></ol></div>
             
 
           </div>

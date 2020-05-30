@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/22/剑指offer面试题57--和为s的数字/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/30/剑指offer面试题68--树中两个结点的最低公共祖先/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="如烟Ryans">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/likemoves.github.io/2020/05/22/剑指offer面试题57--和为s的数字/" itemprop="url">剑指offer面试题57--和为s的数字</a></h1>
+                <a class="post-title-link" href="/likemoves.github.io/2020/05/30/剑指offer面试题68--树中两个结点的最低公共祖先/" itemprop="url">剑指offer面试题68--树中两个结点的最低公共祖先</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T10:13:59+08:00">
-                2020-05-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-30T19:13:59+08:00">
+                2020-05-30
               </time>
             
 
@@ -352,13 +352,14 @@
       
         
           
-          题目1输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S；如果有多对数字的和等于S，输出两个数的乘积最小的。
+          题目1输入一棵树的两个结点，返回它们的最低公共祖先。
 
-先看这个条件：和一样，要求乘积最小。由于数组递增排序，那么这两个数与其他和为s的两个数比，相隔的距离更远。这里就不证明了，试想周长一样的两个图形，又扁又长的矩形和
+这道题说得很含糊，仅仅告诉了一棵树，那这棵树是二叉树吗？再具体点，它是二叉查找树吗？我们来一一讨论这这几种情况。
+如果这颗树是二叉查找树二叉查找树的特点是：任意父节点都大于其左子树的所有结点值，且都小于其右子树的所有结点值。两个结点的公共祖先一
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/likemoves.github.io/2020/05/22/剑指offer面试题57--和为s的数字/#more" rel="contents">
+            <a class="btn" href="/likemoves.github.io/2020/05/30/剑指offer面试题68--树中两个结点的最低公共祖先/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -409,7 +410,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/22/剑指offer面试题56--数组中数字出现的次数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/29/剑指offer面试题67--把字符串转换成整数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="如烟Ryans">
@@ -428,7 +429,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/likemoves.github.io/2020/05/22/剑指offer面试题56--数组中数字出现的次数/" itemprop="url">剑指offer面试题56--数组中数字出现的次数</a></h1>
+                <a class="post-title-link" href="/likemoves.github.io/2020/05/29/剑指offer面试题67--把字符串转换成整数/" itemprop="url">剑指offer面试题67--把字符串转换成整数</a></h1>
         
 
         <div class="post-meta">
@@ -440,8 +441,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T09:13:59+08:00">
-                2020-05-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-29T19:13:59+08:00">
+                2020-05-29
               </time>
             
 
@@ -502,15 +503,13 @@
       
         
           
-          题目12一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度为O(n)，空间复杂度为O(1).
+          题目1将一个字符串转换成一个整数，要求不能使用字符串转换整数的库函数。 数值为0或者字符串不是一个合法的数值则返回0
 
-思路哈希表不可行，因为要求不开辟新空间。
-排序也不可取，最快排序也要O(nlogn)
-这方法很有趣，首先看如何在一个数组中找出一个只出现一次的数字，
+12345678public static int str2Int &#123;    // 核心代码    int number = 0;    for (int i = 0; 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/likemoves.github.io/2020/05/22/剑指offer面试题56--数组中数字出现的次数/#more" rel="contents">
+            <a class="btn" href="/likemoves.github.io/2020/05/29/剑指offer面试题67--把字符串转换成整数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -561,7 +560,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/20/Redis学习笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/29/剑指offer面试题66--构建乘积数组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="如烟Ryans">
@@ -580,7 +579,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/likemoves.github.io/2020/05/20/Redis学习笔记/" itemprop="url">Redis学习笔记</a></h1>
+                <a class="post-title-link" href="/likemoves.github.io/2020/05/29/剑指offer面试题66--构建乘积数组/" itemprop="url">剑指offer面试题66--构建乘积数组</a></h1>
         
 
         <div class="post-meta">
@@ -592,8 +591,1059 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-20T22:13:59+08:00">
-                2020-05-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-29T18:13:59+08:00">
+                2020-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目123给定一个数组A[0, 1,...n - 1],请构建一个数组B[0, 1,...n - 1]，其中B中的元素B[i] = A[0]*A[1]*...*A[i - 1]*A[i + 1]*...*A[n - 1]不能使用除法。
+
+如果可以使用除法，直接除以A[i]就可以得到B[i],但是现在
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/likemoves.github.io/2020/05/29/剑指offer面试题66--构建乘积数组/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/28/MySQL面试知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/likemoves.github.io/2020/05/28/MySQL面试知识/" itemprop="url">MySQL面试知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-28T19:13:59+08:00">
+                2020-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          MySQL架构
+连接层：最上层是一些客户端和连接服务。主要完成一些类似于连接处理、授权认证、及相关的安全方案。在该层上引入了线程池的概念，为通过认证安全接入的客户端提供线程。同样在该层上可以实现基于SSL的安全链接。服务器也会为安全接入的每个客户端验证它所具有的操作权限。
+服务层：第二层服务层，主要
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/likemoves.github.io/2020/05/28/MySQL面试知识/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/28/剑指offer面试题65--不用加减乘除做加法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/likemoves.github.io/2020/05/28/剑指offer面试题65--不用加减乘除做加法/" itemprop="url">剑指offer面试题65--不用加减乘除做加法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-28T19:13:59+08:00">
+                2020-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目1写一个函数，求两个整数之和，要求在函数体内不得使用&quot;+&quot;、&quot;-&quot;、&quot;x&quot;、&quot;÷&quot;四则运算符号。
+
+不能用四则运算，自然容易想到用位运算。但如何使用位运算作加法呢？先来分析十进制是如何作加法的。比如要18 + 6
+1
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/likemoves.github.io/2020/05/28/剑指offer面试题65--不用加减乘除做加法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/28/剑指offer面试题64--求1+2+3+...+n/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/likemoves.github.io/2020/05/28/剑指offer面试题64--求1+2+3+...+n/" itemprop="url">剑指offer面试题64--求1+2+3+...+n</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-28T18:13:59+08:00">
+                2020-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目1求1+2+3+...+n,要求不能使用乘除法、for、while、if、else、switch、case等关键词以及三元运算符等。
+
+方法一：递归123456public class Sum &#123;    public int Sum_Solution(int n) &#123;    
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/likemoves.github.io/2020/05/28/剑指offer面试题64--求1+2+3+...+n/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/27/剑指offer面试题63--股票的最大利润/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/likemoves.github.io/2020/05/27/剑指offer面试题63--股票的最大利润/" itemprop="url">剑指offer面试题63--股票的最大利润</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-27T20:13:59+08:00">
+                2020-05-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目12假设某股票的价格按照时间先后顺序存储在数组中，问买卖该股票一次可能获得的最大利润是多少？如一支股票在某段时间内的价格为&#123;9, 11, 8, 5, 7, 12, 16, 14&#125;那么能在价格为5的时候购入并在价格为16时卖出，能获得最大利润11
+
+咋一看好像只要求出数组中的最
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/likemoves.github.io/2020/05/27/剑指offer面试题63--股票的最大利润/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/27/剑指offer面试题62--圆圈中最后剩下的数字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/likemoves.github.io/2020/05/27/剑指offer面试题62--圆圈中最后剩下的数字/" itemprop="url">剑指offer面试题62--圆圈中最后剩下的数字</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-27T19:13:59+08:00">
+                2020-05-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目10, 1, 2...,n - 1这n个数字排成一个圆圈，一开始从数字0开始，从这个圆圈里删除第m个数字；然后从被删除的数字后一位开始计数，继续删除第m个数字...重复这个过程，直到最后只剩一个数字为止。求出这个圆圈里剩下的最后一个数字。
+
+用环形链表模拟圆圈比较直观的思路就是模拟游戏的过程，题
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/likemoves.github.io/2020/05/27/剑指offer面试题62--圆圈中最后剩下的数字/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/26/剑指offer面试题61--扑克牌中的顺子/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/likemoves.github.io/2020/05/26/剑指offer面试题61--扑克牌中的顺子/" itemprop="url">剑指offer面试题61--扑克牌中的顺子</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-26T21:13:59+08:00">
+                2020-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目1从扑克牌中随机抽5张牌，判断是不是一个顺子，即这五张牌是不是连续的。2~10是数字本身，A为1，J为11，Q为12，K为13，而大小王可以看成任意数字。
+
+方法1：用大小王填补间隔正常的顺子比如23456，假如含有大小王呢？03467也能构成顺子，虽然4和6中间有一个间隔，但是因为存在一张大小
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/likemoves.github.io/2020/05/26/剑指offer面试题61--扑克牌中的顺子/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/25/Java面试知识点--基础篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/likemoves.github.io/2020/05/25/Java面试知识点--基础篇/" itemprop="url">Java面试知识点--基础篇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-25T20:13:59+08:00">
+                2020-05-25
               </time>
             
 
@@ -654,1069 +1704,16 @@
       
         
           
-          为什么redis能这么快100000+QPS（QPS即query per second，每秒内查询次数）
+          java异常处理机制异常处理机制主要回答了三个问题
 
-完全基于内存，绝大部分请求是纯粹的内存操作，执行效率高数据结构简单，对数据操作也简单采用单线程，单线程也能处理高并发请求，想多核也可启动多实例使用多路I/O复用模型，非阻塞IO
+What：异常类型回答了什么被抛出Where：异常堆栈跟踪回答了在哪抛出Why：异常信息回答了为什么被抛出
 
-redis基
+抛出异常：创建异常对象，交由运行时系统处理捕获异常：寻找合适的异常处理器处理异常，否则终止运行
+Error和Exception的区别从概
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/likemoves.github.io/2020/05/20/Redis学习笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/20/Java面试知识点--集合篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="如烟Ryans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="如烟Ryans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/likemoves.github.io/2020/05/20/Java面试知识点--集合篇/" itemprop="url">Java面试知识点--集合篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-20T20:13:59+08:00">
-                2020-05-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/likemoves.github.io/categories/java面试题/" itemprop="url" rel="index">
-                    <span itemprop="name">java面试题</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          哪些是线程安全的List？1）Collections.synchronizedList()
-Collections这样的一个类，使用它我们可以获取线程安全的List容器—Collections.synchronizedList(List list)，但是无论是读取还是写入，它都会进行加锁，当我们并发
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/likemoves.github.io/2020/05/20/Java面试知识点--集合篇/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/20/Java面试知识点--并发篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="如烟Ryans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="如烟Ryans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/likemoves.github.io/2020/05/20/Java面试知识点--并发篇/" itemprop="url">Java面试知识点--并发与多线程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-20T20:13:59+08:00">
-                2020-05-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/likemoves.github.io/categories/java面试题/" itemprop="url" rel="index">
-                    <span itemprop="name">java面试题</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          为什么我们调用 start() 方法时会执行 run() 方法，为什么我们不能直接调用 run() 方法？new 一个 Thread，线程进入了新建状态。调用 start() 方法，会启动一个线程并使线程进入了就绪状态，当分配到时间片后就可以开始运行了。 start() 会执行线程的相应准备工作，然
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/likemoves.github.io/2020/05/20/Java面试知识点--并发篇/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/20/剑指offer面试题55--二叉树的深度/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="如烟Ryans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="如烟Ryans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/likemoves.github.io/2020/05/20/剑指offer面试题55--二叉树的深度/" itemprop="url">剑指offer面试题55--二叉树的深度</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-20T19:13:59+08:00">
-                2020-05-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指offer</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          题目1输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。
-
-递归版本很容易想到使用递归，根结点处的深度为1，既然要求树的最长路径，必然从根结点的左右子树中选出深度更大的那棵子树，也就是整棵树的深度为
-depth(root) = m
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/likemoves.github.io/2020/05/20/剑指offer面试题55--二叉树的深度/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/20/剑指offer面试题54--二叉搜索树中排名为k的结点/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="如烟Ryans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="如烟Ryans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/likemoves.github.io/2020/05/20/剑指offer面试题54--二叉搜索树中排名为k的结点/" itemprop="url">剑指offer面试题54--二叉搜索树中排名为k的结点</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-20T19:13:59+08:00">
-                2020-05-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指offer</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          题目1给定一颗二叉搜索树，请找出排名第k的结点。
-
-注意是二叉搜索树，这说明对于任何结点，有父结点大于其左子结点且小于右子结点。如果中序遍历这棵树，就能得到递增排序的序列。
-接下来就很简单了，只需中序遍历到第k个结点，然后立即返回就行了。感觉对于这道题，非递归的中序遍历更好写一点。
-12345678
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/likemoves.github.io/2020/05/20/剑指offer面试题54--二叉搜索树中排名为k的结点/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/19/剑指offer面试题51--在排序数组中查找数字/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="如烟Ryans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="如烟Ryans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/likemoves.github.io/2020/05/19/剑指offer面试题51--在排序数组中查找数字/" itemprop="url">剑指offer面试题51--在排序数组中查找数字</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-19T22:13:59+08:00">
-                2020-05-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指offer</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          题目11统计一个数字在排序数组中出现的次数。
-
-遍历这是很容易想到的方法了，但时间复杂度O(n)，不推荐。
-1234567891011/**     * 方法一：遍历，O(n)复杂度，不推荐     */    public int getNumberOfK(int[] array, int k) 
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/likemoves.github.io/2020/05/19/剑指offer面试题51--在排序数组中查找数字/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/19/剑指offer面试题50--第一个只出现一次的字符/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="如烟Ryans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="如烟Ryans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/likemoves.github.io/2020/05/19/剑指offer面试题50--第一个只出现一次的字符/" itemprop="url">剑指offer面试题50--第一个只出现一次的字符</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-19T19:13:59+08:00">
-                2020-05-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指offer</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          题目1找出字符串中找出第一个只出现一次的字符，比如输入“abacceff&quot;,则输出&apos;b&apos;
-
-要想知道某个字符是不是只出现了一次，必须遍历字符串的每个字符。因此可以先遍历一次，统计每个字符出现次数。再遍历一次，遇到某个字符出现字符为1就立即返回。统计每个字符出现次数，可以
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/likemoves.github.io/2020/05/19/剑指offer面试题50--第一个只出现一次的字符/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/18/深入浅出理解Synchronized关键字/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="如烟Ryans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="如烟Ryans">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/likemoves.github.io/2020/05/18/深入浅出理解Synchronized关键字/" itemprop="url">深入浅出理解Synchronized关键字</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-18T20:13:59+08:00">
-                2020-05-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/likemoves.github.io/categories/java面试题/" itemprop="url" rel="index">
-                    <span itemprop="name">java面试题</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          使用场景修饰实例方法，对当前实例对象加锁
-修饰静态方法，对当前类对象加锁
-修饰代码块，指定一个加锁的对象，给对象加锁
-其实就是锁方法、锁代码块和锁对象
-JAVA对象构成对象头
-Mark Word（标记字段）：默认存储对象的HashCode，分代年龄和锁标志位信息。它会根据对象的状态复用自己的存储空间
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/likemoves.github.io/2020/05/18/深入浅出理解Synchronized关键字/#more" rel="contents">
+            <a class="btn" href="/likemoves.github.io/2020/05/25/Java面试知识点--基础篇/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1758,7 +1755,7 @@ Mark Word（标记字段）：默认存储对象的HashCode，分代年龄和锁
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/likemoves.github.io/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/likemoves.github.io/page/7/">7</a><a class="extend next" rel="next" href="/likemoves.github.io/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/likemoves.github.io/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/likemoves.github.io/page/8/">8</a><a class="extend next" rel="next" href="/likemoves.github.io/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1804,7 +1801,7 @@ Mark Word（标记字段）：默认存储对象的HashCode，分代年龄和锁
               
                 <a href="/likemoves.github.io/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1826,7 +1823,7 @@ Mark Word（标记字段）：默认存储对象的HashCode，分代年龄和锁
               
               <div class="site-state-item site-state-tags">
                 <a href="/likemoves.github.io/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="JVM与调优1.描述一下JVM加载Class文件的原理机制Java中的所有类，都需要由类加载器装载到JVM中才能运行。类加载器本身也是一个类，而它的工作就是把class文件从硬盘读取到内存中。在写程序的时候，我们几乎不需要关心类的加载，因为这些都是隐式装载的，除非我们有特殊的用法，像是反射，就需要显式的加载所需要的类。 类装载方式，有两种 ： 1.隐式装载， 程序在运行过程中当碰到通过new 等方">
+<meta name="description" content="JVM1.描述一下JVM加载Class文件的原理机制Java中的所有类，都需要由类加载器装载到JVM中才能运行。类加载器本身也是一个类，而它的工作就是把class文件从硬盘读取到内存中。在写程序的时候，我们几乎不需要关心类的加载，因为这些都是隐式装载的，除非我们有特殊的用法，像是反射，就需要显式的加载所需要的类。 类装载方式，有两种 ： 1.隐式装载， 程序在运行过程中当碰到通过new 等方式生成">
 <meta name="keywords" content="java,jvm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java面试知识点--JVM">
-<meta property="og:url" content="http://yoursite.com/2020/04/21/JVM与调优/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/04/21/Java面试知识点--JVM/index.html">
 <meta property="og:site_name" content="如烟Ryans">
-<meta property="og:description" content="JVM与调优1.描述一下JVM加载Class文件的原理机制Java中的所有类，都需要由类加载器装载到JVM中才能运行。类加载器本身也是一个类，而它的工作就是把class文件从硬盘读取到内存中。在写程序的时候，我们几乎不需要关心类的加载，因为这些都是隐式装载的，除非我们有特殊的用法，像是反射，就需要显式的加载所需要的类。 类装载方式，有两种 ： 1.隐式装载， 程序在运行过程中当碰到通过new 等方">
+<meta property="og:description" content="JVM1.描述一下JVM加载Class文件的原理机制Java中的所有类，都需要由类加载器装载到JVM中才能运行。类加载器本身也是一个类，而它的工作就是把class文件从硬盘读取到内存中。在写程序的时候，我们几乎不需要关心类的加载，因为这些都是隐式装载的，除非我们有特殊的用法，像是反射，就需要显式的加载所需要的类。 类装载方式，有两种 ： 1.隐式装载， 程序在运行过程中当碰到通过new 等方式生成">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-22T01:17:58.941Z">
+<meta property="og:updated_time" content="2020-05-26T15:38:36.351Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java面试知识点--JVM">
-<meta name="twitter:description" content="JVM与调优1.描述一下JVM加载Class文件的原理机制Java中的所有类，都需要由类加载器装载到JVM中才能运行。类加载器本身也是一个类，而它的工作就是把class文件从硬盘读取到内存中。在写程序的时候，我们几乎不需要关心类的加载，因为这些都是隐式装载的，除非我们有特殊的用法，像是反射，就需要显式的加载所需要的类。 类装载方式，有两种 ： 1.隐式装载， 程序在运行过程中当碰到通过new 等方">
+<meta name="twitter:description" content="JVM1.描述一下JVM加载Class文件的原理机制Java中的所有类，都需要由类加载器装载到JVM中才能运行。类加载器本身也是一个类，而它的工作就是把class文件从硬盘读取到内存中。在写程序的时候，我们几乎不需要关心类的加载，因为这些都是隐式装载的，除非我们有特殊的用法，像是反射，就需要显式的加载所需要的类。 类装载方式，有两种 ： 1.隐式装载， 程序在运行过程中当碰到通过new 等方式生成">
 
 
 
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/21/JVM与调优/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/21/Java面试知识点--JVM/">
 
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/04/21/JVM与调优/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/04/21/Java面试知识点--JVM/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="如烟Ryans">
@@ -352,7 +352,7 @@
       
 
       
-        <h1 id="JVM与调优"><a href="#JVM与调优" class="headerlink" title="JVM与调优"></a>JVM与调优</h1><h2 id="1-描述一下JVM加载Class文件的原理机制"><a href="#1-描述一下JVM加载Class文件的原理机制" class="headerlink" title="1.描述一下JVM加载Class文件的原理机制"></a>1.描述一下JVM加载Class文件的原理机制</h2><p>Java中的所有类，都需要由类加载器装载到JVM中才能运行。类加载器本身也是一个类，而它的工作就是把class文件从硬盘读取到内存中。在写程序的时候，我们几乎不需要关心类的加载，因为这些都是隐式装载的，除非我们有特殊的用法，像是反射，就需要显式的加载所需要的类。</p>
+        <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="1-描述一下JVM加载Class文件的原理机制"><a href="#1-描述一下JVM加载Class文件的原理机制" class="headerlink" title="1.描述一下JVM加载Class文件的原理机制"></a>1.描述一下JVM加载Class文件的原理机制</h2><p>Java中的所有类，都需要由类加载器装载到JVM中才能运行。类加载器本身也是一个类，而它的工作就是把class文件从硬盘读取到内存中。在写程序的时候，我们几乎不需要关心类的加载，因为这些都是隐式装载的，除非我们有特殊的用法，像是反射，就需要显式的加载所需要的类。</p>
 <p>类装载方式，有两种 ：</p>
 <p>1.<strong>隐式装载</strong>， 程序在运行过程中当碰到通过new 等方式生成对象时，隐式调用类装载器加载对应的类到jvm中，</p>
 <p>2.<strong>显式装载</strong>， 通过class.forname()等方法，显式加载需要的类</p>
@@ -401,6 +401,85 @@
 <p> 5、回收机制有<strong>分代复制垃圾回收</strong>和<strong>标记垃圾回收</strong>，<strong>增量垃圾回收</strong>。</p>
 <h2 id="5-Java-中会存在内存泄漏吗，请简单描述"><a href="#5-Java-中会存在内存泄漏吗，请简单描述" class="headerlink" title="5.Java 中会存在内存泄漏吗，请简单描述"></a>5.Java 中会存在内存泄漏吗，请简单描述</h2><p>所谓<strong>内存泄露</strong>就是指一个不再被程序使用的对象或变量一直被占据在内存中。</p>
 <p>java中的内存泄露的情况：<strong>长生命周期的对象</strong>持有<strong>短生命周期对象</strong>的引用就很可能发生内存泄露，尽管短生命周期对象已经不再需要，但是因为长生命周期对象<strong>持有</strong>它的引用而导致不能被回收，这就是java中内存泄露的发生场景，通俗地说，就是程序员可能创建了一个对象，以后一直不再使用这个对象，这个对象却一直被引用，即这个对象无用但是却无法被垃圾回收器回收的，这就是java中可能出现内存泄露的情况，例如，缓存系统，我们加载了一个对象放在缓存中(例如放在一个全局map对象中)，然后一直不再使用它，这个对象一直被缓存引用，但却不再被使用。 </p>
+<p>；</p>
+<h2 id="6-JVM调参"><a href="#6-JVM调参" class="headerlink" title="6.JVM调参"></a>6.JVM调参</h2><p>JVM三大性能调优参数-Xms-Xmx-Xss的含义</p>
+<blockquote>
+<p>-Xss：规定了每个线程虚拟机栈（堆栈）的大小<br>-Xms：堆的初始值  （扩容到最大值）<br>-Xmx：堆能达到的最大值</p>
+</blockquote>
+<blockquote>
+<p>-XX:SurvivorRatio:Eden和Survivor的比值，默认8：1<br>-XX:NewRatio：老年代和年轻代内存大小的比例  默认2：1<br>-XX:MaxTenuring Threshold：对象从年轻代晋升到老生代经过GC次数的最大阈值</p>
+</blockquote>
+<h2 id="7-Java内存模型中堆和栈的区别"><a href="#7-Java内存模型中堆和栈的区别" class="headerlink" title="7.Java内存模型中堆和栈的区别"></a>7.Java内存模型中堆和栈的区别</h2><p>内存分配策略</p>
+<blockquote>
+<p>静态存储：编译时确定每个数据目标在运行时的存储空间需求</p>
+<p>栈式存储：数据区需求在编译时未知，运行时模块入口前确定</p>
+<p>堆式存储：编译时或运行时模块入口都无法确定，动态分配</p>
+</blockquote>
+<p>管理方式：栈自动释放，堆需要GC</p>
+<p>空间大小：栈比堆小</p>
+<p>碎片相关：栈产生的碎片远小于堆</p>
+<p>分配方式：栈支持静态和动态分配，而堆仅支持动态分配</p>
+<p>效率：栈的效率比堆高</p>
+<h2 id="8-哪些对象可以作为GC-Root对象？"><a href="#8-哪些对象可以作为GC-Root对象？" class="headerlink" title="8.哪些对象可以作为GC Root对象？"></a>8.哪些对象可以作为GC Root对象？</h2><p>1）虚拟机栈中引用的对象，（栈帧中本地变量表中引用的对象）</p>
+<p>就是对象A的普通成员变量是对象B；A和B都在栈帧中，都可做GC Root对象</p>
+<p>2）方法区中类静态属性引用的对象；</p>
+<p>就是对象A的静态成员是对象static B,而 static B在方法区中，B中引用了对象的成员变量，那么B也作为GC Root对象</p>
+<p>3）方法区中常量引用的对象</p>
+<p>就是对象A的成员对象是final B，final修饰的B默认就是final static B；B中引用了对象的成员变量，那么B也作为GC Root对象</p>
+<p>4） 本地方法栈中JNI（native方法中）引用的对象</p>
+<h2 id="9-触发Full-GC的条件"><a href="#9-触发Full-GC的条件" class="headerlink" title="9.触发Full GC的条件"></a>9.触发Full GC的条件</h2><p>老年代空间不足</p>
+<p>永久代空间不足（jdk1.8之前）</p>
+<p>CMS GC时出现promotion failed，concurrent mode failure</p>
+<p>Minor GC晋升到老年代的平均大小大于老年代的剩余空间</p>
+<p>调用System.gc() （只是通知JVM，JVM决定是否GC）</p>
+<h2 id="10-垃圾收集器"><a href="#10-垃圾收集器" class="headerlink" title="10.垃圾收集器"></a>10.垃圾收集器</h2><p>CMS收集器  标记清除算法</p>
+<blockquote>
+<p>初始标记：stop-the-world</p>
+<p>并发标记：并发追溯标记，程序不会停顿</p>
+<p>并发预清理：查找执行并发标记阶段从年轻代晋升到老年代的对象</p>
+<p>重新标记：暂停虚拟机，扫描CMS堆中的剩余对象</p>
+<p>并发清理：清理垃圾对象，程序不会停顿</p>
+<p>并发重置：重置CMS收集器的数据结构</p>
+</blockquote>
+<p>G1收集器  复制 标记 整理算法</p>
+<p>特点：</p>
+<ol>
+<li>并行和并发</li>
+<li>分代收集</li>
+<li>空间整合</li>
+<li>可预测的停顿</li>
+<li>将整个Java堆内存划分成多个大小相等的Region</li>
+<li>年轻代和老年代不再物理隔离</li>
+</ol>
+<h2 id="11-Object的finalize0方法的作用是否与C-的析构函数作用相同"><a href="#11-Object的finalize0方法的作用是否与C-的析构函数作用相同" class="headerlink" title="11.Object的finalize0方法的作用是否与C++的析构函数作用相同"></a>11.Object的finalize0方法的作用是否与C++的析构函数作用相同</h2><ol>
+<li>与C++的析构函数不同，析构函数调用确定，而它的是不确定的</li>
+<li>将未被引用的对象放置于F-Queue队列</li>
+<li>方法执行随时可能会被终止</li>
+<li>给予对象最后一次重生的机会</li>
+</ol>
+<h2 id="12-Java中的强引用，软引用，弱引用，虚引用有什么用"><a href="#12-Java中的强引用，软引用，弱引用，虚引用有什么用" class="headerlink" title="12.Java中的强引用，软引用，弱引用，虚引用有什么用"></a>12.Java中的强引用，软引用，弱引用，虚引用有什么用</h2><h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><blockquote>
+<p>最普遍的引用：Object obj=new Object）<br>抛出OutOfMemoryError终止程序也不会回收具有强引用的对象<br>通过将对象设置为null来弱化引用，使其被回收</p>
+</blockquote>
+<h3 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h3><blockquote>
+<p>对象处在有用但非必须的状态<br>只有当内存空间不足时，GC会回收该引用的对象的内存<br>可以用来实现高速缓存</p>
+</blockquote>
+<h3 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h3><blockquote>
+<p>非必须的对象，比软引用更弱一些<br>GC时会被回<br>被回收的概率也不大，因为GC线程优先级比较低<br>适用于引用偶尔被使用且不影响垃圾收集的对象</p>
+</blockquote>
+<h3 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h3><blockquote>
+<p>不会决定对象的生命周期<br>任何时候都可能被垃圾收集器回收<br>跟踪对象被垃圾收集器回收的活动，起哨兵作用<br>必须和引用队列ReferenceQueue联合使用</p>
+</blockquote>
+<h3 id="引用队列"><a href="#引用队列" class="headerlink" title="引用队列"></a>引用队列</h3><blockquote>
+<p>无实际存储结构，存储逻辑依赖于内部节点之间的关系来表达</p>
+</blockquote>
+<h2 id="13-java中子类继承父类程序执行顺序"><a href="#13-java中子类继承父类程序执行顺序" class="headerlink" title="13.java中子类继承父类程序执行顺序"></a>13.java中子类继承父类程序执行顺序</h2><p>执行顺序：</p>
+<p>1、类内容（静态变量、静态初始化块） =&gt; 实例内容（变量、初始化块、构造器）</p>
+<p>2、父类的（静态变量、静态初始化块）=&gt; 子类的（静态变量、静态初始化块）=&gt; 父类的（变量、初始化块、构造器）=&gt; 子类的（变量、初始化块、构造器）</p>
+<h2 id="14-JMM如何解决可见性问题"><a href="#14-JMM如何解决可见性问题" class="headerlink" title="14.JMM如何解决可见性问题"></a>14.JMM如何解决可见性问题</h2><h3 id="happens-before"><a href="#happens-before" class="headerlink" title="happens-before"></a>happens-before</h3><p>A操作的结果需要对B操作可见，则A与B存在happens-before关系</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i=<span class="number">1</span>;<span class="comment">//线程A执行</span></span><br><span class="line">j=i;<span class="comment">//线程B执行</span></span><br><span class="line"></span><br><span class="line">线程B必须在线程A之后执行，A与B存在happens-before关系</span><br></pre></td></tr></table></figure>
+
+<h3 id="happens-before-八大原则"><a href="#happens-before-八大原则" class="headerlink" title="happens-before 八大原则"></a>happens-before 八大原则</h3><p>1.程序次序规则：一个线程内，按照代码顺序，书写在前面的操作先行发生于书写在后面的操作；<br>2.锁定规则：一个unLock操作先行发生于后面对同一个锁的lock操作；<br>3.volatile变量规则：对一个变量的写操作先行发生于后面对这个变量的读操作；<br>4.传递规则：如果操作A先行发生于操作B，而操作B又先行发生于操作C，则可以得出操作A先行发生于操作C；<br>5.线程启动规则：Thread对象的start）方法先行发生于此线程的每一个动作；<br>6.线程中断规则：对线程interrupt（）方法的调用先行发生于被中断线程的代码检测到中断事件的发生；<br>7.线程终结规则：线程中所有的操作都先行发生于线程的终止检测，我们可以通过Thread.join（）方法结束、Thread.isAlive0的返回值手段检测到线程已经终止执行；<br>8.对象终结规则：一个对象的初始化完成先行发生于他的finalize0方法的开始；</p>
+<p>如果两个操作不满足上述任意一个happens-before规则，那么这两个操作就没有顺序的保障，JVM可以对这两个操作进行重排序；如果操作A happens-before操作B，那么操作A在内存上所做的操作对操作B都是可见的。</p>
 
       
     </div>
@@ -522,7 +601,7 @@
               
                 <a href="/likemoves.github.io/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -544,7 +623,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/likemoves.github.io/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -577,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM与调优"><span class="nav-number">1.</span> <span class="nav-text">JVM与调优</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-描述一下JVM加载Class文件的原理机制"><span class="nav-number">1.1.</span> <span class="nav-text">1.描述一下JVM加载Class文件的原理机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-GC-是什么-为什么要有-GC？"><span class="nav-number">1.2.</span> <span class="nav-text">2.GC 是什么? 为什么要有 GC？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-JVM堆的新生代，老年代，永久代"><span class="nav-number">1.3.</span> <span class="nav-text">3.JVM堆的新生代，老年代，永久代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-垃圾回收机制的优点和原理，并考虑两种回收机制"><span class="nav-number">1.4.</span> <span class="nav-text">4.垃圾回收机制的优点和原理，并考虑两种回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Java-中会存在内存泄漏吗，请简单描述"><span class="nav-number">1.5.</span> <span class="nav-text">5.Java 中会存在内存泄漏吗，请简单描述</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">1.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-描述一下JVM加载Class文件的原理机制"><span class="nav-number">1.1.</span> <span class="nav-text">1.描述一下JVM加载Class文件的原理机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-GC-是什么-为什么要有-GC？"><span class="nav-number">1.2.</span> <span class="nav-text">2.GC 是什么? 为什么要有 GC？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-JVM堆的新生代，老年代，永久代"><span class="nav-number">1.3.</span> <span class="nav-text">3.JVM堆的新生代，老年代，永久代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-垃圾回收机制的优点和原理，并考虑两种回收机制"><span class="nav-number">1.4.</span> <span class="nav-text">4.垃圾回收机制的优点和原理，并考虑两种回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Java-中会存在内存泄漏吗，请简单描述"><span class="nav-number">1.5.</span> <span class="nav-text">5.Java 中会存在内存泄漏吗，请简单描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-JVM调参"><span class="nav-number">1.6.</span> <span class="nav-text">6.JVM调参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Java内存模型中堆和栈的区别"><span class="nav-number">1.7.</span> <span class="nav-text">7.Java内存模型中堆和栈的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-哪些对象可以作为GC-Root对象？"><span class="nav-number">1.8.</span> <span class="nav-text">8.哪些对象可以作为GC Root对象？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-触发Full-GC的条件"><span class="nav-number">1.9.</span> <span class="nav-text">9.触发Full GC的条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-垃圾收集器"><span class="nav-number">1.10.</span> <span class="nav-text">10.垃圾收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Object的finalize0方法的作用是否与C-的析构函数作用相同"><span class="nav-number">1.11.</span> <span class="nav-text">11.Object的finalize0方法的作用是否与C++的析构函数作用相同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Java中的强引用，软引用，弱引用，虚引用有什么用"><span class="nav-number">1.12.</span> <span class="nav-text">12.Java中的强引用，软引用，弱引用，虚引用有什么用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强引用"><span class="nav-number">1.12.1.</span> <span class="nav-text">强引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软引用"><span class="nav-number">1.12.2.</span> <span class="nav-text">软引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弱引用"><span class="nav-number">1.12.3.</span> <span class="nav-text">弱引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚引用"><span class="nav-number">1.12.4.</span> <span class="nav-text">虚引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用队列"><span class="nav-number">1.12.5.</span> <span class="nav-text">引用队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-java中子类继承父类程序执行顺序"><span class="nav-number">1.13.</span> <span class="nav-text">13.java中子类继承父类程序执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-JMM如何解决可见性问题"><span class="nav-number">1.14.</span> <span class="nav-text">14.JMM如何解决可见性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#happens-before"><span class="nav-number">1.14.1.</span> <span class="nav-text">happens-before</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#happens-before-八大原则"><span class="nav-number">1.14.2.</span> <span class="nav-text">happens-before 八大原则</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

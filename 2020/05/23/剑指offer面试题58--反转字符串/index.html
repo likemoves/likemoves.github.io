@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/likemoves.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/likemoves.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/likemoves.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/likemoves.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/likemoves.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/likemoves.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,算法,剑指offer,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="题目12输入一个英文句子，翻转句子中单词的顺序，但单词内的顺序不变。为简单起见，标点符号和普通字母一样处理。例如输入&amp;quot;I am a student.&amp;quot;则输出&amp;quot;student. a am I&amp;quot;  方法1：以空格为分隔符split以空格为分隔符使用split，这就将字符串变成了单词数组。然后逆序遍历字单词数组，在除了最后一个单词外的其他每个单词后添加一个空格即可">
+<meta name="keywords" content="java,算法,剑指offer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指offer面试题58--反转字符串">
+<meta property="og:url" content="http://yoursite.com/2020/05/23/剑指offer面试题58--反转字符串/index.html">
+<meta property="og:site_name" content="如烟Ryans">
+<meta property="og:description" content="题目12输入一个英文句子，翻转句子中单词的顺序，但单词内的顺序不变。为简单起见，标点符号和普通字母一样处理。例如输入&amp;quot;I am a student.&amp;quot;则输出&amp;quot;student. a am I&amp;quot;  方法1：以空格为分隔符split以空格为分隔符使用split，这就将字符串变成了单词数组。然后逆序遍历字单词数组，在除了最后一个单词外的其他每个单词后添加一个空格即可">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-26T14:42:37.338Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="剑指offer面试题58--反转字符串">
+<meta name="twitter:description" content="题目12输入一个英文句子，翻转句子中单词的顺序，但单词内的顺序不变。为简单起见，标点符号和普通字母一样处理。例如输入&amp;quot;I am a student.&amp;quot;则输出&amp;quot;student. a am I&amp;quot;  方法1：以空格为分隔符split以空格为分隔符使用split，这就将字符串变成了单词数组。然后逆序遍历字单词数组，在除了最后一个单词外的其他每个单词后添加一个空格即可">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/likemoves.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/23/剑指offer面试题58--反转字符串/">
+
+
+
+
+
+  <title>剑指offer面试题58--反转字符串 | 如烟Ryans</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/likemoves.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如烟Ryans</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/likemoves.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/likemoves.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/likemoves.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/likemoves.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/likemoves.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/23/剑指offer面试题58--反转字符串/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">剑指offer面试题58--反转字符串</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-23T10:13:59+08:00">
+                2020-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入一个英文句子，翻转句子中单词的顺序，但单词内的顺序不变。为简单起见，标点符号和普通字母一样处理。</span><br><span class="line">例如输入&quot;I am a student.&quot;则输出&quot;student. a am I&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法1：以空格为分隔符split"><a href="#方法1：以空格为分隔符split" class="headerlink" title="方法1：以空格为分隔符split"></a>方法1：以空格为分隔符split</h3><p>以空格为分隔符使用split，这就将字符串变成了单词数组。然后逆序遍历字单词数组，在除了最后一个单词外的其他每个单词后添加一个空格即可。</p>
+<p>这道题需要考虑字符串中的字符全是空格的特殊情况，这种情况下没有任何单词，所以直接返回空字符串即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReverseWords</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 方法1：使用split,不能处理单词之间有多个空格的情况</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> String <span class="title">ReverseSentence</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">if</span> (str == <span class="keyword">null</span> || str.trim().equals(<span class="string">""</span>)) <span class="keyword">return</span> str;</span><br><span class="line">         </span><br><span class="line">         String[] words =str.split(<span class="string">" "</span>);</span><br><span class="line">         StringBuilder sb=<span class="keyword">new</span> StringBuilder();</span><br><span class="line">         <span class="keyword">for</span>(<span class="keyword">int</span> i=words.length-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">             sb.append(words[i]);</span><br><span class="line">             <span class="keyword">if</span>(i&gt;<span class="number">0</span>) sb.append(<span class="string">" "</span>);</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span> sb.toString();</span><br><span class="line">         </span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法2：先整体反转再局部反转"><a href="#方法2：先整体反转再局部反转" class="headerlink" title="方法2：先整体反转再局部反转"></a>方法2：先整体反转再局部反转</h3><p>比如字符串”I am a student.”，整个翻转后得到”.tneduts a ma I”，然后翻转每个单词即可，将单词分隔开的依然是空格。该字符串有4个单词，做四次局部反转后就得到了结果”student. a am I”。</p>
+<p>关键是要如何反转字符串的局部。可以设置两个指针，一个low指向局部字符串的头部，一个high指向局部字符串的尾部，一开始low和high都位于字符串的头部。当<strong>low指向的不是空格且high指向的字符是空格</strong>，此时就可以开始反转[low,high]内的字符串了….然后low和high继续向右移动，直到四个单词都被翻转。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Chap6;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReverseWords</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 方法2：先整体反转，再局部反转</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reverseWords</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(str==<span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">char</span>[] chars=str.toCharArray();</span><br><span class="line">        <span class="keyword">int</span> len=chars.length;</span><br><span class="line">        reverse(chars,<span class="number">0</span>,len-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">int</span> low=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> high=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(low&lt;len)&#123;</span><br><span class="line">            <span class="keyword">if</span>(chars[low]==<span class="string">' '</span>)&#123;</span><br><span class="line">                low++;</span><br><span class="line">                high++; </span><br><span class="line">                <span class="comment">// chars[low]不为空格</span></span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(high==len||chars[high]==<span class="string">' '</span>)&#123;</span><br><span class="line">                reverse(chars,low,--high);</span><br><span class="line">                low=++high;</span><br><span class="line">                 <span class="comment">// chars[low]和chars[high]都不为空格</span></span><br><span class="line">            &#125;<span class="keyword">else</span> high++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String(chars);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="keyword">char</span>[] chars, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high) &#123;</span><br><span class="line">            <span class="keyword">char</span> c = chars[high];</span><br><span class="line">            chars[high] = chars[low];</span><br><span class="line">            chars[low] = c;</span><br><span class="line">            low++;</span><br><span class="line">            high--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意到最后一个单词后面没有空格，但仍然需要翻转，所以<strong>翻转一个单词的条件是单词后面有空格或者单词的字符到达整个字符串的末尾。</strong>代码中先是–high使得子字符串中不含空格，之后后将++high赋值给low，那么下次判断low处必然是空格，此时<code>low == high == &#39; &#39;</code>，因此两个指针都要右移一位，以跳过空格。</p>
+<p>如果low和high处的字符都不是空格，说明还没有到单词的末尾，因此直接将high右移即可。</p>
+<p>这种方法对于单词之间有多个空格的情况也能正确处理。</p>
+<h2 id="题目2"><a href="#题目2" class="headerlink" title="题目2"></a>题目2</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">字符串的左旋操作是把字符串前面的若干个字符转移到字符串的尾部。</span><br><span class="line">比如输入字符串&quot;abcdefg&quot;和一个数字2，则左旋转后得到字符串&quot;cdefgab&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法1：使用StringBuilder"><a href="#方法1：使用StringBuilder" class="headerlink" title="方法1：使用StringBuilder"></a>方法1：使用StringBuilder</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RotateString</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 方法1：使用StringBuilder</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">leftRotateString</span><span class="params">(String str, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (str == <span class="keyword">null</span> || n &lt; <span class="number">0</span> || n &gt; str.length()) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder(str);</span><br><span class="line">        sb.append(sb.substring(<span class="number">0</span>, n));</span><br><span class="line">        <span class="keyword">return</span> sb.substring(n, sb.length());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法2：三次翻转——先局部翻转再整体翻转"><a href="#方法2：三次翻转——先局部翻转再整体翻转" class="headerlink" title="方法2：三次翻转——先局部翻转再整体翻转"></a>方法2：三次翻转——先局部翻转再整体翻转</h3><p>举个简单的例子”hello world”，按照上题的要求，会得到”world hello”. 而在此题中，假如要求将前五个字符左旋转，会得到” worldhello”(注意w前哟一个空格)，是不是接近了。</p>
+<p>所以本题可以延续上题的思路，不过这次先局部翻转再整体反转。如字符串”abcdefg”要求左旋转前两个字符，先反转ab和cdefg得到bagfedc，然后反转这个字符串得到cdefgab即是正确答案。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RotateString</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 三次反转：索引n将字符串分成两个子字符串，分别反转这两个子字符串，然后反转整个字符串。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">leftRotateString2</span><span class="params">(String str, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (str == <span class="keyword">null</span> || n &lt; <span class="number">0</span> || n &gt; str.length()) <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">char</span>[] chars = str.toCharArray();</span><br><span class="line">        reverse(chars, <span class="number">0</span>, n-<span class="number">1</span>);</span><br><span class="line">        reverse(chars, n, str.length() - <span class="number">1</span>);</span><br><span class="line">        reverse(chars, <span class="number">0</span>, str.length() - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String(chars);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="keyword">char</span>[] chars, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high) &#123;</span><br><span class="line">            <span class="keyword">char</span> c = chars[high];</span><br><span class="line">            chars[high] = chars[low];</span><br><span class="line">            chars[low] = c;</span><br><span class="line">            low++;</span><br><span class="line">            high--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/likemoves.github.io/tags/java/" rel="tag"># java</a>
+          
+            <a href="/likemoves.github.io/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/likemoves.github.io/tags/剑指offer/" rel="tag"># 剑指offer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/22/剑指offer面试题57--和为s的数字/" rel="next" title="剑指offer面试题57--和为s的数字">
+                <i class="fa fa-chevron-left"></i> 剑指offer面试题57--和为s的数字
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/24/剑指offer面试题59--队列的最大值/" rel="prev" title="剑指offer面试题59--队列的最大值">
+                剑指offer面试题59--队列的最大值 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">如烟Ryans</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/likemoves.github.io/archives/">
+              
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/likemoves.github.io/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/likemoves.github.io/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法1：以空格为分隔符split"><span class="nav-number">1.1.</span> <span class="nav-text">方法1：以空格为分隔符split</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法2：先整体反转再局部反转"><span class="nav-number">1.2.</span> <span class="nav-text">方法2：先整体反转再局部反转</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题目2"><span class="nav-number">2.</span> <span class="nav-text">题目2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法1：使用StringBuilder"><span class="nav-number">2.1.</span> <span class="nav-text">方法1：使用StringBuilder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法2：三次翻转——先局部翻转再整体翻转"><span class="nav-number">2.2.</span> <span class="nav-text">方法2：三次翻转——先局部翻转再整体翻转</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">如烟Ryans</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/likemoves.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/likemoves.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
