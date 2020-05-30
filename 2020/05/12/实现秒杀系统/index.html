@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/likemoves.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/likemoves.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/likemoves.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/likemoves.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/likemoves.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/likemoves.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,秒杀,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="实现用户登录以及分布式session流程1.用户第一次登陆，本身没有携带cookie，同时redis也没有token记录 2.通过数据库验证用户手机号以及密码 3.验证通过生成token，同时写入redis以及cookie中返回 4.此后用户携带cookie进行登录 5.从cookie中提取token，到redis中查询 6.如果存在直接判定登录成功，如果失败则需要重新登录 数据库设计商品表 秒杀">
+<meta name="keywords" content="java,秒杀">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现秒杀系统">
+<meta property="og:url" content="http://yoursite.com/2020/05/12/实现秒杀系统/index.html">
+<meta property="og:site_name" content="如烟Ryans">
+<meta property="og:description" content="实现用户登录以及分布式session流程1.用户第一次登陆，本身没有携带cookie，同时redis也没有token记录 2.通过数据库验证用户手机号以及密码 3.验证通过生成token，同时写入redis以及cookie中返回 4.此后用户携带cookie进行登录 5.从cookie中提取token，到redis中查询 6.如果存在直接判定登录成功，如果失败则需要重新登录 数据库设计商品表 秒杀">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-19T02:12:13.965Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实现秒杀系统">
+<meta name="twitter:description" content="实现用户登录以及分布式session流程1.用户第一次登陆，本身没有携带cookie，同时redis也没有token记录 2.通过数据库验证用户手机号以及密码 3.验证通过生成token，同时写入redis以及cookie中返回 4.此后用户携带cookie进行登录 5.从cookie中提取token，到redis中查询 6.如果存在直接判定登录成功，如果失败则需要重新登录 数据库设计商品表 秒杀">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/likemoves.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/12/实现秒杀系统/">
+
+
+
+
+
+  <title>实现秒杀系统 | 如烟Ryans</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/likemoves.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如烟Ryans</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/likemoves.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/likemoves.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/likemoves.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/likemoves.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/likemoves.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/12/实现秒杀系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">实现秒杀系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-12T20:13:59+08:00">
+                2020-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/web后端/" itemprop="url" rel="index">
+                    <span itemprop="name">web后端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="实现用户登录以及分布式session"><a href="#实现用户登录以及分布式session" class="headerlink" title="实现用户登录以及分布式session"></a>实现用户登录以及分布式session</h2><h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>1.用户第一次登陆，本身没有携带cookie，同时redis也没有token记录</p>
+<p>2.通过数据库验证用户手机号以及密码</p>
+<p>3.验证通过生成token，同时写入redis以及cookie中返回</p>
+<p>4.此后用户携带cookie进行登录</p>
+<p>5.从cookie中提取token，到redis中查询</p>
+<p>6.如果存在直接判定登录成功，如果失败则需要重新登录</p>
+<h2 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h2><p>商品表</p>
+<p>秒杀商品表</p>
+<p>订单表</p>
+<p>秒杀订单表</p>
+<h2 id="页面设计"><a href="#页面设计" class="headerlink" title="页面设计"></a>页面设计</h2><p>商品列表页</p>
+<p>商品详情页</p>
+<p>订单详情页</p>
+<h2 id="秒杀流程"><a href="#秒杀流程" class="headerlink" title="秒杀流程"></a>秒杀流程</h2><p>1.数据减库存 </p>
+<p>去秒杀商品表 stock_count减一</p>
+<p>2.创建订单 </p>
+<p>去订单表 插入一条数据</p>
+<p>3.写入秒杀订单</p>
+<p>去秒杀订单表 插入一条数据</p>
+<p>整个流程是一个事务 ，原子性要么全部成功要么全部失败</p>
+<h2 id="接口优化"><a href="#接口优化" class="headerlink" title="接口优化"></a>接口优化</h2><h3 id="解决超卖问题"><a href="#解决超卖问题" class="headerlink" title="解决超卖问题"></a>解决超卖问题</h3><p>1.数据库加唯一索引：防止用户重复购买</p>
+<p>2.SQL加库存数量判断，防止库存变成负数</p>
+<h3 id="减少数据库访问"><a href="#减少数据库访问" class="headerlink" title="减少数据库访问"></a>减少数据库访问</h3><p>1.系统初始化，把商品库存数量加载到Redis</p>
+<p>2.收到请求，Redis预减库存，库存不足，直接返回，否则进入3</p>
+<p>3.请求入队（消息队列），立即返回排队中</p>
+<p>4.请求出队，生成订单，减少库存</p>
+<p>5.客户端轮询，是否秒杀成功</p>
+<h2 id="rabbitMQ使用"><a href="#rabbitMQ使用" class="headerlink" title="rabbitMQ使用"></a>rabbitMQ使用</h2><h3 id="linux系统下常用指令"><a href="#linux系统下常用指令" class="headerlink" title="linux系统下常用指令"></a>linux系统下常用指令</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 启动rabbitmq服务</span><br><span class="line">sudo service rabbitmq-server start </span><br><span class="line"># 关闭rabbitmq服务</span><br><span class="line">sudo service rabbitmq-server stop</span><br><span class="line"># 重启服务</span><br><span class="line">sudo service rabbitmq-server restart</span><br><span class="line"># 查看服务运行状态</span><br><span class="line">sudo service rabbitmqctl status</span><br></pre></td></tr></table></figure>
+
+<h3 id="四种交换机类型"><a href="#四种交换机类型" class="headerlink" title="四种交换机类型"></a>四种交换机类型</h3><h4 id="1-Direct-Exchange"><a href="#1-Direct-Exchange" class="headerlink" title="1.Direct Exchange"></a>1.Direct Exchange</h4><p>处理路由键。需要将一个队列绑定到交换机上，要求该消息与一个特定的路由键完全匹配。这是一个完整的匹配。如果一个队列绑定到该交换机上要求路由键  “abc”，则只有被标记为“abc”的消息才被转发，不会转发abc.def，也不会转发dog.ghi，只会转发abc。</p>
+<h4 id="2-Fanout-Exchange"><a href="#2-Fanout-Exchange" class="headerlink" title="2.Fanout Exchange"></a>2.Fanout Exchange</h4><p>不处理路由键。你只需要简单的将队列绑定到交换机上。一个发送到交换机的消息都会被转发到与该交换机绑定的所有队列上。很像子网广播，每台子网内的主机都获得了一份复制的消息。Fanout交换机转发消息是最快的。</p>
+<h4 id="3-Topic-Exchange"><a href="#3-Topic-Exchange" class="headerlink" title="3.Topic Exchange"></a>3.Topic Exchange</h4><p>将路由键和某模式进行匹配。此时队列需要绑定要一个模式上。符号“#”匹配一个或多个词，符号“<em>”匹配不多不少一个词。因此“abc.#”能够匹配到“abc.def.ghi”，但是“abc.</em>” 只会匹配到“abc.def”。</p>
+<h4 id="4-Headers-Exchanges"><a href="#4-Headers-Exchanges" class="headerlink" title="4.Headers Exchanges"></a>4.Headers Exchanges</h4><p>不处理路由键。而是根据发送的消息内容中的headers属性进行匹配。在绑定Queue与Exchange时指定一组键值对；当消息发送到RabbitMQ时会取到该消息的headers与Exchange绑定时指定的键值对进行匹配；如果完全匹配则消息会路由到该队列，否则不会路由到该队列。headers属性是一个键值对，可以是Hashtable，键值对的值可以是任何类型。而fanout，direct，topic 的路由键都需要要字符串形式的。</p>
+<p>匹配规则x-match有下列两种类型：</p>
+<p>x-match = all ：表示所有的键值对都匹配才能接受到消息</p>
+<p>x-match = any ：表示只要有键值对匹配就能接受到消息</p>
+<h2 id="系统特点"><a href="#系统特点" class="headerlink" title="系统特点"></a>系统特点</h2><h3 id="1-明文密码而两次md5入库"><a href="#1-明文密码而两次md5入库" class="headerlink" title="1.明文密码而两次md5入库"></a>1.明文密码而两次md5入库</h3><p>两次MD5</p>
+<p>1.用户端：PASS=MD5(明文+固定Salt)  防止明文传输</p>
+<p>2.服务端：PASS=MD5(用户输入+随机Salt)  </p>
+<p>固定Salt是写死在程序中</p>
+<p>随机Salt是在用户注册过程中 随机生成 并且存储于数据库中</p>
+<h3 id="2-分布式session"><a href="#2-分布式session" class="headerlink" title="2.分布式session"></a>2.分布式session</h3><p>用户登录系统，随机产生token，并且将其存入redis缓存中，key=token，value=user对象</p>
+<p>之后将token存入cookie返回浏览器，此后用户在系统中会时刻保持cookie的状态。</p>
+<h3 id="3-JSR303自定义参数验证"><a href="#3-JSR303自定义参数验证" class="headerlink" title="3. JSR303自定义参数验证"></a>3. JSR303自定义参数验证</h3><p>使用JSR303自定义校验器，实现对用户账号、密码的验证，使得验证逻辑从业务代码中脱离出来。</p>
+<h3 id="4-全局异常统一处理"><a href="#4-全局异常统一处理" class="headerlink" title="4. 全局异常统一处理"></a>4. 全局异常统一处理</h3><p>通过拦截所有异常，对各种异常进行相应的处理，当遇到异常就逐层上抛，一直抛到最终由一个统一的、专门负责异常处理的地方处理，这有利于对异常的维护。</p>
+<h3 id="5-页面缓存-对象缓存"><a href="#5-页面缓存-对象缓存" class="headerlink" title="5. 页面缓存 + 对象缓存"></a>5. 页面缓存 + 对象缓存</h3><ol>
+<li>页面缓存：通过在手动渲染得到的html页面缓存到redis</li>
+<li>对象缓存：包括对用户信息、商品信息、订单信息和token等数据进行缓存，利用缓存来减少对数据库的访问，大大加快查询速度。</li>
+</ol>
+<h3 id="6-页面静态化"><a href="#6-页面静态化" class="headerlink" title="6. 页面静态化"></a>6. 页面静态化</h3><p>对商品详情和订单详情进行页面静态化处理，页面是存在html，动态数据是通过接口从服务端获取，实现前后端分离，静态页面无需连接数据库打开速度较动态页面会有明显提高</p>
+<h3 id="7-本地标记-redis预处理-RabbitMQ异步下单-客户端轮询"><a href="#7-本地标记-redis预处理-RabbitMQ异步下单-客户端轮询" class="headerlink" title="7. 本地标记 + redis预处理 + RabbitMQ异步下单 + 客户端轮询"></a>7. 本地标记 + redis预处理 + RabbitMQ异步下单 + 客户端轮询</h3><p>描述：通过三级缓冲保护，1、本地标记  2、redis预处理  3、RabbitMQ异步下单，最后才会访问数据库，这样做是为了最大力度减少对数据库的访问。</p>
+<p>实现：</p>
+<ol>
+<li>在秒杀阶段使用本地标记对用户秒杀过的商品做标记，若被标记过直接返回重复秒杀，未被标记才查询redis，通过本地标记来减少对redis的访问</li>
+<li>抢购开始前，将商品和库存数据同步到redis中，所有的抢购操作都在redis中进行处理，通过Redis预减少库存减少数据库访问</li>
+<li>为了保护系统不受高流量的冲击而导致系统崩溃的问题，使用RabbitMQ用异步队列处理下单，实际做了一层缓冲保护，做了一个窗口模型，窗口模型会实时的刷新用户秒杀的状态。</li>
+<li>client端用js轮询一个接口，用来获取处理状态</li>
+</ol>
+<h3 id="8-解决超卖"><a href="#8-解决超卖" class="headerlink" title="8. 解决超卖"></a>8. 解决超卖</h3><p>描述：比如某商品的库存为1，此时用户1和用户2并发购买该商品，用户1提交订单后该商品的库存被修改为0，而此时用户2并不知道的情况下提交订单，该商品的库存再次被修改为-1，这就是超卖现象</p>
+<p>实现：</p>
+<ol>
+<li>对库存更新时，先对库存判断，只有当库存大于0才能更新库存</li>
+<li>对用户id和商品id建立一个唯一索引，通过这种约束避免同一用户发同时两个请求秒杀到两件相同商品</li>
+<li>实现乐观锁，给商品信息表增加一个version字段，为每一条数据加上版本。每次更新的时候version+1，并且更新时候带上版本号，当提交前版本号等于更新前版本号，说明此时没有被其他线程影响到，正常更新，如果冲突了则不会进行提交更新。当库存是足够的情况下发生乐观锁冲突就进行一定次数的重试。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/likemoves.github.io/tags/java/" rel="tag"># java</a>
+          
+            <a href="/likemoves.github.io/tags/秒杀/" rel="tag"># 秒杀</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/11/剑指offer面试题42--连续子数组的最大和/" rel="next" title="剑指offer面试题42--连续子数组的最大和">
+                <i class="fa fa-chevron-left"></i> 剑指offer面试题42--连续子数组的最大和
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/13/剑指offer面试题43--1n整数中1出现的次数/" rel="prev" title="剑指offer面试题43--1~n整数中1出现的次数">
+                剑指offer面试题43--1~n整数中1出现的次数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">如烟Ryans</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/likemoves.github.io/archives/">
+              
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/likemoves.github.io/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/likemoves.github.io/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现用户登录以及分布式session"><span class="nav-number">1.</span> <span class="nav-text">实现用户登录以及分布式session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">1.1.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库设计"><span class="nav-number">2.</span> <span class="nav-text">数据库设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面设计"><span class="nav-number">3.</span> <span class="nav-text">页面设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#秒杀流程"><span class="nav-number">4.</span> <span class="nav-text">秒杀流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口优化"><span class="nav-number">5.</span> <span class="nav-text">接口优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决超卖问题"><span class="nav-number">5.1.</span> <span class="nav-text">解决超卖问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减少数据库访问"><span class="nav-number">5.2.</span> <span class="nav-text">减少数据库访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rabbitMQ使用"><span class="nav-number">6.</span> <span class="nav-text">rabbitMQ使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux系统下常用指令"><span class="nav-number">6.1.</span> <span class="nav-text">linux系统下常用指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种交换机类型"><span class="nav-number">6.2.</span> <span class="nav-text">四种交换机类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Direct-Exchange"><span class="nav-number">6.2.1.</span> <span class="nav-text">1.Direct Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Fanout-Exchange"><span class="nav-number">6.2.2.</span> <span class="nav-text">2.Fanout Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Topic-Exchange"><span class="nav-number">6.2.3.</span> <span class="nav-text">3.Topic Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Headers-Exchanges"><span class="nav-number">6.2.4.</span> <span class="nav-text">4.Headers Exchanges</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统特点"><span class="nav-number">7.</span> <span class="nav-text">系统特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-明文密码而两次md5入库"><span class="nav-number">7.1.</span> <span class="nav-text">1.明文密码而两次md5入库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分布式session"><span class="nav-number">7.2.</span> <span class="nav-text">2.分布式session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-JSR303自定义参数验证"><span class="nav-number">7.3.</span> <span class="nav-text">3. JSR303自定义参数验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-全局异常统一处理"><span class="nav-number">7.4.</span> <span class="nav-text">4. 全局异常统一处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-页面缓存-对象缓存"><span class="nav-number">7.5.</span> <span class="nav-text">5. 页面缓存 + 对象缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-页面静态化"><span class="nav-number">7.6.</span> <span class="nav-text">6. 页面静态化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-本地标记-redis预处理-RabbitMQ异步下单-客户端轮询"><span class="nav-number">7.7.</span> <span class="nav-text">7. 本地标记 + redis预处理 + RabbitMQ异步下单 + 客户端轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-解决超卖"><span class="nav-number">7.8.</span> <span class="nav-text">8. 解决超卖</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">如烟Ryans</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/likemoves.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/likemoves.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

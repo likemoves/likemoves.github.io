@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/likemoves.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/likemoves.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/likemoves.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/likemoves.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/likemoves.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/likemoves.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,算法,剑指offer,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="题目12345678给定一个数字，我们按照如下的规则把它翻译成字符串0 -&amp;gt; a1 -&amp;gt; b2 -&amp;gt; c...25 -&amp;gt; z一个数字可能有多种翻译，比如12258有五种，分别是&quot;bccfi&quot;, &quot;bwfi&quot;,&quot;bczi&quot;,&quot;mcfi&quot;, &quot;mzi&quot;.请实现一个函数，用来计算一个数字有多少种不同的翻译方法。  举个简单的例子，比如258，我们可以先翻译第一个数字，得到c，也可">
+<meta name="keywords" content="java,算法,剑指offer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指offer面试题46--把数字翻译成字符串">
+<meta property="og:url" content="http://yoursite.com/2020/05/16/剑指offer面试题46--把数字翻译成字符串/index.html">
+<meta property="og:site_name" content="如烟Ryans">
+<meta property="og:description" content="题目12345678给定一个数字，我们按照如下的规则把它翻译成字符串0 -&amp;gt; a1 -&amp;gt; b2 -&amp;gt; c...25 -&amp;gt; z一个数字可能有多种翻译，比如12258有五种，分别是&quot;bccfi&quot;, &quot;bwfi&quot;,&quot;bczi&quot;,&quot;mcfi&quot;, &quot;mzi&quot;.请实现一个函数，用来计算一个数字有多少种不同的翻译方法。  举个简单的例子，比如258，我们可以先翻译第一个数字，得到c，也可">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-18T15:18:14.538Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="剑指offer面试题46--把数字翻译成字符串">
+<meta name="twitter:description" content="题目12345678给定一个数字，我们按照如下的规则把它翻译成字符串0 -&amp;gt; a1 -&amp;gt; b2 -&amp;gt; c...25 -&amp;gt; z一个数字可能有多种翻译，比如12258有五种，分别是&quot;bccfi&quot;, &quot;bwfi&quot;,&quot;bczi&quot;,&quot;mcfi&quot;, &quot;mzi&quot;.请实现一个函数，用来计算一个数字有多少种不同的翻译方法。  举个简单的例子，比如258，我们可以先翻译第一个数字，得到c，也可">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/likemoves.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/16/剑指offer面试题46--把数字翻译成字符串/">
+
+
+
+
+
+  <title>剑指offer面试题46--把数字翻译成字符串 | 如烟Ryans</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/likemoves.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如烟Ryans</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/likemoves.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/likemoves.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/likemoves.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/likemoves.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/likemoves.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/16/剑指offer面试题46--把数字翻译成字符串/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">剑指offer面试题46--把数字翻译成字符串</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-16T20:13:59+08:00">
+                2020-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/剑指offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">给定一个数字，我们按照如下的规则把它翻译成字符串</span><br><span class="line"><span class="number">0</span> -&gt; a</span><br><span class="line"><span class="number">1</span> -&gt; b</span><br><span class="line"><span class="number">2</span> -&gt; c</span><br><span class="line">...</span><br><span class="line"><span class="number">25</span> -&gt; z</span><br><span class="line"></span><br><span class="line">一个数字可能有多种翻译，比如<span class="number">12258</span>有五种，分别是<span class="string">"bccfi"</span>, <span class="string">"bwfi"</span>,<span class="string">"bczi"</span>,<span class="string">"mcfi"</span>, <span class="string">"mzi"</span>.请实现一个函数，用来计算一个数字有多少种不同的翻译方法。</span><br></pre></td></tr></table></figure>
+
+<p>举个简单的例子，比如258，我们可以先翻译第一个数字，得到c，也可以翻译前两个数字，得到z；如果先翻译了一个数，对于剩下的58，和上面一样可以选择只翻译一位，得到f，也可以翻译两位（在这个例子中是不合法的，58没有与之映射的字符），如果先翻译了两位，对于剩下的8，只能有一种翻译方法了，得到i。所以最后得到两种翻译方法，cfi和zi。</p>
+<p>从这个简单的例子可以得到一般性的结论，令f(i)为从第i位开始的不同翻译的数目，因为每次可以选择值翻译一个数字，也可一次翻译两个数字，而对于剩下的数字也可以采用同样的方法，这是一个递归问题。</p>
+<h2 id="从左到右翻译的递归"><a href="#从左到右翻译的递归" class="headerlink" title="从左到右翻译的递归"></a>从左到右翻译的递归</h2><p>根据上面的思路，可写出从左到右翻译的递归解法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TranaLateNumToString</span></span>&#123;</span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 方法一：从左到右的递归，重复计算较多，但是可以保存编码的结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">translateNum</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        List&lt;String&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(n&lt;<span class="number">0</span>) <span class="keyword">return</span> List;</span><br><span class="line">        </span><br><span class="line">        String number=String.valueOf(n);</span><br><span class="line">        StringBuilder sb=<span class="keyword">new</span> StringBuilder();</span><br><span class="line">        translate(sb,number,list);</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">translate</span><span class="params">(StringBuilder sb, String str, List&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">if</span>(str.equals(<span class="string">""</span>))&#123;</span><br><span class="line">             list.add(sb.toString());</span><br><span class="line">             <span class="keyword">return</span> ;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="comment">// 一次只翻译一个数</span></span><br><span class="line">         String s1=str.substring(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">         <span class="keyword">char</span> letter1=numToLetter(s1);</span><br><span class="line">         sb.append(letter1);</span><br><span class="line">         translate(sb,str.substring(<span class="number">1</span>),list);</span><br><span class="line">         sb.deleteCharAt(sb.length()-<span class="number">1</span>);</span><br><span class="line">          <span class="comment">// 一次翻译二个数</span></span><br><span class="line">         <span class="keyword">if</span>(str.length()&gt;=<span class="number">2</span>)&#123;</span><br><span class="line">             String s2=str.substring(<span class="number">0</span>,<span class="number">2</span>);</span><br><span class="line">             <span class="keyword">if</span>(check(s2))&#123;</span><br><span class="line">                 <span class="keyword">char</span> letter2=numToLetter(s2);</span><br><span class="line">                 sb.append(letter2);</span><br><span class="line">                 translate(sb,str.substring(<span class="number">2</span>),list);</span><br><span class="line">                 sb.deleteCharAt(sb.length()-<span class="number">1</span>);</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 当一次翻译两位数时，检查是否范围在10-25之间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">check</span><span class="params">(String num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> val = Integer.parseInt(num);</span><br><span class="line">        <span class="keyword">return</span> val &gt;= <span class="number">10</span> &amp;&amp; val &lt;= <span class="number">25</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 数字 -&gt; 字母的映射，a的ASCII码是97，所以0-25的数字加上97就得到了题      * 目中的映射</span></span><br><span class="line"><span class="comment">     */</span> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">char</span> <span class="title">numToLetter</span><span class="params">(String num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">char</span>) (Integer.parseInt(num) + <span class="number">97</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用StringBuilder拼接每次翻译的结果，到字符串的结尾说明翻译完毕，将该翻译结果存到一个list中，StringBuilder每次append一个翻译字符然后递归地对其后的字符进行同样的操作，但是递归结束后，StringBuilder需要删除掉这个刚添加了翻译字符，实际上就是模拟了进出栈的过程，这保证了StringBuilder在其他递归调用中表示的翻译字符结果正确。注意只有当当前字符串长度大于等于2才能一次翻译两个数字，因此在翻译两个数字时别忘了判断下。</p>
+<p>这种方法，调用了很多次substring，空间上很浪费，而且自上而下的递归中有很多重复计算，效率并不高。但是该方法可以保存每种翻译的结果。</p>
+<h2 id="从右往左翻译的循环-动态规划"><a href="#从右往左翻译的循环-动态规划" class="headerlink" title="从右往左翻译的循环(动态规划)"></a>从右往左翻译的循环(动态规划)</h2><p>如果自下而上，从小的结果出发，保存每一步计算的结果，以供下一步使用，也就是我们按照从右到左的顺序翻译。</p>
+<p>f(i) = f(i+1) + f(i+2)</p>
+<p>对于上面的公式，也就是先求出f(n -1)，然后求出f(n -2)，之后根据这两个值求出f(n -3)，然后根据f(n-2)和f(n -3)求出f(n -4)一直往左知道求出$f(0)$，这就是我们要的结果！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TransLateNumToString</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 方法二：从右到左的循环，效率高，单纯的计数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getTranslateCount</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> count(String.valueOf(n));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">count</span><span class="params">(String num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = num.length();</span><br><span class="line">        <span class="keyword">int</span>[] counts = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">      	<span class="comment">// f(n -1)必然为1</span></span><br><span class="line">        counts[len - <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = len - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">int</span> high = num.charAt(i) - <span class="string">'0'</span>;</span><br><span class="line">            <span class="keyword">int</span> low = num.charAt(i + <span class="number">1</span>) - <span class="string">'0'</span>;</span><br><span class="line">            <span class="keyword">int</span> combineNum = high * <span class="number">10</span> + low;</span><br><span class="line">            <span class="keyword">if</span> (combineNum &gt;= <span class="number">10</span> &amp;&amp; combineNum &lt;= <span class="number">25</span>) &#123;</span><br><span class="line">                <span class="comment">// f(i) = f(i+1) +f(i+2),if中因为f(i+2)不存在，但是该值肯定为1</span></span><br><span class="line">                <span class="keyword">if</span> (i == len -<span class="number">2</span>) counts[i] = counts[i+<span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> counts[i] = counts[i+<span class="number">1</span>]+counts[i+<span class="number">2</span>];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// f(i) = f(i+1)</span></span><br><span class="line">                counts[i] = counts[i+<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 从第一个数字开始的不同翻译数目</span></span><br><span class="line">        <span class="keyword">return</span> counts[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码就是把公式翻译了一遍，其中counts数组存放每一步计算的结果，即保存f(0)~f(n -1)的值。f(n  -1)说明只有一位数，必然只有一种翻译方法；同样注意，当i = n  -2时候，f(i+2)将超出范围，需要特别处理，这种情况就是说，对于两位数比如18，肯定有两种翻译方法，即f(n -1) + 1 =  2种。</p>
+<p>最后一步得到counts[0]即f(0)返回即为答案。</p>
+<p>这种方法只需遍历数字的每一位即可，实现了题目的要求计算出了翻译数目，但是没有办法表示出翻译结果。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/likemoves.github.io/tags/java/" rel="tag"># java</a>
+          
+            <a href="/likemoves.github.io/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/likemoves.github.io/tags/剑指offer/" rel="tag"># 剑指offer</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/15/剑指offer面试题45--把数组排成最小的数/" rel="next" title="剑指offer面试题45--把数组排成最小的数">
+                <i class="fa fa-chevron-left"></i> 剑指offer面试题45--把数组排成最小的数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/17/剑指offer面试题47--礼物的最大价值/" rel="prev" title="剑指offer面试题47--礼物的最大价值">
+                剑指offer面试题47--礼物的最大价值 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">如烟Ryans</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/likemoves.github.io/archives/">
+              
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/likemoves.github.io/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/likemoves.github.io/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从左到右翻译的递归"><span class="nav-number">2.</span> <span class="nav-text">从左到右翻译的递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从右往左翻译的循环-动态规划"><span class="nav-number">3.</span> <span class="nav-text">从右往左翻译的循环(动态规划)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">如烟Ryans</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/likemoves.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/likemoves.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

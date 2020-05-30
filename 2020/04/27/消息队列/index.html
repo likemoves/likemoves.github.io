@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/likemoves.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/likemoves.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/likemoves.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/likemoves.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/likemoves.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/likemoves.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,中间件,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是消息队列消息队列可以简单理解为：把要传输的数据放在队列中。 把数据放到消息队列叫做生产者 从消息队列里边取数据叫做消费者 为什么要用消息队列解耦 系统A将userId写到消息队列中，系统C和系统D从消息队列中拿数据。这样有什么好处？  系统A只负责把数据写到队列中，谁想要或不想要这个数据(消息)，系统A一点都不关心。 即便现在系统D不想要userId这个数据了，系统B又突然想要userId这">
+<meta name="keywords" content="java,中间件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="消息队列">
+<meta property="og:url" content="http://yoursite.com/2020/04/27/消息队列/index.html">
+<meta property="og:site_name" content="如烟Ryans">
+<meta property="og:description" content="什么是消息队列消息队列可以简单理解为：把要传输的数据放在队列中。 把数据放到消息队列叫做生产者 从消息队列里边取数据叫做消费者 为什么要用消息队列解耦 系统A将userId写到消息队列中，系统C和系统D从消息队列中拿数据。这样有什么好处？  系统A只负责把数据写到队列中，谁想要或不想要这个数据(消息)，系统A一点都不关心。 即便现在系统D不想要userId这个数据了，系统B又突然想要userId这">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-8b6b8046286c88206fa144136f803af3_1440w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-a391345118fc2545b232411efea7b80d_1440w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-bfe84bf8578c4e8e47fe527106b6b426_1440w.jpg">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/uChmeeX1FpzjaiaLbo3bKFDic8zvesZQQY3OXibPgQman2bSZJ4VIxOKtGpwPjzOdcBcXndfvSfGLuRAGY2fQrdlQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/uChmeeX1FpzjaiaLbo3bKFDic8zvesZQQYqNXMwicnafsv3oSedFeWxvQXxd7iaK1nYwHCVu2ria6iaJsBbqHhl7hZqw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/uChmeeX1FpzjaiaLbo3bKFDic8zvesZQQYzeRTVOMHUU1zjE9ObAdR8nmaL9RGpVM6KarWONOKQsQ7bLOibKcY1icg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/uChmeeX1FpzjaiaLbo3bKFDic8zvesZQQYGzqjLEEExfaHBB0EkbQvEvIIaiaaAdMtdr12KgEfc0ktpqHMQibnau4g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:updated_time" content="2020-04-27T04:45:51.403Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="消息队列">
+<meta name="twitter:description" content="什么是消息队列消息队列可以简单理解为：把要传输的数据放在队列中。 把数据放到消息队列叫做生产者 从消息队列里边取数据叫做消费者 为什么要用消息队列解耦 系统A将userId写到消息队列中，系统C和系统D从消息队列中拿数据。这样有什么好处？  系统A只负责把数据写到队列中，谁想要或不想要这个数据(消息)，系统A一点都不关心。 即便现在系统D不想要userId这个数据了，系统B又突然想要userId这">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-8b6b8046286c88206fa144136f803af3_1440w.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/likemoves.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/27/消息队列/">
+
+
+
+
+
+  <title>消息队列 | 如烟Ryans</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/likemoves.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如烟Ryans</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/likemoves.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/likemoves.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/likemoves.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/likemoves.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/likemoves.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/04/27/消息队列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">消息队列</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-27T12:13:59+08:00">
+                2020-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/web后端/" itemprop="url" rel="index">
+                    <span itemprop="name">web后端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="什么是消息队列"><a href="#什么是消息队列" class="headerlink" title="什么是消息队列"></a>什么是消息队列</h2><p>消息队列可以简单理解为：<strong>把要传输的数据放在队列中</strong>。</p>
+<p>把数据放到消息队列叫做<strong>生产者</strong></p>
+<p>从消息队列里边取数据叫做<strong>消费者</strong></p>
+<h2 id="为什么要用消息队列"><a href="#为什么要用消息队列" class="headerlink" title="为什么要用消息队列"></a>为什么要用消息队列</h2><h3 id="解耦"><a href="#解耦" class="headerlink" title="解耦"></a>解耦</h3><p><img src="https://pic3.zhimg.com/80/v2-8b6b8046286c88206fa144136f803af3_1440w.jpg" alt="img"></p>
+<p>系统A将userId写到消息队列中，系统C和系统D从消息队列中拿数据。<strong>这样有什么好处</strong>？</p>
+<ul>
+<li>系统A<strong>只负责</strong>把数据写到队列中，谁想要或不想要这个数据(消息)，<strong>系统A一点都不关心</strong>。</li>
+<li>即便现在系统D不想要userId这个数据了，系统B又突然想要userId这个数据了，都跟系统A无关，系统A一点代码都不用改。</li>
+<li>系统D拿userId不再经过系统A，而是从消息队列里边拿。<strong>系统D即便挂了或者请求超时，都跟系统A无关，只跟消息队列有关</strong>。</li>
+</ul>
+<p>这样一来，系统A与系统B、C、D都<strong>解耦</strong>了。</p>
+<h3 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h3><p><img src="https://pic3.zhimg.com/80/v2-a391345118fc2545b232411efea7b80d_1440w.jpg" alt="img"></p>
+<p>系统A执行完了以后，将userId写到消息队列中，然后就直接返回了(至于其他的操作，则异步处理)。本来整个请求需要用950ms(同步)现在将调用其他系统接口异步化，只需要100ms(异步)</p>
+<h3 id="削峰"><a href="#削峰" class="headerlink" title="削峰"></a>削峰</h3><p><img src="https://pic2.zhimg.com/80/v2-bfe84bf8578c4e8e47fe527106b6b426_1440w.jpg" alt="img"></p>
+<p>系统B和系统C<strong>根据自己的能够处理的请求数去消息队列中拿数据</strong>，这样即便有每秒有8000个请求，那只是把请求放在消息队列中，去拿消息队列的消息<strong>由系统自己去控制</strong>，这样就不会把整个系统给搞崩。</p>
+<h2 id="消息队列缺点"><a href="#消息队列缺点" class="headerlink" title="消息队列缺点"></a>消息队列缺点</h2><h3 id="系统复杂性"><a href="#系统复杂性" class="headerlink" title="系统复杂性"></a>系统复杂性</h3><p>需要维护中间件，以及考虑消费的各种问题，包括<strong>重复消费</strong>、<strong>消息丢失</strong>、<strong>消息的顺序消费</strong></p>
+<h3 id="数据一致性"><a href="#数据一致性" class="headerlink" title="数据一致性"></a>数据一致性</h3><p>在分布式系统下，如何保证消息队列中的数据一致性</p>
+<h3 id="可用性"><a href="#可用性" class="headerlink" title="可用性"></a>可用性</h3><h2 id="消息队列问题以及解决方案"><a href="#消息队列问题以及解决方案" class="headerlink" title="消息队列问题以及解决方案"></a>消息队列问题以及解决方案</h2><h3 id="消息重复消费"><a href="#消息重复消费" class="headerlink" title="消息重复消费"></a>消息重复消费</h3><h4 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h4><p>消息队列的使用，我们都是有<strong>重试机制</strong>的，就是说我下游的某个业务发生异常了，我会抛出异常并且要求你<strong>重新发一次</strong>。但是不止一个业务在监听消息，如果消息重发，可能导致多个业务重新执行。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/uChmeeX1FpzjaiaLbo3bKFDic8zvesZQQY3OXibPgQman2bSZJ4VIxOKtGpwPjzOdcBcXndfvSfGLuRAGY2fQrdlQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>就好比上面的这样，我们的<strong>积分系统处理失败</strong>了，他这个系统肯定要求你<strong>重新发送</strong>一次这个消息对吧，积分的系统重新接收并且处理成功了，但是别人的活动，优惠券等等服务<strong>也监听了这个消息</strong>呀，那不就可能出现活动系统给他加积分加两次，优惠券扣两次这种情况么？</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>使用幂等接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">幂等是一个数学与计算机学概念，常见于抽象代数中。</span><br><span class="line">在编程中一个幂等操作的特点是其任意多次执行所产生的影响均与一次执行的影响相同。</span><br><span class="line">幂等函数，或幂等方法，是指可以使用相同参数重复执行，并能获得相同结果的函数。这些函数不会影响系统状态，也不用担心重复执行会对系统造成改变。</span><br><span class="line">例如，“setTrue()”函数就是一个幂等函数,**无论多次执行，其结果都是一样的.**更复杂的操作幂等保证是利用唯一交易号(流水号)实现.</span><br></pre></td></tr></table></figure>
+
+<p>通俗了讲就是你<strong>同样的参数调用我这个接口，调用多少次结果都是一个</strong></p>
+<p>一般<strong>幂等</strong>，会<strong>分场景去考虑</strong>，看是<strong>强校验</strong>还是<strong>弱校验</strong>，比如跟金钱相关的场景，就做强校验，不是很重要的场景做弱校验。</p>
+<p><strong>强校验</strong></p>
+<p>比如监听到用户支付成功的消息，你监听到了去加GMV是不是要调用加钱的接口，那加钱接口下面再调用一个加流水的接口，<strong>两个放在一个事务，成功一起成功失败一起失败</strong>。</p>
+<p>每次消息过来都要拿着<strong>订单号+业务场景这样的唯一标识</strong>（比是天猫双十一活动）去流水表查，看看有没有这条流水，有就直接return不要走下面的流程了，没有就执行后面的逻辑。</p>
+<p>之所以用<strong>流水表</strong>，是因为涉及到金钱这样的活动，有啥问题后面也可以去流水表<strong>对账</strong>，还有就是帮助开发人员定位问题。</p>
+<p><strong>弱校验</strong></p>
+<p>一些不重要的场景，比如发短信，就把这个id+场景唯一标识作为<strong>Redis</strong>的key，放到缓存里面失效时间看你场景，<strong>一定时间内</strong>的这个消息就去Redis判断。</p>
+<p>用KV就算消息丢了可能这样的场景也没关系，反正丢条<strong>无关痛痒</strong>的通知短信</p>
+<h3 id="消费顺序"><a href="#消费顺序" class="headerlink" title="消费顺序"></a>消费顺序</h3><h4 id="场景-1"><a href="#场景-1" class="headerlink" title="场景"></a>场景</h4><p>一般都是<strong>同个业务场景下不同几个操作的消息同时过去</strong>，本身顺序是对的，但是你发出去的时候同时发出去了，消费的时候却乱掉了，这样就有问题了。</p>
+<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><p>的<strong>RocketMQ</strong>里面的一个简单实现</p>
+<p><strong>Tip</strong>：为啥用<strong>RocketMQ</strong>举例呢，这玩意是阿里开源的，我问了下身边的朋友很多公司都有使用，所以读者大概率是这个的话我就用这个举例吧，具体的细节我后面会在<strong>RocketMQ</strong>和<strong>Kafka</strong>各自章节说到。</p>
+<p>生产者消费者一般需要保证顺序消息的话，可能就是一个业务场景下的，比如订单的创建、支付、发货、收货。</p>
+<p>那这些东西是不是一个订单号呢？一个订单的肯定是一个订单号的说</p>
+<p><strong>一个topic下有多个队列</strong>，为了保证发送有序，<strong>RocketMQ</strong>提供了<strong>MessageQueueSelector</strong>队列选择机制，他有三种实现:</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/uChmeeX1FpzjaiaLbo3bKFDic8zvesZQQYqNXMwicnafsv3oSedFeWxvQXxd7iaK1nYwHCVu2ria6iaJsBbqHhl7hZqw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>我们可使用<strong>Hash取模法</strong>，让同一个订单发送到同一个队列中，再使用同步发送，只有同个订单的创建消息发送成功，再发送支付消息。这样，我们保证了发送有序。</p>
+<p><strong>RocketMQ</strong>的topic内的队列机制,可以保证存储满足<strong>FIFO</strong>（First Input First Output 简单说就是指先进先出）,剩下的只需要消费者顺序消费即可。</p>
+<p><strong>RocketMQ</strong>仅保证顺序发送，顺序消费由消费者业务保证</p>
+<p>这里很好理解，一个订单你发送的时候放到一个队列里面去，你同意的订单号Hash一下是不是还是一样的结果，那肯定是一个消费者消费，那顺序是不是就保证了？</p>
+<p>真正的顺序消费不同的中间件都有自己的不同实现我这里就举个例子，大家思路理解下。</p>
+<p><strong>Tip</strong>：我写到这点的时候人才群里也有人问我，一个队列有序出去，一个消费者消费不就好了，我想说的是<strong>消费者是多线程</strong>的，你消息是有序的给他的，你能保证他是有序的处理的？还是一个消费成功了再发下一个<strong>稳妥</strong>。</p>
+<h3 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h3><p>事务<strong>事务就是一系列操作，要么同时成功，要么同时失败。</strong>然后会从事务的 <strong>ACID</strong> 特性<strong>（原子性、一致性、隔离性、持久性）展开叙述</strong>。</p>
+<p>我接触和了解到的分布式事务大概分为：</p>
+<ul>
+<li>2pc（两段式提交）</li>
+<li>3pc（三段式提交）</li>
+<li>TCC（Try、Confirm、Cancel）</li>
+<li>最大努力通知</li>
+<li>XA</li>
+<li>本地消息表（ebay研发出的）</li>
+<li>半消息/最终一致性（RocketMQ）</li>
+</ul>
+<p>这里我就介绍下最简单的<strong>2pc（两段式）</strong>，以及大家以后可能比较常用的<strong>半消息事务</strong>也就是<strong>最终一致性</strong>，目的是让大家理解下分布式事务里面<strong>消息中间件的作用</strong>，别的事务都大同小异，都有很多优点。</p>
+<p>当然也都有<strong>种种弊端</strong>：</p>
+<p>例如<strong>长时间锁定数据库资源</strong>，导致系统的<strong>响应不快</strong>，<strong>并发上不去</strong>。</p>
+<p>网络抖动出现<strong>脑裂</strong>情况，导致事物参与者，不能很好地执行协调者的指令，导致<strong>数据不一致</strong>。</p>
+<p><strong>单点故障</strong>：例如事物协调者，在某一时刻宕机，虽然可以通过选举机制产生新的Leader，但是这过程中，必然出现问题，而TCC，只有强悍的技术团队，才能支持开发，<strong>成本太高</strong>。</p>
+<p>不多BB了，我们开始介绍这个两个事物吧。</p>
+<p><strong>2pc（两段式提交）</strong> :</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/uChmeeX1FpzjaiaLbo3bKFDic8zvesZQQYzeRTVOMHUU1zjE9ObAdR8nmaL9RGpVM6KarWONOKQsQ7bLOibKcY1icg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p><strong>2pc（两段式提交）</strong>可以说是分布式事务的最开始的样子了，像极了<strong>媒婆</strong>，就是通过消息中间件协调多个系统，在两个系统操作事务的时候都锁定资源但是不提交事务，等两者都准备好了，告诉消息中间件，然后再分别提交事务。</p>
+<p><strong>但是我不知道大家看到问题所在没有？</strong></p>
+<p>是的你可能已经发现了，如果A系统事务提交成功了，但是B系统在提交的时候网络波动或者各种原因提交失败了，其实还是会失败的。</p>
+<p><strong>最终一致性</strong>：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/uChmeeX1FpzjaiaLbo3bKFDic8zvesZQQYGzqjLEEExfaHBB0EkbQvEvIIaiaaAdMtdr12KgEfc0ktpqHMQibnau4g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p>整个流程中，我们能保证是：</p>
+<ul>
+<li>业务主动方本地事务提交失败，业务被动方不会收到消息的投递。</li>
+<li>只要业务主动方本地事务执行成功，那么消息服务一定会投递消息给下游的业务被动方，并最终保证业务被动方一定能成功消费该消息（消费成功或失败，即最终一定会有一个最终态）。</li>
+</ul>
+<p>不过呢技术就是这样，<strong>各种极端的情况我们都需要考虑</strong>，也很难有完美的方案，所以才会有这么多的方案<strong>三段式</strong>、<strong>TCC</strong>、<strong>最大努力通知</strong>等等分布式事务方案，大家只需要知道为啥要做，做了有啥好处，有啥坏处，在实际开发的时候都注意下就好好了，<strong>系统都是根据业务场景设计出来的，离开业务的技术没有意义，离开技术的业务没有底气</strong>。</p>
+<p>还是那句话：<strong>没有最完美的系统，只有最适合的系统。</strong></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p>1.<a href="https://www.zhihu.com/question/54152397/answer/657234090" target="_blank" rel="noopener">https://www.zhihu.com/question/54152397/answer/657234090</a>  消息队列是什么</p>
+<p>2.<a href="https://github.com/AobingJava/JavaFamily/blob/master/docs/mq/%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%E3%80%81%E9%A1%BA%E5%BA%8F%E6%B6%88%E8%B4%B9%E3%80%81%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.md" target="_blank" rel="noopener">https://github.com/AobingJava/JavaFamily/blob/master/docs/mq/%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%E3%80%81%E9%A1%BA%E5%BA%8F%E6%B6%88%E8%B4%B9%E3%80%81%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.md</a>  重复消费、顺序消费、分布式事务</p>
+<p>3.<a href="https://mp.weixin.qq.com/s?__biz=MzAwNDA2OTM1Ng==&amp;mid=2453140952&amp;idx=1&amp;sn=e24f5a38531effd7964599ab9ba408d6&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzAwNDA2OTM1Ng==&amp;mid=2453140952&amp;idx=1&amp;sn=e24f5a38531effd7964599ab9ba408d6&amp;scene=21#wechat_redirect</a>  消息队列基础</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/likemoves.github.io/tags/java/" rel="tag"># java</a>
+          
+            <a href="/likemoves.github.io/tags/中间件/" rel="tag"># 中间件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/04/26/剑指offer面试题11--旋转数组中的最小数字/" rel="next" title="剑指offer面试题11--旋转数组中的最小数字">
+                <i class="fa fa-chevron-left"></i> 剑指offer面试题11--旋转数组中的最小数字
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/04/27/剑指offer面试题12--矩阵中的路径/" rel="prev" title="剑指offer面试题12--矩阵中的路径">
+                剑指offer面试题12--矩阵中的路径 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">如烟Ryans</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/likemoves.github.io/archives/">
+              
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/likemoves.github.io/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/likemoves.github.io/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是消息队列"><span class="nav-number">1.</span> <span class="nav-text">什么是消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用消息队列"><span class="nav-number">2.</span> <span class="nav-text">为什么要用消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解耦"><span class="nav-number">2.1.</span> <span class="nav-text">解耦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步"><span class="nav-number">2.2.</span> <span class="nav-text">异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#削峰"><span class="nav-number">2.3.</span> <span class="nav-text">削峰</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息队列缺点"><span class="nav-number">3.</span> <span class="nav-text">消息队列缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统复杂性"><span class="nav-number">3.1.</span> <span class="nav-text">系统复杂性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据一致性"><span class="nav-number">3.2.</span> <span class="nav-text">数据一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可用性"><span class="nav-number">3.3.</span> <span class="nav-text">可用性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息队列问题以及解决方案"><span class="nav-number">4.</span> <span class="nav-text">消息队列问题以及解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#消息重复消费"><span class="nav-number">4.1.</span> <span class="nav-text">消息重复消费</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#场景"><span class="nav-number">4.1.1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案"><span class="nav-number">4.1.2.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消费顺序"><span class="nav-number">4.2.</span> <span class="nav-text">消费顺序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#场景-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式事务"><span class="nav-number">4.3.</span> <span class="nav-text">分布式事务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-number">5.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">如烟Ryans</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/likemoves.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/likemoves.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

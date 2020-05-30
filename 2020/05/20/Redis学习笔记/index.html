@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/likemoves.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/likemoves.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/likemoves.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/likemoves.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/likemoves.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/likemoves.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java面试题,中间件,redis,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="为什么redis能这么快100000+QPS（QPS即query per second，每秒内查询次数）  完全基于内存，绝大部分请求是纯粹的内存操作，执行效率高数据结构简单，对数据操作也简单采用单线程，单线程也能处理高并发请求，想多核也可启动多实例使用多路I/O复用模型，非阻塞IO  redis基本数据类型 https://blog.csdn.net/wj1314250/article/deta">
+<meta name="keywords" content="java面试题,中间件,redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/05/20/Redis学习笔记/index.html">
+<meta property="og:site_name" content="如烟Ryans">
+<meta property="og:description" content="为什么redis能这么快100000+QPS（QPS即query per second，每秒内查询次数）  完全基于内存，绝大部分请求是纯粹的内存操作，执行效率高数据结构简单，对数据操作也简单采用单线程，单线程也能处理高并发请求，想多核也可启动多实例使用多路I/O复用模型，非阻塞IO  redis基本数据类型 https://blog.csdn.net/wj1314250/article/deta">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1250838/202004/1250838-20200414140126367-153494729.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190614173622476.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lobF9qeHk=,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-05-27T06:23:33.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis学习笔记">
+<meta name="twitter:description" content="为什么redis能这么快100000+QPS（QPS即query per second，每秒内查询次数）  完全基于内存，绝大部分请求是纯粹的内存操作，执行效率高数据结构简单，对数据操作也简单采用单线程，单线程也能处理高并发请求，想多核也可启动多实例使用多路I/O复用模型，非阻塞IO  redis基本数据类型 https://blog.csdn.net/wj1314250/article/deta">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1250838/202004/1250838-20200414140126367-153494729.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/likemoves.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/20/Redis学习笔记/">
+
+
+
+
+
+  <title>Redis学习笔记 | 如烟Ryans</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/likemoves.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如烟Ryans</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/likemoves.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/likemoves.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/likemoves.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/likemoves.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/likemoves.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/likemoves.github.io/2020/05/20/Redis学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="如烟Ryans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/likemoves.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如烟Ryans">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-20T22:13:59+08:00">
+                2020-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/likemoves.github.io/categories/java面试题/" itemprop="url" rel="index">
+                    <span itemprop="name">java面试题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="为什么redis能这么快"><a href="#为什么redis能这么快" class="headerlink" title="为什么redis能这么快"></a>为什么redis能这么快</h2><p>100000+QPS（QPS即query per second，每秒内查询次数）</p>
+<blockquote>
+<p>完全基于内存，绝大部分请求是纯粹的内存操作，执行效率高<br>数据结构简单，对数据操作也简单<br>采用单线程，单线程也能处理高并发请求，想多核也可启动多实例<br>使用多路I/O复用模型，非阻塞IO</p>
+</blockquote>
+<h2 id="redis基本数据类型"><a href="#redis基本数据类型" class="headerlink" title="redis基本数据类型"></a>redis基本数据类型</h2><p><img src="https://img2020.cnblogs.com/blog/1250838/202004/1250838-20200414140126367-153494729.png" alt="img"></p>
+<p><a href="https://blog.csdn.net/wj1314250/article/details/92794412" target="_blank" rel="noopener">https://blog.csdn.net/wj1314250/article/details/92794412</a></p>
+<h3 id="String（字符串）"><a href="#String（字符串）" class="headerlink" title="String（字符串）"></a>String（字符串）</h3><ul>
+<li><code>简介：</code> 二进制安全</li>
+<li><code>可以存储的值：</code> 字符串，整数或者浮点数，还有jpg图片或者序列化对象</li>
+<li><code>操作：</code> 对整个字符串或者字符串的其中一部分执行操作，对整数和浮点数执行自增或者自减操作</li>
+<li><code>应用场景：</code> 做简单的键值对缓存</li>
+</ul>
+<h3 id="List（列表）"><a href="#List（列表）" class="headerlink" title="List（列表）"></a>List（列表）</h3><ul>
+<li><code>简介：</code> 链表（双向链表）</li>
+<li><code>可以存储的值：</code> 列表</li>
+<li><code>操作：</code> 从两端压入或者弹出元素，对单个或者多个元素进行修改，只保留一个范围内的元素</li>
+<li><code>应用场景：</code> 最新消息排行；消息队列</li>
+</ul>
+<h3 id="Hash（字典）"><a href="#Hash（字典）" class="headerlink" title="Hash（字典）"></a>Hash（字典）</h3><ul>
+<li><code>简介：</code> 键值对集合，即编程语言中的map类型</li>
+<li><code>可以存储的值：</code> 适合存储对象，并且可以像数据库中的update一样，只修改某一项的属性值</li>
+<li><code>操作：</code> 添加、获取、移除单个键值对，获取所有键值对，检查某个键是否存在</li>
+<li><code>应用场景：</code> 存储、读取、修改用户属性</li>
+</ul>
+<h3 id="Set（集合）"><a href="#Set（集合）" class="headerlink" title="Set（集合）"></a>Set（集合）</h3><ul>
+<li><code>简介：</code> hash表实现，元素不重复</li>
+<li><code>可以存储的值：</code> 无序集合</li>
+<li><code>操作：</code> 添加、获取、移除单个元素，检查一个元素是否已经存在于集合中，计算交集、并集、差集从集合里面随机获取元素</li>
+<li><code>应用场景：</code> 共同好友；利用唯一性，统计访问网站的所有IP</li>
+</ul>
+<h3 id="ZSet（有序集合）"><a href="#ZSet（有序集合）" class="headerlink" title="ZSet（有序集合）"></a>ZSet（有序集合）</h3><ul>
+<li><code>简介：</code> 将 set 中的元素增加一个权重参数score，元素按score有序排列</li>
+<li><code>可以存储的值：</code> 有序集合</li>
+<li><code>操作：</code> 添加、获取、删除元素，根据分值范围或者成员来获取元素，计算一个键的排名</li>
+<li><code>应用场景：</code> 排行榜；带权重的消息队列</li>
+</ul>
+<h2 id="从海量Key里查询出某一个固定前缀的Key"><a href="#从海量Key里查询出某一个固定前缀的Key" class="headerlink" title="从海量Key里查询出某一个固定前缀的Key"></a>从海量Key里查询出某一个固定前缀的Key</h2><p>摸清数据规模，问清楚边界</p>
+<p>使用keys对线上的业务影响</p>
+<h3 id="KEYS-pattern：查找所有符合给定模式pattern的key"><a href="#KEYS-pattern：查找所有符合给定模式pattern的key" class="headerlink" title="KEYS pattern：查找所有符合给定模式pattern的key"></a>KEYS pattern：查找所有符合给定模式pattern的key</h3><blockquote>
+<p>KEYS指令一次性返回所有匹配的key<br>键的数量过大会使服务卡顿</p>
+</blockquote>
+<h3 id="SCAN-cursor-MATCH-pattern-COUNT-count"><a href="#SCAN-cursor-MATCH-pattern-COUNT-count" class="headerlink" title="SCAN cursor [MATCH pattern]  [COUNT count]"></a>SCAN cursor [MATCH pattern]  [COUNT count]</h3><blockquote>
+<p>基于游标的迭代器，需要基于上一次的游标延续之前的迭代过程</p>
+<p>以O作为游标开始一次新的迭代，直到命令返回游标0完成一次遍历</p>
+<p>不保证每次执行都返回某个给定数量的元素，支持模糊查询</p>
+<p>一次返回的数量不可控，只能是大概率符合count参数</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1：6379&gt;scan 0 match k1*count </span><br><span class="line">1）"11534336"</span><br><span class="line">2） 1）"k17930789"</span><br><span class="line">	2）"k12231719"</span><br><span class="line">	3）"k19606980"</span><br><span class="line">127.0.0.1：6379&gt;scan 11534336 match k1*count 10</span><br><span class="line">|1）"30932992"</span><br><span class="line">|2）1）"k16480524"</span><br><span class="line">	2）"k12854300"</span><br><span class="line">	3）"k16301048"</span><br><span class="line">	4）"k1463101"</span><br><span class="line">	5）"k19132305"</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何通过redis实现分布式锁"><a href="#如何通过redis实现分布式锁" class="headerlink" title="如何通过redis实现分布式锁"></a>如何通过redis实现分布式锁</h2><h3 id="分布式锁需要解决的问题"><a href="#分布式锁需要解决的问题" class="headerlink" title="分布式锁需要解决的问题"></a>分布式锁需要解决的问题</h3><p>互斥性  任意时刻只能有一个客户端获取锁</p>
+<p>安全性   锁只能被持有该锁的客户端删除</p>
+<p>死锁     获取锁的客户端因为某些原因而宕机  该锁没有释放 造成死锁</p>
+<p>容错  客户端宕机时   仍需要获取锁</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>SETNX key value：如果key不存在，则创建并赋值</p>
+<blockquote>
+<p>时间复杂度：O（1）<br>返回值：设置成功，返回1；设置失败，返回0。</p>
+</blockquote>
+<h3 id="如何解决SETNX长期有效的问题"><a href="#如何解决SETNX长期有效的问题" class="headerlink" title="如何解决SETNX长期有效的问题"></a>如何解决SETNX长期有效的问题</h3><p>EXPIRE key seconds</p>
+<ul>
+<li>设置key的生存时间，当key过期时（生存时间为0），会被自动删除</li>
+<li>缺点：原子性得不到满足</li>
+</ul>
+<p>SET key value  [EX seconds]  [PX milliseconds]  [NXIXX]</p>
+<blockquote>
+<p>EX second：设置键的过期时间为second秒</p>
+<p>PX millisecond：设置键的过期时间为millisecond 毫秒</p>
+<p>NX：只在键不存在时，才对键进行设置操作</p>
+<p>XX：只在键已经存在时，才对键进行设置操作</p>
+<p>SET操作成功完成时，返回OK，否则返回nil</p>
+</blockquote>
+<h2 id="大量的key同时过期的注意事项"><a href="#大量的key同时过期的注意事项" class="headerlink" title="大量的key同时过期的注意事项"></a>大量的key同时过期的注意事项</h2><p>集中过期，由于清除大量的key很耗时，会出现短暂的卡顿现象</p>
+<p><strong>解放方案：</strong>在设置key的过期时间的时候，给每个key加上随机值</p>
+<h2 id="如何使用Redis做异步队列"><a href="#如何使用Redis做异步队列" class="headerlink" title="如何使用Redis做异步队列"></a>如何使用Redis做异步队列</h2><p>使用List作为队列，RPUSH生产消息，LPOP消费消息</p>
+<blockquote>
+<p>缺点：没有等待队列里有值就直接消费<br>弥补：可以通过在应用层引入Sleep机制去调用LPOP重试</p>
+</blockquote>
+<p>BLPOP key[key..J timeout：阻塞直到队列有消息或者超时</p>
+<blockquote>
+<p>缺点：只能供一个消费者消费</p>
+</blockquote>
+<p>pub/sub：主题订阅者模式</p>
+<blockquote>
+<p>发送者（pub）发送消息，订阅者（sub）接收消息<br>订阅者可以订阅任意数量的频道</p>
+<p>缺点：消息发布是无状态的，无法保证可达</p>
+</blockquote>
+<h2 id="redis如何做持久化"><a href="#redis如何做持久化" class="headerlink" title="redis如何做持久化"></a>redis如何做持久化</h2><h3 id="RDB（快照）持久化"><a href="#RDB（快照）持久化" class="headerlink" title="RDB（快照）持久化"></a>RDB（快照）持久化</h3><p>保存某个时间点的全量数据快照</p>
+<p>save 900 1  在900秒内若有1次写操作 则进行备份<br>save 300 10<br>save 60 10000</p>
+<p>手动RDB持久化指令</p>
+<blockquote>
+<p>SAVE：<strong>阻塞Redis的服务器进程</strong>，直到RDB文件被创建完毕<br>BGSAVE : Fork出一个子进程来创建RDB文件，<strong>不阻塞服务器进程</strong></p>
+</blockquote>
+<p>自动化触发RDB持久化的方式</p>
+<blockquote>
+<p>根据redis.conf配置里的SAVEmn定时触发（用的是BGSAVE）<br>主从复制时，主节点自动触发<br>执行Debug Reload<br>执行Shutdown且没有开启AOF持久化</p>
+</blockquote>
+<p><strong>Copy-on-Write</strong></p>
+<p>如果有多个调用者同时要求相同资源（如内存或磁盘上的数据存储），他们会共同获取相同的指针指向相同的资源，<strong>直到某个调用者试图修改资源的内容时</strong>，系统才会真正复制一份专用副本给该调用者，而其他调用者所见到的最初的资源仍然保持不变</p>
+<p>优点</p>
+<blockquote>
+<p>方便持久化，只有一个文件 dump.rdb<br>性能最大化，fork 子进程来完成写操作，让主进程继续处理命令，所以是IO最大化。使用单独子进程来进行持久化，主进程不会进行任何IO操作，保证 redis 的高性能</p>
+</blockquote>
+<p>缺点</p>
+<blockquote>
+<p>内存数据的全量同步，数据量大会由于I/O而严重影响性能<br>可能会因为Redis挂掉而丢失从当前至最近一次快照期间的数据</p>
+</blockquote>
+<h3 id="AOF（Append-Only-File）持久化"><a href="#AOF（Append-Only-File）持久化" class="headerlink" title="AOF（Append-Only-File）持久化"></a>AOF（Append-Only-File）持久化</h3><p>保存写状态</p>
+<blockquote>
+<p>记录下除了查询以外的所有变更数据库状态的指令<br>以append的形式追加保存到AOF文件中（增量）</p>
+</blockquote>
+<p>同步选项：<br>选项     同步频率<br>no     让操作系统决定何时同步<br>always     每个写命令都同步<br>everysec     每秒同步一次</p>
+<ul>
+<li><code>no：</code> 并不能给服务器性能带来多大的提升，而且也会增加系统奔溃时数据丢失的数量</li>
+<li><code>always：</code> 严重减低服务器性能</li>
+<li><code>everysec：</code> 这个选项比较合适，可以保证系统奔溃时只会丢失一秒左右的数据，并且 Redis 每秒执行一次同步对服务器性能几乎没有任何影响</li>
+</ul>
+<p>随着服务器写请求的增多，AOF文件会越来越大。Redis提供了一种将AOF重写的特性auto-aof-rewrite，能够去除AOF文件中的冗余写命令</p>
+<p>日志重写<strong>解决AOF文件大小不断增大的问题</strong>，原理如下：</p>
+<blockquote>
+<p>调用fork），创建一个子进程<br>子进程把新的AOF写到一个临时文件里，不依赖原来的AOF文件<br>主进程持续将新的变动同时写到内存和原来的AOF里<br>主进程获取子进程重写AOF的完成信号，往新AOF同步增量变动<br>使用新的AOF文件替换掉旧的AOF文件</p>
+</blockquote>
+<p>RDB和AOF的优缺点</p>
+<blockquote>
+<p>RDB优点：全量数据快照，文件小，恢复快<br>RDB缺点：无法保存最近一次快照之后的数据</p>
+<p>AOF优点：可读性高，适合保存增量数据，数据不易丢失<br>AOF缺点：文件体积大，恢复时间长</p>
+</blockquote>
+<h3 id="Redis数据的恢复"><a href="#Redis数据的恢复" class="headerlink" title="Redis数据的恢复"></a>Redis数据的恢复</h3><p>RDB和AOF文件共存情况下的恢复流程</p>
+<p>1.Redis启动会检测AOF文件是否存在</p>
+<p>2.如果存在，则直接加载AOF文件，进行数据恢复</p>
+<p>3.如果不存在，检测RDB文件</p>
+<p>4.存在，则加载RDB，进行数据恢复</p>
+<p>5.不存在，数据恢复失败</p>
+<h3 id="RDB-AOF混合持久化方式"><a href="#RDB-AOF混合持久化方式" class="headerlink" title="RDB-AOF混合持久化方式"></a>RDB-AOF混合持久化方式</h3><p>AOF在进行文件重写(aof文件里可能有太多没用指令，所以aof会定期根据内存的最新数据生成aof文件)</p>
+<p>时将重写这一刻之前的内存rdb快照文件的内容和增量的AOF修改内存数据的命令日志文件存在一起，</p>
+<p>都写入新的aof文件，新的文件一开始不叫appendonly.aof，等到重写完新的AOF文件才会进行改名，</p>
+<p>原子的覆盖原有的AOF文件，完成新旧两个AOF文件的替换。</p>
+<p>混合持久化文件结构：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190614173622476.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lobF9qeHk=,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h4 id="数据恢复"><a href="#数据恢复" class="headerlink" title="数据恢复"></a>数据恢复</h4><p>当我们开启了混合持久化时，启动redis依然优先加载aof文件，aof文件加载可能有两种情况如下：</p>
+<p>aof文件开头是rdb的格式, 先加载 rdb内容再加载剩余的 aof。</p>
+<p>aof文件开头不是rdb的格式，直接以aof格式加载整个文件。</p>
+<h2 id="Redis主从同步"><a href="#Redis主从同步" class="headerlink" title="Redis主从同步"></a>Redis主从同步</h2><p>持久化保证了即使redis服务重启也不会丢失数据，因为redis服务重启后会将硬盘上持久化的数据恢复到内存中，但是当redis服务器的硬盘损坏了可能会导致数据丢失，不过通过redis的主从复制机制就可以避免这种单点故障，主（Master）从（Slave）</p>
+<ol>
+<li>主redis中的数据有两个副本（replication）即从redis1和从redis2，即使一台redis服务器宕机其它两台redis服务也可以继续提供服务。</li>
+<li>主redis中的数据和从redis上的数据保持实时同步，当主redis写入数据时通过主从复制机制会复制到两个从redis服务上。</li>
+<li>只有一个主redis，可以有多个从redis。</li>
+<li>主从复制不会阻塞master，在同步数据时，master 可以继续处理client 请求</li>
+<li>一个redis可以即是主又是从</li>
+</ol>
+<p>全同步过程</p>
+<blockquote>
+<p>Slave发送sync命令到Master<br>Master启动一个后台进程，将Redis中的数据快照保存到文件中<br>Master将保存数据快照期间接收到的写命令缓存起来<br>Master完成写文件操作后，将该文件发送给Slave<br>Slave使用新的AOF文件替换掉旧的AOF文件<br>Master将这期间收集的增量写命令发送给Salve端</p>
+</blockquote>
+<p>增量同步过程</p>
+<blockquote>
+<p>Master接收到用户的操作指令，判断是否需要传播到Slave<br>Master将操作记录追加到AOF文件<br>Master将操作传播到其他Slave：1、对齐主从库；2、往响应缓存写入指令<br>将缓存中的数据发送给Slave</p>
+</blockquote>
+<h2 id="Redis-Sentinel哨兵机制"><a href="#Redis-Sentinel哨兵机制" class="headerlink" title="Redis Sentinel哨兵机制"></a>Redis Sentinel哨兵机制</h2><p>Redis主从复制的缺点：没有办法对master进行动态选举，需要使用Sentinel机制完成动态选举</p>
+<p>Sentinel(哨兵)进程是用于<strong>监控redis集群中Master主服务器工作的状态</strong></p>
+<p> 在Master主服务器发生故障的时候，可以实现Master和Slave服务器的切换，保证系统的高可用（HA）</p>
+<h3 id="哨兵的作用"><a href="#哨兵的作用" class="headerlink" title="哨兵的作用"></a>哨兵的作用</h3><ol>
+<li><p><strong>监控(Monitoring):</strong> 哨兵(sentinel) 会不断地检查你的Master和Slave是否运作正常。</p>
+</li>
+<li><p><strong>提醒(Notification)</strong>： 当被监控的某个Redis节点出现问题时, 哨兵(sentinel) 可以通过 API 向管理员或者其他应用程序发送通知。</p>
+</li>
+<li><p><strong>自动故障迁移(Automatic failover)</strong>：当<strong>一个Master不能正常工作</strong>时，哨兵(sentinel) 会开始<strong>一次自动故障迁移操作</strong>。</p>
+<p>它会将失效Master的其中一个Slave升级为新的Master, 并让失效Master的其他Slave改为复制新的Master；</p>
+<p>当客户端试图连接失效的Master时，集群也会向客户端返回新Master的地址，使得集群可以使用现在的Master替换失效Master。</p>
+<p>Master和Slave服务器切换后，Master的redis.conf、Slave的redis.conf和sentinel.conf的配置文件的内容都会发生相应的改变，即，Master主服务器的redis.conf配置文件中会多一行slaveof的配置，sentinel.conf的监控目标会随之调换。</p>
+</li>
+</ol>
+<h2 id="缓存穿透、缓存击穿、缓存失效"><a href="#缓存穿透、缓存击穿、缓存失效" class="headerlink" title="缓存穿透、缓存击穿、缓存失效"></a>缓存穿透、缓存击穿、缓存失效</h2><h3 id="缓存数据的步骤"><a href="#缓存数据的步骤" class="headerlink" title="缓存数据的步骤"></a>缓存数据的步骤</h3><p>1、 查询缓存，如果没有数据，则查询数据库</p>
+<p>2、 查询数据库，如果数据不为空，将结果写入缓存</p>
+<h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><h4 id="什么叫缓存穿透？"><a href="#什么叫缓存穿透？" class="headerlink" title="什么叫缓存穿透？"></a>什么叫缓存穿透？</h4><p>一般的缓存系统，都是按照key去缓存查询，如果不存在对应的value，就应该去后端系统查找（比如DB）。如果key对应的value是一定不存在的，并且对该key并发请求量很大，就会对后端系统造成很大的压力。这就叫做缓存穿透。</p>
+<h4 id="如何解决？"><a href="#如何解决？" class="headerlink" title="如何解决？"></a>如何解决？</h4><p>1：对查询结果为空的情况也进行缓存，缓存时间设置短一点，或者该key对应的数据insert了之后清理缓存。</p>
+<p>2：对一定不存在的key进行过滤。可以把所有的可能存在的key放到一个大的Bitmap中，查询时通过该bitmap过滤。（<strong>布隆表达式</strong>）</p>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><h4 id="什么叫缓存雪崩？"><a href="#什么叫缓存雪崩？" class="headerlink" title="什么叫缓存雪崩？"></a>什么叫缓存雪崩？</h4><p>当缓存服务器重启或者<strong>大量缓存集中在某一个时间段失效</strong>，这样在失效的时候，也会给后端系统(比如DB)带来很大压力。</p>
+<h4 id="如何解决？-1"><a href="#如何解决？-1" class="headerlink" title="如何解决？"></a>如何解决？</h4><p>1：在缓存失效后，通过加锁或者队列来控制读数据库写缓存的线程数量。比如对某个key只允许一个线程查询数据和写缓存，其他线程等待。</p>
+<p>2：不同的key，设置不同的过期时间，让缓存失效的时间点尽量均匀。</p>
+<p>3：做二级缓存，A1为原始缓存，A2为拷贝缓存，A1失效时，可以访问A2，A1缓存失效时间设置为短期，A2设置为长期（此点为补充）</p>
+<h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><h4 id="什么叫缓存击穿？"><a href="#什么叫缓存击穿？" class="headerlink" title="什么叫缓存击穿？"></a>什么叫缓存击穿？</h4><p>对于一些设置了过期时间的key，如果这些key可能会在某些时间点被超高并发地访问，是一种非常<strong>“热点”</strong>的数据。这个时候，需要考虑一个问题：缓存被“击穿”的问题，<strong>这个和缓存雪崩的区别在于这里针对某一key缓存，后者则是很多key。</strong></p>
+<p>缓存在某个时间点过期的时候，恰好在这个时间点对这个Key有大量的并发请求过来，这些请求发现缓存过期一般都会从后端DB加载数据并回设到缓存，这个时候大并发的请求可能会瞬间把后端DB压垮。</p>
+<h4 id="如何解决？-2"><a href="#如何解决？-2" class="headerlink" title="如何解决？"></a>如何解决？</h4><p>1.<strong>使用redis的setnx互斥锁先进行判断，这样其他线程就处于等待状态，保证不会有大并发操作去操作数据库。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(redis.sexnx()==<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="comment">//查询数据库</span></span><br><span class="line">	<span class="comment">//加入线程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/likemoves.github.io/tags/java面试题/" rel="tag"># java面试题</a>
+          
+            <a href="/likemoves.github.io/tags/中间件/" rel="tag"># 中间件</a>
+          
+            <a href="/likemoves.github.io/tags/redis/" rel="tag"># redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/20/Java面试知识点--集合篇/" rel="next" title="Java面试知识点--集合篇">
+                <i class="fa fa-chevron-left"></i> Java面试知识点--集合篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/likemoves.github.io/2020/05/22/剑指offer面试题56--数组中数字出现的次数/" rel="prev" title="剑指offer面试题56--数组中数字出现的次数">
+                剑指offer面试题56--数组中数字出现的次数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">如烟Ryans</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/likemoves.github.io/archives/">
+              
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/likemoves.github.io/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/likemoves.github.io/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么redis能这么快"><span class="nav-number">1.</span> <span class="nav-text">为什么redis能这么快</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis基本数据类型"><span class="nav-number">2.</span> <span class="nav-text">redis基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String（字符串）"><span class="nav-number">2.1.</span> <span class="nav-text">String（字符串）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List（列表）"><span class="nav-number">2.2.</span> <span class="nav-text">List（列表）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash（字典）"><span class="nav-number">2.3.</span> <span class="nav-text">Hash（字典）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set（集合）"><span class="nav-number">2.4.</span> <span class="nav-text">Set（集合）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZSet（有序集合）"><span class="nav-number">2.5.</span> <span class="nav-text">ZSet（有序集合）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从海量Key里查询出某一个固定前缀的Key"><span class="nav-number">3.</span> <span class="nav-text">从海量Key里查询出某一个固定前缀的Key</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#KEYS-pattern：查找所有符合给定模式pattern的key"><span class="nav-number">3.1.</span> <span class="nav-text">KEYS pattern：查找所有符合给定模式pattern的key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SCAN-cursor-MATCH-pattern-COUNT-count"><span class="nav-number">3.2.</span> <span class="nav-text">SCAN cursor [MATCH pattern]  [COUNT count]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何通过redis实现分布式锁"><span class="nav-number">4.</span> <span class="nav-text">如何通过redis实现分布式锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式锁需要解决的问题"><span class="nav-number">4.1.</span> <span class="nav-text">分布式锁需要解决的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">4.2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何解决SETNX长期有效的问题"><span class="nav-number">4.3.</span> <span class="nav-text">如何解决SETNX长期有效的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大量的key同时过期的注意事项"><span class="nav-number">5.</span> <span class="nav-text">大量的key同时过期的注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用Redis做异步队列"><span class="nav-number">6.</span> <span class="nav-text">如何使用Redis做异步队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis如何做持久化"><span class="nav-number">7.</span> <span class="nav-text">redis如何做持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB（快照）持久化"><span class="nav-number">7.1.</span> <span class="nav-text">RDB（快照）持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF（Append-Only-File）持久化"><span class="nav-number">7.2.</span> <span class="nav-text">AOF（Append-Only-File）持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis数据的恢复"><span class="nav-number">7.3.</span> <span class="nav-text">Redis数据的恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB-AOF混合持久化方式"><span class="nav-number">7.4.</span> <span class="nav-text">RDB-AOF混合持久化方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据恢复"><span class="nav-number">7.4.1.</span> <span class="nav-text">数据恢复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis主从同步"><span class="nav-number">8.</span> <span class="nav-text">Redis主从同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-Sentinel哨兵机制"><span class="nav-number">9.</span> <span class="nav-text">Redis Sentinel哨兵机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哨兵的作用"><span class="nav-number">9.1.</span> <span class="nav-text">哨兵的作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存穿透、缓存击穿、缓存失效"><span class="nav-number">10.</span> <span class="nav-text">缓存穿透、缓存击穿、缓存失效</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存数据的步骤"><span class="nav-number">10.1.</span> <span class="nav-text">缓存数据的步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存穿透"><span class="nav-number">10.2.</span> <span class="nav-text">缓存穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么叫缓存穿透？"><span class="nav-number">10.2.1.</span> <span class="nav-text">什么叫缓存穿透？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决？"><span class="nav-number">10.2.2.</span> <span class="nav-text">如何解决？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">10.3.</span> <span class="nav-text">缓存雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么叫缓存雪崩？"><span class="nav-number">10.3.1.</span> <span class="nav-text">什么叫缓存雪崩？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决？-1"><span class="nav-number">10.3.2.</span> <span class="nav-text">如何解决？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存击穿"><span class="nav-number">10.4.</span> <span class="nav-text">缓存击穿</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么叫缓存击穿？"><span class="nav-number">10.4.1.</span> <span class="nav-text">什么叫缓存击穿？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决？-2"><span class="nav-number">10.4.2.</span> <span class="nav-text">如何解决？</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">如烟Ryans</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/likemoves.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/likemoves.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/likemoves.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/likemoves.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
