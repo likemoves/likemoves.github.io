@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img2020.cnblogs.com/blog/1250838/202004/1250838-20200414140126367-153494729.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190614173622476.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lobF9qeHk=,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2020-05-27T06:23:33.245Z">
+<meta property="og:updated_time" content="2020-06-06T04:17:49.183Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis学习笔记">
 <meta name="twitter:description" content="为什么redis能这么快100000+QPS（QPS即query per second，每秒内查询次数）  完全基于内存，绝大部分请求是纯粹的内存操作，执行效率高数据结构简单，对数据操作也简单采用单线程，单线程也能处理高并发请求，想多核也可启动多实例使用多路I/O复用模型，非阻塞IO  redis基本数据类型 https://blog.csdn.net/wj1314250/article/deta">
@@ -235,9 +235,41 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -349,7 +381,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.8k 字
+                  4.1k 字
                 </span>
               
 
@@ -365,7 +397,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  13 分钟
+                  14 分钟
                 </span>
               
             </div>
@@ -569,6 +601,10 @@
 <p>缓存在某个时间点过期的时候，恰好在这个时间点对这个Key有大量的并发请求过来，这些请求发现缓存过期一般都会从后端DB加载数据并回设到缓存，这个时候大并发的请求可能会瞬间把后端DB压垮。</p>
 <h4 id="如何解决？-2"><a href="#如何解决？-2" class="headerlink" title="如何解决？"></a>如何解决？</h4><p>1.<strong>使用redis的setnx互斥锁先进行判断，这样其他线程就处于等待状态，保证不会有大并发操作去操作数据库。</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(redis.sexnx()==<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="comment">//查询数据库</span></span><br><span class="line">	<span class="comment">//加入线程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis数据一致性"><a href="#Redis数据一致性" class="headerlink" title="Redis数据一致性"></a>Redis数据一致性</h2><p><strong>所谓的redis数据一致性即当数据库数据进行修改或者保存、删除之后，redis中的数据也应该进行相应变化，不然用户再次查询的时候很可能查询出已经删除过的脏数据。</strong></p>
+<p>例如：保存了一个新用户之后，就应该同时在redis缓存中也插入该条数据，更新了某条数据在缓存中也应该同步更新，而redis默认的做法是：当你不去设置的时候redis中存放的一值是你之前存放的数据，只有在重启服务器的时候数据才会同步，显然这是非常不可取的，如果是这样的话岂不是每时每刻都要重启服务器，那将是多么大的灾难！<br>参考文档 ：<a href="https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-consistence.md" target="_blank" rel="noopener">https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-consistence.md</a></p>
+
       
     </div>
     
@@ -602,8 +638,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/likemoves.github.io/2020/05/20/Java面试知识点--并发篇/" rel="next" title="Java面试知识点--并发与多线程">
-                <i class="fa fa-chevron-left"></i> Java面试知识点--并发与多线程
+              <a href="/likemoves.github.io/2020/05/20/Java面试知识点--集合篇/" rel="next" title="Java面试知识点--集合篇">
+                <i class="fa fa-chevron-left"></i> Java面试知识点--集合篇
               </a>
             
           </div>
@@ -693,7 +729,7 @@
               
                 <a href="/likemoves.github.io/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -715,7 +751,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/likemoves.github.io/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -748,7 +784,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么redis能这么快"><span class="nav-number">1.</span> <span class="nav-text">为什么redis能这么快</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis基本数据类型"><span class="nav-number">2.</span> <span class="nav-text">redis基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String（字符串）"><span class="nav-number">2.1.</span> <span class="nav-text">String（字符串）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List（列表）"><span class="nav-number">2.2.</span> <span class="nav-text">List（列表）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash（字典）"><span class="nav-number">2.3.</span> <span class="nav-text">Hash（字典）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set（集合）"><span class="nav-number">2.4.</span> <span class="nav-text">Set（集合）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZSet（有序集合）"><span class="nav-number">2.5.</span> <span class="nav-text">ZSet（有序集合）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从海量Key里查询出某一个固定前缀的Key"><span class="nav-number">3.</span> <span class="nav-text">从海量Key里查询出某一个固定前缀的Key</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#KEYS-pattern：查找所有符合给定模式pattern的key"><span class="nav-number">3.1.</span> <span class="nav-text">KEYS pattern：查找所有符合给定模式pattern的key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SCAN-cursor-MATCH-pattern-COUNT-count"><span class="nav-number">3.2.</span> <span class="nav-text">SCAN cursor [MATCH pattern]  [COUNT count]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何通过redis实现分布式锁"><span class="nav-number">4.</span> <span class="nav-text">如何通过redis实现分布式锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式锁需要解决的问题"><span class="nav-number">4.1.</span> <span class="nav-text">分布式锁需要解决的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">4.2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何解决SETNX长期有效的问题"><span class="nav-number">4.3.</span> <span class="nav-text">如何解决SETNX长期有效的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大量的key同时过期的注意事项"><span class="nav-number">5.</span> <span class="nav-text">大量的key同时过期的注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用Redis做异步队列"><span class="nav-number">6.</span> <span class="nav-text">如何使用Redis做异步队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis如何做持久化"><span class="nav-number">7.</span> <span class="nav-text">redis如何做持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB（快照）持久化"><span class="nav-number">7.1.</span> <span class="nav-text">RDB（快照）持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF（Append-Only-File）持久化"><span class="nav-number">7.2.</span> <span class="nav-text">AOF（Append-Only-File）持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis数据的恢复"><span class="nav-number">7.3.</span> <span class="nav-text">Redis数据的恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB-AOF混合持久化方式"><span class="nav-number">7.4.</span> <span class="nav-text">RDB-AOF混合持久化方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据恢复"><span class="nav-number">7.4.1.</span> <span class="nav-text">数据恢复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis主从同步"><span class="nav-number">8.</span> <span class="nav-text">Redis主从同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-Sentinel哨兵机制"><span class="nav-number">9.</span> <span class="nav-text">Redis Sentinel哨兵机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哨兵的作用"><span class="nav-number">9.1.</span> <span class="nav-text">哨兵的作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存穿透、缓存击穿、缓存失效"><span class="nav-number">10.</span> <span class="nav-text">缓存穿透、缓存击穿、缓存失效</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存数据的步骤"><span class="nav-number">10.1.</span> <span class="nav-text">缓存数据的步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存穿透"><span class="nav-number">10.2.</span> <span class="nav-text">缓存穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么叫缓存穿透？"><span class="nav-number">10.2.1.</span> <span class="nav-text">什么叫缓存穿透？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决？"><span class="nav-number">10.2.2.</span> <span class="nav-text">如何解决？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">10.3.</span> <span class="nav-text">缓存雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么叫缓存雪崩？"><span class="nav-number">10.3.1.</span> <span class="nav-text">什么叫缓存雪崩？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决？-1"><span class="nav-number">10.3.2.</span> <span class="nav-text">如何解决？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存击穿"><span class="nav-number">10.4.</span> <span class="nav-text">缓存击穿</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么叫缓存击穿？"><span class="nav-number">10.4.1.</span> <span class="nav-text">什么叫缓存击穿？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决？-2"><span class="nav-number">10.4.2.</span> <span class="nav-text">如何解决？</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么redis能这么快"><span class="nav-number">1.</span> <span class="nav-text">为什么redis能这么快</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis基本数据类型"><span class="nav-number">2.</span> <span class="nav-text">redis基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String（字符串）"><span class="nav-number">2.1.</span> <span class="nav-text">String（字符串）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List（列表）"><span class="nav-number">2.2.</span> <span class="nav-text">List（列表）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash（字典）"><span class="nav-number">2.3.</span> <span class="nav-text">Hash（字典）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set（集合）"><span class="nav-number">2.4.</span> <span class="nav-text">Set（集合）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZSet（有序集合）"><span class="nav-number">2.5.</span> <span class="nav-text">ZSet（有序集合）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从海量Key里查询出某一个固定前缀的Key"><span class="nav-number">3.</span> <span class="nav-text">从海量Key里查询出某一个固定前缀的Key</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#KEYS-pattern：查找所有符合给定模式pattern的key"><span class="nav-number">3.1.</span> <span class="nav-text">KEYS pattern：查找所有符合给定模式pattern的key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SCAN-cursor-MATCH-pattern-COUNT-count"><span class="nav-number">3.2.</span> <span class="nav-text">SCAN cursor [MATCH pattern]  [COUNT count]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何通过redis实现分布式锁"><span class="nav-number">4.</span> <span class="nav-text">如何通过redis实现分布式锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式锁需要解决的问题"><span class="nav-number">4.1.</span> <span class="nav-text">分布式锁需要解决的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">4.2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何解决SETNX长期有效的问题"><span class="nav-number">4.3.</span> <span class="nav-text">如何解决SETNX长期有效的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大量的key同时过期的注意事项"><span class="nav-number">5.</span> <span class="nav-text">大量的key同时过期的注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用Redis做异步队列"><span class="nav-number">6.</span> <span class="nav-text">如何使用Redis做异步队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis如何做持久化"><span class="nav-number">7.</span> <span class="nav-text">redis如何做持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB（快照）持久化"><span class="nav-number">7.1.</span> <span class="nav-text">RDB（快照）持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF（Append-Only-File）持久化"><span class="nav-number">7.2.</span> <span class="nav-text">AOF（Append-Only-File）持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis数据的恢复"><span class="nav-number">7.3.</span> <span class="nav-text">Redis数据的恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB-AOF混合持久化方式"><span class="nav-number">7.4.</span> <span class="nav-text">RDB-AOF混合持久化方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据恢复"><span class="nav-number">7.4.1.</span> <span class="nav-text">数据恢复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis主从同步"><span class="nav-number">8.</span> <span class="nav-text">Redis主从同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-Sentinel哨兵机制"><span class="nav-number">9.</span> <span class="nav-text">Redis Sentinel哨兵机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哨兵的作用"><span class="nav-number">9.1.</span> <span class="nav-text">哨兵的作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存穿透、缓存击穿、缓存失效"><span class="nav-number">10.</span> <span class="nav-text">缓存穿透、缓存击穿、缓存失效</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存数据的步骤"><span class="nav-number">10.1.</span> <span class="nav-text">缓存数据的步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存穿透"><span class="nav-number">10.2.</span> <span class="nav-text">缓存穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么叫缓存穿透？"><span class="nav-number">10.2.1.</span> <span class="nav-text">什么叫缓存穿透？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决？"><span class="nav-number">10.2.2.</span> <span class="nav-text">如何解决？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">10.3.</span> <span class="nav-text">缓存雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么叫缓存雪崩？"><span class="nav-number">10.3.1.</span> <span class="nav-text">什么叫缓存雪崩？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决？-1"><span class="nav-number">10.3.2.</span> <span class="nav-text">如何解决？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存击穿"><span class="nav-number">10.4.</span> <span class="nav-text">缓存击穿</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么叫缓存击穿？"><span class="nav-number">10.4.1.</span> <span class="nav-text">什么叫缓存击穿？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何解决？-2"><span class="nav-number">10.4.2.</span> <span class="nav-text">如何解决？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis数据一致性"><span class="nav-number">11.</span> <span class="nav-text">Redis数据一致性</span></a></li></ol></div>
             
 
           </div>
@@ -954,6 +990,323 @@
 
 
   
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/likemoves.github.io/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
 
 
 
