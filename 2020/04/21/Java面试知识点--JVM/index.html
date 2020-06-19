@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="记忆部落">
 <meta property="og:description" content="JVM1.描述一下JVM加载Class文件的原理机制Java中的所有类，都需要由类加载器装载到JVM中才能运行。类加载器本身也是一个类，而它的工作就是把class文件从硬盘读取到内存中。在写程序的时候，我们几乎不需要关心类的加载，因为这些都是隐式装载的，除非我们有特殊的用法，像是反射，就需要显式的加载所需要的类。 类装载方式，有两种 ： 1.隐式装载， 程序在运行过程中当碰到通过new 等方式生成">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-26T15:38:36.351Z">
+<meta property="og:updated_time" content="2020-06-15T14:44:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java面试知识点--JVM">
 <meta name="twitter:description" content="JVM1.描述一下JVM加载Class文件的原理机制Java中的所有类，都需要由类加载器装载到JVM中才能运行。类加载器本身也是一个类，而它的工作就是把class文件从硬盘读取到内存中。在写程序的时候，我们几乎不需要关心类的加载，因为这些都是隐式装载的，除非我们有特殊的用法，像是反射，就需要显式的加载所需要的类。 类装载方式，有两种 ： 1.隐式装载， 程序在运行过程中当碰到通过new 等方式生成">
@@ -378,7 +378,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4.1k 字
+                  4.5k 字
                 </span>
               
 
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  14 分钟
+                  15 分钟
                 </span>
               
             </div>
@@ -543,6 +543,16 @@
 
 <h3 id="happens-before-八大原则"><a href="#happens-before-八大原则" class="headerlink" title="happens-before 八大原则"></a>happens-before 八大原则</h3><p>1.程序次序规则：一个线程内，按照代码顺序，书写在前面的操作先行发生于书写在后面的操作；<br>2.锁定规则：一个unLock操作先行发生于后面对同一个锁的lock操作；<br>3.volatile变量规则：对一个变量的写操作先行发生于后面对这个变量的读操作；<br>4.传递规则：如果操作A先行发生于操作B，而操作B又先行发生于操作C，则可以得出操作A先行发生于操作C；<br>5.线程启动规则：Thread对象的start）方法先行发生于此线程的每一个动作；<br>6.线程中断规则：对线程interrupt（）方法的调用先行发生于被中断线程的代码检测到中断事件的发生；<br>7.线程终结规则：线程中所有的操作都先行发生于线程的终止检测，我们可以通过Thread.join（）方法结束、Thread.isAlive0的返回值手段检测到线程已经终止执行；<br>8.对象终结规则：一个对象的初始化完成先行发生于他的finalize0方法的开始；</p>
 <p>如果两个操作不满足上述任意一个happens-before规则，那么这两个操作就没有顺序的保障，JVM可以对这两个操作进行重排序；如果操作A happens-before操作B，那么操作A在内存上所做的操作对操作B都是可见的。</p>
+<h2 id="15-类加载器"><a href="#15-类加载器" class="headerlink" title="15.类加载器"></a>15.类加载器</h2><ol>
+<li><p>启动类加载器(Bootstrap  ClassLoader)：这个类加载器是由 C++ 语言实现的，是虚拟机自身的一部分。负责将存在 <java_home>\lib 目录中的，或者被 -Xbootclasspath 参数所指定的路径中的类库加载到虚拟机内存中。启动内加载器无法被 Java 程序直接引用，用户在编写自定义类加载器时，如果需要把加载请求委派给启动类加载器，直接使用 null 即可；</java_home></p>
+</li>
+<li><p>其他类加载器：由 Java 语言实现，独立于虚拟机外部，并且全都继承自抽象类 java.lang.ClassLoader。如扩展类加载器和应用程序类加载器：</p>
+<ol>
+<li>扩展类加载器(Extension  ClassLoader)：这个类加载器由sun.misc.Launcher$ExtClassLoader 实现，它负责加载<java_home>\lib\ext目录中的，或者被 java.ext.dirs 系统变量所指定的路径中的所有类库，开发者可以直接使用扩展类加载器。</java_home></li>
+<li>应用程序类加载器 (Application  ClassLoader)：这个类加载器由 sun.misc.Launcher$AppClassLoder 实现。由于个类加载器是 ClassLoader 中的 getSystemClassLoader() 方法的返回值，所以一般也称之为系统类加载器。它负责加载用户路径（ClassPath）所指定的类库，开发者可以直接使用这个类加载器，如果应用程序中没有自定义过自己的类加载器，一般情况下这个就是程序中默认的类加载器。</li>
+</ol>
+</li>
+</ol>
 
       
     </div>
@@ -666,7 +676,7 @@
               
                 <a href="/likemoves.github.io/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -677,7 +687,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/likemoves.github.io/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -688,7 +698,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/likemoves.github.io/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -721,7 +731,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">1.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-描述一下JVM加载Class文件的原理机制"><span class="nav-number">1.1.</span> <span class="nav-text">1.描述一下JVM加载Class文件的原理机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-GC-是什么-为什么要有-GC？"><span class="nav-number">1.2.</span> <span class="nav-text">2.GC 是什么? 为什么要有 GC？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-JVM堆的新生代，老年代，永久代"><span class="nav-number">1.3.</span> <span class="nav-text">3.JVM堆的新生代，老年代，永久代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-垃圾回收机制的优点和原理，并考虑两种回收机制"><span class="nav-number">1.4.</span> <span class="nav-text">4.垃圾回收机制的优点和原理，并考虑两种回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Java-中会存在内存泄漏吗，请简单描述"><span class="nav-number">1.5.</span> <span class="nav-text">5.Java 中会存在内存泄漏吗，请简单描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-JVM调参"><span class="nav-number">1.6.</span> <span class="nav-text">6.JVM调参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Java内存模型中堆和栈的区别"><span class="nav-number">1.7.</span> <span class="nav-text">7.Java内存模型中堆和栈的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-哪些对象可以作为GC-Root对象？"><span class="nav-number">1.8.</span> <span class="nav-text">8.哪些对象可以作为GC Root对象？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-触发Full-GC的条件"><span class="nav-number">1.9.</span> <span class="nav-text">9.触发Full GC的条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-垃圾收集器"><span class="nav-number">1.10.</span> <span class="nav-text">10.垃圾收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Object的finalize0方法的作用是否与C-的析构函数作用相同"><span class="nav-number">1.11.</span> <span class="nav-text">11.Object的finalize0方法的作用是否与C++的析构函数作用相同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Java中的强引用，软引用，弱引用，虚引用有什么用"><span class="nav-number">1.12.</span> <span class="nav-text">12.Java中的强引用，软引用，弱引用，虚引用有什么用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强引用"><span class="nav-number">1.12.1.</span> <span class="nav-text">强引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软引用"><span class="nav-number">1.12.2.</span> <span class="nav-text">软引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弱引用"><span class="nav-number">1.12.3.</span> <span class="nav-text">弱引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚引用"><span class="nav-number">1.12.4.</span> <span class="nav-text">虚引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用队列"><span class="nav-number">1.12.5.</span> <span class="nav-text">引用队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-java中子类继承父类程序执行顺序"><span class="nav-number">1.13.</span> <span class="nav-text">13.java中子类继承父类程序执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-JMM如何解决可见性问题"><span class="nav-number">1.14.</span> <span class="nav-text">14.JMM如何解决可见性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#happens-before"><span class="nav-number">1.14.1.</span> <span class="nav-text">happens-before</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#happens-before-八大原则"><span class="nav-number">1.14.2.</span> <span class="nav-text">happens-before 八大原则</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">1.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-描述一下JVM加载Class文件的原理机制"><span class="nav-number">1.1.</span> <span class="nav-text">1.描述一下JVM加载Class文件的原理机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-GC-是什么-为什么要有-GC？"><span class="nav-number">1.2.</span> <span class="nav-text">2.GC 是什么? 为什么要有 GC？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-JVM堆的新生代，老年代，永久代"><span class="nav-number">1.3.</span> <span class="nav-text">3.JVM堆的新生代，老年代，永久代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-垃圾回收机制的优点和原理，并考虑两种回收机制"><span class="nav-number">1.4.</span> <span class="nav-text">4.垃圾回收机制的优点和原理，并考虑两种回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Java-中会存在内存泄漏吗，请简单描述"><span class="nav-number">1.5.</span> <span class="nav-text">5.Java 中会存在内存泄漏吗，请简单描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-JVM调参"><span class="nav-number">1.6.</span> <span class="nav-text">6.JVM调参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Java内存模型中堆和栈的区别"><span class="nav-number">1.7.</span> <span class="nav-text">7.Java内存模型中堆和栈的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-哪些对象可以作为GC-Root对象？"><span class="nav-number">1.8.</span> <span class="nav-text">8.哪些对象可以作为GC Root对象？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-触发Full-GC的条件"><span class="nav-number">1.9.</span> <span class="nav-text">9.触发Full GC的条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-垃圾收集器"><span class="nav-number">1.10.</span> <span class="nav-text">10.垃圾收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-Object的finalize0方法的作用是否与C-的析构函数作用相同"><span class="nav-number">1.11.</span> <span class="nav-text">11.Object的finalize0方法的作用是否与C++的析构函数作用相同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Java中的强引用，软引用，弱引用，虚引用有什么用"><span class="nav-number">1.12.</span> <span class="nav-text">12.Java中的强引用，软引用，弱引用，虚引用有什么用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强引用"><span class="nav-number">1.12.1.</span> <span class="nav-text">强引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软引用"><span class="nav-number">1.12.2.</span> <span class="nav-text">软引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弱引用"><span class="nav-number">1.12.3.</span> <span class="nav-text">弱引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚引用"><span class="nav-number">1.12.4.</span> <span class="nav-text">虚引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用队列"><span class="nav-number">1.12.5.</span> <span class="nav-text">引用队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-java中子类继承父类程序执行顺序"><span class="nav-number">1.13.</span> <span class="nav-text">13.java中子类继承父类程序执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-JMM如何解决可见性问题"><span class="nav-number">1.14.</span> <span class="nav-text">14.JMM如何解决可见性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#happens-before"><span class="nav-number">1.14.1.</span> <span class="nav-text">happens-before</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#happens-before-八大原则"><span class="nav-number">1.14.2.</span> <span class="nav-text">happens-before 八大原则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-类加载器"><span class="nav-number">1.15.</span> <span class="nav-text">15.类加载器</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img2020.cnblogs.com/blog/1250838/202004/1250838-20200414140126367-153494729.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190614173622476.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lobF9qeHk=,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2020-06-06T04:17:49.183Z">
+<meta property="og:updated_time" content="2020-06-18T15:42:45.441Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis学习笔记">
 <meta name="twitter:description" content="为什么redis能这么快100000+QPS（QPS即query per second，每秒内查询次数）  完全基于内存，绝大部分请求是纯粹的内存操作，执行效率高数据结构简单，对数据操作也简单采用单线程，单线程也能处理高并发请求，想多核也可启动多实例使用多路I/O复用模型，非阻塞IO  redis基本数据类型 https://blog.csdn.net/wj1314250/article/deta">
@@ -381,7 +381,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4.1k 字
+                  4.3k 字
                 </span>
               
 
@@ -397,7 +397,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  14 分钟
+                  15 分钟
                 </span>
               
             </div>
@@ -593,6 +593,7 @@
 <h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><h4 id="什么叫缓存穿透？"><a href="#什么叫缓存穿透？" class="headerlink" title="什么叫缓存穿透？"></a>什么叫缓存穿透？</h4><p>一般的缓存系统，都是按照key去缓存查询，如果不存在对应的value，就应该去后端系统查找（比如DB）。如果key对应的value是一定不存在的，并且对该key并发请求量很大，就会对后端系统造成很大的压力。这就叫做缓存穿透。</p>
 <h4 id="如何解决？"><a href="#如何解决？" class="headerlink" title="如何解决？"></a>如何解决？</h4><p>1：对查询结果为空的情况也进行缓存，缓存时间设置短一点，或者该key对应的数据insert了之后清理缓存。</p>
 <p>2：对一定不存在的key进行过滤。可以把所有的可能存在的key放到一个大的Bitmap中，查询时通过该bitmap过滤。（<strong>布隆表达式</strong>）</p>
+<p>3.<strong>使用互斥锁排队</strong>，业界比价普遍的一种做法，即根据key获取value值为空时，锁上，从数据库中load数据后再释放锁。若其它线程获取锁失败，则等待一段时间后重试。这里要注意，<strong>分布式环境中要使用分布式锁</strong>，<strong>单机的话</strong>用普通的锁（<strong>synchronized</strong>、Lock）就够了。</p>
 <h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><h4 id="什么叫缓存雪崩？"><a href="#什么叫缓存雪崩？" class="headerlink" title="什么叫缓存雪崩？"></a>什么叫缓存雪崩？</h4><p>当缓存服务器重启或者<strong>大量缓存集中在某一个时间段失效</strong>，这样在失效的时候，也会给后端系统(比如DB)带来很大压力。</p>
 <h4 id="如何解决？-1"><a href="#如何解决？-1" class="headerlink" title="如何解决？"></a>如何解决？</h4><p>1：在缓存失效后，通过加锁或者队列来控制读数据库写缓存的线程数量。比如对某个key只允许一个线程查询数据和写缓存，其他线程等待。</p>
 <p>2：不同的key，设置不同的过期时间，让缓存失效的时间点尽量均匀。</p>
@@ -603,7 +604,13 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(redis.sexnx()==<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="comment">//查询数据库</span></span><br><span class="line">	<span class="comment">//加入线程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Redis数据一致性"><a href="#Redis数据一致性" class="headerlink" title="Redis数据一致性"></a>Redis数据一致性</h2><p><strong>所谓的redis数据一致性即当数据库数据进行修改或者保存、删除之后，redis中的数据也应该进行相应变化，不然用户再次查询的时候很可能查询出已经删除过的脏数据。</strong></p>
-<p>例如：保存了一个新用户之后，就应该同时在redis缓存中也插入该条数据，更新了某条数据在缓存中也应该同步更新，而redis默认的做法是：当你不去设置的时候redis中存放的一值是你之前存放的数据，只有在重启服务器的时候数据才会同步，显然这是非常不可取的，如果是这样的话岂不是每时每刻都要重启服务器，那将是多么大的灾难！<br>参考文档 ：<a href="https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-consistence.md" target="_blank" rel="noopener">https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-consistence.md</a></p>
+<p>例如：保存了一个新用户之后，就应该同时在redis缓存中也插入该条数据，更新了某条数据在缓存中也应该同步更新，而redis默认的做法是：当你不去设置的时候redis中存放的一值是你之前存放的数据，只有在重启服务器的时候数据才会同步，显然这是非常不可取的，如果是这样的话岂不是每时每刻都要重启服务器，那将是多么大的灾难！</p>
+<p>如果一定要严格要求缓存+数据库必须一致性的话，<strong>将读请求和写请求串行化</strong>，串到一个内存队列里去，这样就可以保证一定不会出现不一致的情况</p>
+<p>串行化之后，就会导致系统的<strong>吞吐量会大幅度的降低</strong>，用比正常情况下多几倍的机器去支撑线上的一个请求。</p>
+<p>还有一种方式就是可能会暂时产生不一致的情况，但是发生的几率特别小，就是<strong>先更新数据库，然后再删除缓存。</strong></p>
+<p>参考文档 ：</p>
+<p><a href="https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-consistence.md" target="_blank" rel="noopener">https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-consistence.md</a></p>
+<p><a href="https://thinkwon.blog.csdn.net/article/details/103522351" target="_blank" rel="noopener">https://thinkwon.blog.csdn.net/article/details/103522351</a></p>
 
       
     </div>
@@ -729,7 +736,7 @@
               
                 <a href="/likemoves.github.io/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -740,7 +747,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/likemoves.github.io/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -751,7 +758,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/likemoves.github.io/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
